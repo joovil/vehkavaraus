@@ -1,4 +1,4 @@
-import { getAllPersons } from "@/server/Routes/PersonRoutes";
+import { getAllPersons } from "@/server/repositories/PersonRepository";
 
 export const GET = async () => {
   const res = await getAllPersons();

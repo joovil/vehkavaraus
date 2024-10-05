@@ -1,4 +1,4 @@
-import { getPersonById } from "@/server/Routes/PersonRoutes"
+import { getPersonById } from "@/server/repositories/PersonRepository"
 
 export const GET = async (
   _req: Request,

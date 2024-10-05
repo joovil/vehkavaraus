@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ClientPerson } from "../types";
 import apiFetch from "./utils/apiFetch";
-import { updatePersonApartment } from "@/server/Routes/PersonRoutes";
+import { updatePersonApartment } from "@/server/repositories/PersonRepository";
 import { actUpdatePersonApartment } from "./actions/PersonActions";
 
 export default function Home() {
