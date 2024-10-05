@@ -5,9 +5,10 @@ CREATE DATABASE vehka;
 CREATE TYPE roles AS ENUM ('unverified', 'user', 'admin');
 
 CREATE TABLE person (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    apartment TEXT NOT NULL,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid() UNIQUE,
+    username TEXT NOT NULL UNIQUE,
     password_hash TEXT NOT NULL,
+    apartment TEXT NOT NULL,
     role roles DEFAULT 'unverified'
 );
 

@@ -26,8 +26,9 @@ export interface Database {
 
 export interface PersonTable {
   id: Generated<string>;
-  apartment: string;
+  username: string,
   password_hash: string;
+  apartment: string;
   role: Roles;
 }
 
