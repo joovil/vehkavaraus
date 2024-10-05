@@ -1,0 +1,13 @@
+services:
+
+  db:
+    container_name: vehkavaraus_db
+    image: postgres:latest
+    restart: always
+    shm_size: 128mb
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+      - ./database/extension.sql:/docker-entrypoint-initdb/extension.sql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 5432:5432

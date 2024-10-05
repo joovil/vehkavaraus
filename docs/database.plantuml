@@ -1,0 +1,44 @@
+@startuml Database
+
+hide circle
+skinparam linetype ortho
+
+!define primary_key(x) <b><&key> x</b>
+!define column(x) <&media-record> x
+
+entity "user" as user {
+  primary_key( id ): UUID
+  --
+  column( apartment ): text
+  column( password_hash ): text
+  column( role ): <<FK>>
+}
+
+entity "role" as role {
+  primary_key( role_id ): smallint
+  --
+  admin( admin ): boolean
+}
+
+role ||-|| user
+
+entity "game" as game {
+  primary_key( id ): UUID
+  --
+  column( name ): text
+  column( borrow_status ): smallint
+}
+
+entity "borrow_history" as borrow_history {
+  primary_key( id ): SERIAL
+  --
+  column( user ): <<FK>>
+  column( game ): <<FK>>
+  column( borrow_date ): TIMESTAMP
+  column( return_date ): TIMESTAMP
+}
+
+borrow_history ||--|| game
+borrow_history ||--||user
+
+@enduml

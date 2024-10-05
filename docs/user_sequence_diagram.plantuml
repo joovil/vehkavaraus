@@ -1,0 +1,24 @@
+@startuml Sequence_diagram
+
+title Game Borrowing Process
+
+actor User
+participant Server
+database Database
+
+User -> Server : Request game borrow
+
+Server -> Database : Request game status
+Database --> Server : Return game status
+Server -> Server : Check game status
+
+group Game status [Success]
+  Server -> Database : Set game status to borrowed
+  Server -> Database : Log borrow
+  Server --> User : Inform user of success
+
+else Game is already borrowed
+  Server --> User : Inform user that the game is not available\nInform when game should be available again
+end
+
+@enduml
