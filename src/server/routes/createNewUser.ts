@@ -1,6 +1,6 @@
-import { createPerson } from "../repositories/PersonRepository";
+import { insertUser } from "../repositories/UserRepository";
 import bcryptjs from "bcryptjs";
-import { ClientPerson } from "@/types";
+import { ClientUser } from "@/types";
 import { DatabaseError } from "pg";
 
 export const createUser = async (
@@ -15,13 +15,13 @@ export const createUser = async (
   try {
     const password_hash = await bcryptjs.hash(password, 10);
 
-    const newPerson = await createPerson({
+    const newPerson = await insertUser({
       username,
       password_hash,
       apartment,
     });
 
-    const returnPerson: ClientPerson = {
+    const returnPerson: ClientUser = {
       id: newPerson.id,
       username: newPerson.username,
       apartment: newPerson.apartment,

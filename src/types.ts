@@ -19,11 +19,11 @@ export enum BorrowStatuses {
 }
 
 export interface Database {
-  person: PersonTable;
+  user: UserTable;
   game: GameTable;
   borrow: BorrowTable;
 }
-export interface PersonTable {
+export interface UserTable {
   id: Generated<string>;
   username: string;
   password_hash: string;
@@ -31,11 +31,11 @@ export interface PersonTable {
   role: Roles | undefined;
 }
 
-export type Person = Selectable<PersonTable>;
-export type NewPerson = Insertable<PersonTable>;
-export type PersonUpdate = Updateable<PersonTable>;
+export type User = Selectable<UserTable>;
+export type NewUser = Insertable<UserTable>;
+export type UserUpdate = Updateable<UserTable>;
 
-export type ClientPerson = Omit<Person, "password_hash">;
+export type ClientUser = Omit<User, "password_hash">;
 
 export interface GameTable {
   id: Generated<number>;
@@ -49,7 +49,7 @@ export type GameUpdate = Updateable<GameTable>;
 
 export interface BorrowTable {
   id: Generated<number>;
-  person: string;
+  borrower: string;
   game: number;
   borrow_date: ColumnType<Date, string, never>;
   return_date: ColumnType<Date | null, string | Date>;

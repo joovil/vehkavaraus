@@ -1,19 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { ClientPerson } from "../types";
+import { ClientUser } from "../types";
 import apiFetch from "./utils/apiFetch";
 
 export default function Home() {
-  const [persons, setPersons] = useState<ClientPerson[]>([]);
-  const [person, setPerson] = useState<ClientPerson>();
+  const [persons, setPersons] = useState<ClientUser[]>([]);
+  const [person, setPerson] = useState<ClientUser>();
   const [newApartment, setNewApartment] = useState<string>("");
   const [updateId, setUpdateId] = useState<string>("");
 
   const handleGetPersons = async () => {
     const data = await apiFetch("/api/person");
 
-    const isPersonArray = (data: any): data is ClientPerson[] => {
+    const isPersonArray = (data: any): data is ClientUser[] => {
       return (
         Array.isArray(data) &&
         data.every(
