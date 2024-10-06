@@ -1,4 +1,4 @@
-import { getUserByName } from "@/server/repositories/UserRepository";
+import { getUserByName } from "@/server/repositories/userRepository";
 
 export const GET = async (
   _req: Request,

@@ -1,4 +1,4 @@
-import { createUser } from "@/server/routes/createNewUser";
+import { createUser } from "@/server/services/createNewUser";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {

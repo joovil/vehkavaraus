@@ -1,4 +1,4 @@
-import { insertUser } from "../repositories/UserRepository";
+import { insertUser } from "../repositories/userRepository";
 import bcryptjs from "bcryptjs";
 import { ClientUser } from "@/types";
 import { DatabaseError } from "pg";
