@@ -10,7 +10,7 @@ export const getUserById = async (id: string) => {
     .selectFrom("users")
     .where("id", "=", id)
     .selectAll()
-    .executeTakeFirst();
+    .executeTakeFirstOrThrow();
 };
 
 export const getUserByName = async (username: string) => {
