@@ -6,10 +6,10 @@ export const hashPassword = (password: string) => {
       throw err;
     }
 
-    return hash
+    return hash;
   });
 };
 
 export const loginUser = (apartment: string, passwordHash: string) => {
-  bcrypt.compare
-}
+  bcrypt.compare;
+};

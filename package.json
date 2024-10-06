@@ -8,10 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "devdb": "docker-compose -f compose.dev.yml up",
-    "resetdb": "rm -rf ./database/data && docker-compose down --volumes",
+    "resetdb": "rm -rf ./database/data && docker-compose -f compose.dev.yml down --volumes",
     "enterdb": "docker exec -it vehkavaraus_db psql -U postgres"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",
     "kysely": "^0.27.4",
     "next": "14.2.13",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^20.16.10",
     "@types/pg": "^8.11.10",

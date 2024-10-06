@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { ClientPerson } from "../types";
 import apiFetch from "./utils/apiFetch";
-import { updatePersonApartment } from "@/server/repositories/PersonRepository";
-import { actUpdatePersonApartment } from "./actions/PersonActions";
 
 export default function Home() {
   const [persons, setPersons] = useState<ClientPerson[]>([]);
@@ -32,10 +30,21 @@ export default function Home() {
     }
   };
 
-  const handlePersonApartmentUpdate = async () => {
-    const newPerson = await actUpdatePersonApartment(updateId, newApartment);
-    setPerson(newPerson);
-  };
+  // const handlePersonApartmentUpdate = async () => {
+  //   const newPerson = await actUpdatePersonApartment(updateId, newApartment);
+  //   setPerson(newPerson);
+  // };
+
+  // const handleCreatePerson = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   console.log("hello");
+  //   const username = e.currentTarget.username.value;
+  //   const password = e.currentTarget.password.value;
+  //   const apartment = e.currentTarget.apartment.value;
+
+  //   const newPerson = await actCreatePerson(username, password, apartment);
+  //   console.log(newPerson);
+  // };
 
   return (
     <div className="mt-64 flex flex-col w-fit m-auto text-center">
@@ -49,7 +58,7 @@ export default function Home() {
       <div className="flex flex-col">
         <button
           className="bg-slate-800 p-1 rounded-lg mb-1"
-          onClick={handlePersonApartmentUpdate}
+          // onClick={handlePersonApartmentUpdate}
         >
           updatePersonApartment()
         </button>
@@ -77,6 +86,26 @@ export default function Home() {
           </div>
         ))}
       </div>
+      <form
+        className="space-y-1"
+        // onSubmit={handleCreatePerson}
+      >
+        <button className="bg-slate-800 p-1 rounded-lg mt-1" type="submit">
+          Create person
+        </button>
+        <div>
+          <label>Username</label>
+          <input className="float-right ml-1 text-black" name="username" />
+        </div>
+        <div>
+          <label>Password</label>
+          <input className="float-right ml-1 text-black" name="password" />
+        </div>
+        <div>
+          <label>Apartment</label>
+          <input className="float-right ml-1 text-black" name="apartment" />
+        </div>
+      </form>
     </div>
   );
 }

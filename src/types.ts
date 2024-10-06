@@ -23,13 +23,12 @@ export interface Database {
   game: GameTable;
   borrow: BorrowTable;
 }
-
 export interface PersonTable {
   id: Generated<string>;
-  username: string,
+  username: string;
   password_hash: string;
   apartment: string;
-  role: Roles;
+  role: Roles | undefined;
 }
 
 export type Person = Selectable<PersonTable>;
