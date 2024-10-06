@@ -11,7 +11,7 @@ export default function Home() {
   const [updateId, setUpdateId] = useState<string>("");
 
   const handleGetPersons = async () => {
-    const data = await apiFetch("/api/person");
+    const data = await apiFetch("/api/users");
 
     const isPersonArray = (data: any): data is ClientUser[] => {
       return (

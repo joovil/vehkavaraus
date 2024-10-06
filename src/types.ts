@@ -19,9 +19,9 @@ export enum BorrowStatuses {
 }
 
 export interface Database {
-  user: UserTable;
-  game: GameTable;
-  borrow: BorrowTable;
+  users: UserTable;
+  games: GameTable;
+  borrows: BorrowTable;
 }
 export interface UserTable {
   id: Generated<string>;
@@ -36,6 +36,10 @@ export type NewUser = Insertable<UserTable>;
 export type UserUpdate = Updateable<UserTable>;
 
 export type ClientUser = Omit<User, "password_hash">;
+export type UserCredentials = {
+  username: string;
+  password: string;
+};
 
 export interface GameTable {
   id: Generated<number>;

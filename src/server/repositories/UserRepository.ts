@@ -2,36 +2,45 @@ import { db } from "../utils/database";
 import { NewUser, Roles } from "../../types";
 
 export const getAllUsers = async () => {
-  return await db.selectFrom("user").selectAll().execute();
+  return await db.selectFrom("users").selectAll().execute();
 };
 
 export const getUserById = async (id: string) => {
   return await db
-    .selectFrom("user")
+    .selectFrom("users")
     .where("id", "=", id)
     .selectAll()
     .executeTakeFirst();
 };
 
+export const getUserByName = async (username: string) => {
+  return await db
+    .selectFrom("users")
+    .where("username", "=", username)
+    .selectAll()
+    .executeTakeFirstOrThrow();
+};
+
 export const insertUser = async (user: NewUser) => {
   return await db
-    .insertInto("user")
+    .insertInto("users")
     .values(user)
     .returningAll()
     .executeTakeFirstOrThrow();
 };
 
 export const updateUserRole = async (id: string, role: Roles) => {
-  await db.updateTable("user").set({ role }).where("id", "=", id).execute();
-  return await getUserById(id);
+  await db
+    .updateTable("users")
+    .set({ role })
+    .where("id", "=", id)
+    .executeTakeFirstOrThrow();
 };
 
 export const updateUserApartment = async (id: string, apartment: string) => {
   await db
-    .updateTable("user")
+    .updateTable("users")
     .set({ apartment })
     .where("id", "=", id)
-    .execute();
-
-  return await getUserById(id);
+    .executeTakeFirstOrThrow();
 };
