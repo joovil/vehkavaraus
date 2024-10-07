@@ -22,6 +22,7 @@ export interface Database {
   games: GameTable;
   borrows: BorrowTable;
 }
+
 export interface UserTable {
   id: Generated<string>;
   username: string;
@@ -43,7 +44,7 @@ export type UserCredentials = {
 export interface GameTable {
   id: Generated<number>;
   name: string;
-  borrow_status: BorrowStatuses;
+  borrow_status: BorrowStatuses | undefined;
 }
 
 export type Game = Selectable<GameTable>;

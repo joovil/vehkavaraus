@@ -1,6 +1,6 @@
 CREATE DATABASE vehka;
 
-\ connect vehka;
+\connect vehka;
 
 CREATE TYPE roles AS ENUM ('user', 'admin');
 
