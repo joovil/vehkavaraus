@@ -5,6 +5,10 @@ import { ClientUser, UserCredentials } from "../lib/types";
 import apiFetch from "../lib/apiFetch";
 import { test } from "@/services/test";
 import { loginUser } from "../services/loginUser";
+import { fetchAllUsers } from "@/services/users/fetchAllUsers";
+import { fetchUserById } from "@/services/users/fetchUserById";
+import { fetchUserByName } from "@/services/users/fetchUserByName";
+import { fetchAllGames } from "@/services/fetchAllGames";
 
 export default function Home() {
   const [persons, setPersons] = useState<ClientUser[]>([]);
@@ -14,7 +18,7 @@ export default function Home() {
   const [token, setToken] = useState("");
 
   const handleGetPersons = async () => {
-    const res = await apiFetch("/users");
+    const res = await fetchAllUsers();
     const data = await res.json();
 
     const isPersonArray = (data: any): data is ClientUser[] => {
@@ -50,8 +54,23 @@ export default function Home() {
     }
   };
 
+  const handleGetById = async () => {
+    const res = await fetchUserById(persons[0].id);
+    console.log(await res.json());
+  };
+
+  const handleGetByUsername = async () => {
+    const res = await fetchUserByName(persons[0].username);
+    console.log(await res.json());
+  };
+
+  const handleGetAllGames = async () => {
+    const res = await fetchAllGames();
+    console.log(await res.json());
+  };
+
   return (
-    <div className="mt-64 flex flex-col w-fit m-auto text-center">
+    <div className="flex flex-col w-fit m-auto text-center">
       Hello
       <button
         className="bg-slate-800 p-1 rounded-lg mb-1"
@@ -123,9 +142,21 @@ export default function Home() {
       {token && <div>token: {token.substring(0, 5)}</div>}
       <button
         className="bg-slate-800 p-1 rounded-lg mt-1"
-        onClick={() => test()}
+        onClick={handleGetById}
       >
-        test
+        fetchById
+      </button>
+      <button
+        className="bg-slate-800 p-1 rounded-lg mt-1"
+        onClick={handleGetByUsername}
+      >
+        fetchByUsername
+      </button>
+      <button
+        className="bg-slate-800 p-1 rounded-lg mt-1"
+        onClick={handleGetAllGames}
+      >
+        getAllGames
       </button>
     </div>
   );
