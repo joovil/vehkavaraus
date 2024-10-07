@@ -3,8 +3,7 @@ const apiFetch = async (endpoint: string, options?: RequestInit) => {
     `${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`,
     options
   );
-  return response.json();
+  return response;
 };
 
 export default apiFetch;
-

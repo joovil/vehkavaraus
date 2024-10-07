@@ -1,17 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { ClientUser } from "../types";
+import { ClientUser, UserCredentials } from "../types";
 import apiFetch from "./utils/apiFetch";
+import { test } from "@/app/services/test";
+import { loginUser } from "./services/loginUser";
 
 export default function Home() {
   const [persons, setPersons] = useState<ClientUser[]>([]);
   const [person, setPerson] = useState<ClientUser>();
   const [newApartment, setNewApartment] = useState<string>("");
   const [updateId, setUpdateId] = useState<string>("");
+  const [token, setToken] = useState("");
 
   const handleGetPersons = async () => {
-    const data = await apiFetch("/api/users");
+    const res = await apiFetch("/api/users");
+    const data = await res.json();
 
     const isPersonArray = (data: any): data is ClientUser[] => {
       return (
@@ -30,21 +34,21 @@ export default function Home() {
     }
   };
 
-  // const handlePersonApartmentUpdate = async () => {
-  //   const newPerson = await actUpdatePersonApartment(updateId, newApartment);
-  //   setPerson(newPerson);
-  // };
+  const handleExposed = async (e: React.SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  // const handleCreatePerson = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   console.log("hello");
-  //   const username = e.currentTarget.username.value;
-  //   const password = e.currentTarget.password.value;
-  //   const apartment = e.currentTarget.apartment.value;
+    const credentials: UserCredentials = {
+      username: e.currentTarget.username.value,
+      password: e.currentTarget.password.value,
+    };
 
-  //   const newPerson = await actCreatePerson(username, password, apartment);
-  //   console.log(newPerson);
-  // };
+    const res = await loginUser(credentials);
+
+    if (res.status == 200) {
+      const token = await res.json();
+      setToken(token.token);
+    }
+  };
 
   return (
     <div className="mt-64 flex flex-col w-fit m-auto text-center">
@@ -86,10 +90,7 @@ export default function Home() {
           </div>
         ))}
       </div>
-      <form
-        className="space-y-1"
-        // onSubmit={handleCreatePerson}
-      >
+      <form className="space-y-1" onSubmit={(e) => e.preventDefault()}>
         <button className="bg-slate-800 p-1 rounded-lg mt-1" type="submit">
           Create person
         </button>
@@ -106,6 +107,26 @@ export default function Home() {
           <input className="float-right ml-1 text-black" name="apartment" />
         </div>
       </form>
+      <form className="space-y-1" onSubmit={handleExposed}>
+        <button className="bg-slate-800 p-1 rounded-lg mt-1" type="submit">
+          Login
+        </button>
+        <div>
+          <label>Username</label>
+          <input className="float-right ml-1 text-black" name="username" />
+        </div>
+        <div>
+          <label>Password</label>
+          <input className="float-right ml-1 text-black" name="password" />
+        </div>
+      </form>
+      {token && <div>token: {token.substring(0, 5)}</div>}
+      <button
+        className="bg-slate-800 p-1 rounded-lg mt-1"
+        onClick={() => test()}
+      >
+        test
+      </button>
     </div>
   );
 }
