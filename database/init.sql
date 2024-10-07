@@ -1,15 +1,15 @@
 CREATE DATABASE vehka;
 
-\connect vehka;
+\ connect vehka;
 
-CREATE TYPE roles AS ENUM ('unverified', 'user', 'admin');
+CREATE TYPE roles AS ENUM ('user', 'admin');
 
 CREATE TABLE users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid() UNIQUE,
     username TEXT NOT NULL UNIQUE CHECK (char_length(username) > 2),
     password_hash TEXT NOT NULL,
     apartment TEXT NOT NULL,
-    role roles DEFAULT 'unverified' NOT NULL
+    role roles DEFAULT 'user' NOT NULL
 );
 
 CREATE TYPE borrow_statuses AS ENUM ('free', 'borrowed', 'late');

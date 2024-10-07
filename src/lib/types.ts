@@ -7,7 +7,6 @@ import {
 } from "kysely";
 
 export enum Roles {
-  "unverified",
   "user",
   "admin",
 }
