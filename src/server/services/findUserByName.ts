@@ -1,5 +1,5 @@
-import { getUserByName } from "../repositories/userRepository";
-import { ClientUser } from "@/types";
+import { getUserByName } from "@/server/database/repositories/userRepository";
+import { ClientUser } from "@/lib/types";
 import { NoResultError } from "kysely";
 
 export const findUserByName = async (username: string) => {

@@ -1,8 +1,8 @@
-import { UserCredentials } from "@/types";
-import apiFetch from "../utils/apiFetch";
+import { UserCredentials } from "@/lib/types";
+import apiFetch from "../lib/apiFetch";
 
 export const loginUser = async (credentials: UserCredentials) => {
-  const res = await apiFetch("/api/users/login", {
+  const res = await apiFetch("/users/login", {
     method: "POST",
     body: JSON.stringify(credentials),
   });

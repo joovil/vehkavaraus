@@ -1,5 +1,5 @@
-import { db } from "../utils/database";
-import { NewUser, Roles } from "../../types";
+import { NewUser, Roles } from "../../../lib/types";
+import { db } from "../database";
 
 export const getAllUsers = async () => {
   return await db.selectFrom("users").selectAll().execute();

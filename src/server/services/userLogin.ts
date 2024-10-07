@@ -1,6 +1,6 @@
-import { getUserByName } from "@/server/repositories/userRepository";
-import { TOKEN_SECRET } from "@/server/utils/envVariables";
-import { ClientUser, UserCredentials } from "@/types";
+import { getUserByName } from "@/server/database/repositories/userRepository";
+import { TOKEN_SECRET } from "@/lib/envVariables";
+import { ClientUser, UserCredentials } from "@/lib/types";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 

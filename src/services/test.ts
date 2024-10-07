@@ -1,7 +1,7 @@
-import apiFetch from "../utils/apiFetch";
+import apiFetch from "../lib/apiFetch";
 
 export const test = async () => {
-  const res = await apiFetch("api/hello", {
+  const res = await apiFetch("/hello", {
     headers: {
       authorization: "bearer asd",
     },

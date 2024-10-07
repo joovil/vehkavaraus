@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { ClientUser, UserCredentials } from "../types";
-import apiFetch from "./utils/apiFetch";
-import { test } from "@/app/services/test";
-import { loginUser } from "./services/loginUser";
+import { ClientUser, UserCredentials } from "../lib/types";
+import apiFetch from "../lib/apiFetch";
+import { test } from "@/services/test";
+import { loginUser } from "../services/loginUser";
 
 export default function Home() {
   const [persons, setPersons] = useState<ClientUser[]>([]);
@@ -14,7 +14,7 @@ export default function Home() {
   const [token, setToken] = useState("");
 
   const handleGetPersons = async () => {
-    const res = await apiFetch("/api/users");
+    const res = await apiFetch("/users");
     const data = await res.json();
 
     const isPersonArray = (data: any): data is ClientUser[] => {

@@ -1,7 +1,7 @@
-import { insertUser } from "../repositories/userRepository";
 import bcryptjs from "bcryptjs";
-import { ClientUser } from "@/types";
+import { ClientUser } from "@/lib/types";
 import { DatabaseError } from "pg";
+import { insertUser } from "@/server/database/repositories/userRepository";
 
 export const createUser = async (
   username: string,

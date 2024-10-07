@@ -1,5 +1,5 @@
-import { UserCredentials } from "@/types";
-import { userLogin } from "../../../../server/services/userLogin";
+import { userLogin } from "@/server/services/userLogin";
+import { UserCredentials } from "@/lib/types";
 
 export const POST = async (req: Request) => {
   const credentials: UserCredentials = await req.json();

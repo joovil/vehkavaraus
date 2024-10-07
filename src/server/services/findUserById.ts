@@ -1,7 +1,7 @@
 import { DatabaseError } from "pg";
-import { getUserById } from "../repositories/userRepository";
-import { ClientUser } from "@/types";
+import { ClientUser } from "@/lib/types";
 import { NoResultError } from "kysely";
+import { getUserById } from "@/server/database/repositories/userRepository";
 
 export const findUserById = async (id: string) => {
   try {
