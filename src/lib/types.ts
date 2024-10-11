@@ -36,6 +36,7 @@ export type NewUser = Insertable<UserTable>;
 export type UserUpdate = Updateable<UserTable>;
 
 export type ClientUser = Omit<User, "password_hash">;
+
 export type UserCredentials = {
   username: string;
   password: string;

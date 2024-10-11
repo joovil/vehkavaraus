@@ -4,12 +4,12 @@ import {
   getAllBorrows,
 } from "@/server/database/repositories/borrowRepository";
 
-export const GET = async (_req: Request) => {
+export const GET = async () => {
   try {
     const res = await getAllBorrows();
     return Response.json(res);
   } catch (error) {
-    let message = "Unknown error";
+    const message = "Unknown error";
 
     if (error instanceof Error) {
       return Response.json({ message }, { status: 404 });
