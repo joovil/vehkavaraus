@@ -1,5 +1,5 @@
 import { createNewGame } from "@/server/services/createNewGame";
-import { createUser } from "@/server/services/createNewUser";
+import { createUser } from "@/server/services/users/createNewUser";
 
 export const GET = async (req: Request) => {
   const user = await createUser("asd", "pass", "a1");

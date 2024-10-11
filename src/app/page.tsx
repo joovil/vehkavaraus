@@ -8,7 +8,7 @@ import { loginUser } from "../services/loginUser";
 import { fetchAllUsers } from "@/services/users/fetchAllUsers";
 import { fetchUserById } from "@/services/users/fetchUserById";
 import { fetchUserByName } from "@/services/users/fetchUserByName";
-import { fetchAllGames } from "@/services/fetchAllGames";
+import { fetchAllGames } from "@/services/games/fetchAllGames";
 
 export default function Home() {
   const [persons, setPersons] = useState<ClientUser[]>([]);

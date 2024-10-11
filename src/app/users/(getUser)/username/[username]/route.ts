@@ -1,4 +1,4 @@
-import { findUserByName } from "@/server/services/findUserByName";
+import { findUserByName } from "@/server/services/users/findUserByName";
 
 export const GET = async (
   _req: Request,
