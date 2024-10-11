@@ -1,4 +1,4 @@
-import { createUser } from "@/server/services/createNewUser";
+import { createUser } from "@/server/services/users/createNewUser";
 
 export const POST = async (req: Request) => {
   const { username, password, apartment } = await req.json();

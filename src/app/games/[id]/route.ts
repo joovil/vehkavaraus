@@ -1,11 +1,12 @@
-import { findUserById } from "@/server/services/users/findUserById";
+import { findGameById } from "@/server/services/games/findGameById";
 
 export const GET = async (
   _req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: number } }
 ) => {
   try {
-    const res = await findUserById(params.id);
+    const res = await findGameById(params.id);
+
     return Response.json(res);
   } catch (error) {
     let message = "Unknown error";
