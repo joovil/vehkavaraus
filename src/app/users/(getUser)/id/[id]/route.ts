@@ -1,18 +1,39 @@
-import { findUserById } from "@/server/services/users/findUserById";
+import { ClientUser } from "@/lib/types";
+import { getUserById } from "@/server/database/repositories/userRepository";
+import { NoResultError } from "kysely";
+import { DatabaseError } from "pg";
 
 export const GET = async (
   _req: Request,
   { params }: { params: { id: string } }
 ) => {
   try {
-    const res = await findUserById(params.id);
+    const user = await getUserById(params.id);
+    const { id: userId, username, apartment, role } = user;
+
+    const res: ClientUser = {
+      id: userId,
+      username,
+      apartment,
+      role,
+    };
+
     return Response.json(res);
   } catch (error) {
     let message = "Unknown error";
-    if (error instanceof Error) {
-      message = error.message;
+    let status = 404;
+
+    if (error instanceof NoResultError) {
+      message = "User not found";
     }
 
-    return Response.json({ message }, { status: 400 });
+    if (error instanceof DatabaseError) {
+      if (error.code == "22P02") {
+        message = "Invalid id";
+        status = 400;
+      }
+    }
+
+    return Response.json({ message }, { status });
   }
 };

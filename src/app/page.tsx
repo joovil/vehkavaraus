@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ClientUser, UserCredentials } from "../lib/types";
 import apiFetch from "../lib/apiFetch";
 import { test } from "@/services/test";
-import { loginUser } from "../services/loginUser";
+import { loginUser } from "../services/auth/loginUser";
 import { fetchAllUsers } from "@/services/users/fetchAllUsers";
 import { fetchUserById } from "@/services/users/fetchUserById";
 import { fetchUserByName } from "@/services/users/fetchUserByName";

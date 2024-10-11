@@ -1,17 +1,19 @@
-import { findGameById } from "@/server/services/games/findGameById";
+import { getGameById } from "@/server/database/repositories/gameRepository";
+import { NoResultError } from "kysely";
 
 export const GET = async (
   _req: Request,
   { params }: { params: { id: number } }
 ) => {
   try {
-    const res = await findGameById(params.id);
+    const res = await getGameById(params.id);
 
     return Response.json(res);
   } catch (error) {
     let message = "Unknown error";
-    if (error instanceof Error) {
-      message = error.message;
+
+    if (error instanceof NoResultError) {
+      message = "Game not found";
     }
 
     return Response.json({ message }, { status: 400 });
