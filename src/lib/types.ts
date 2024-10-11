@@ -55,8 +55,8 @@ export interface BorrowTable {
   id: Generated<number>;
   borrower: string;
   game: number;
-  borrow_date: ColumnType<Date, string, never>;
-  return_date: ColumnType<Date | null, string | Date>;
+  borrow_date: ColumnType<Date, string, never> | undefined;
+  return_date: ColumnType<Date | null, string | Date> | undefined;
 }
 
 export type Borrow = Selectable<BorrowTable>;

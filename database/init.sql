@@ -25,7 +25,7 @@ CREATE TABLE borrows (
     borrower UUID,
     game integer,
     borrow_date TIMESTAMP DEFAULT CURRENT_DATE,
-    return_date TIMESTAMP,
+    return_date TIMESTAMP DEFAULT CURRENT_DATE + interval '1 week',
     FOREIGN KEY (borrower) REFERENCES users(id),
     FOREIGN KEY (game) REFERENCES games(id)
 );
