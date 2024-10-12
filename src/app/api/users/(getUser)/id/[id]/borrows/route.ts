@@ -25,5 +25,4 @@ export const GET = async (
     }
     return Response.json({ error: "unknown error" }, { status: 400 });
   }
-  return Response.json({ hello: "hello" });
 };
