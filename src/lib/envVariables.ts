@@ -1,37 +1,11 @@
-if (!process.env.DB_NAME) {
-  throw new Error(`DB_NAME is missing`);
-}
-const DB_NAME = process.env.DB_NAME;
-
-if (!process.env.DB_HOST) {
-  throw new Error(`DB_HOST is missing`);
-}
-const DB_HOST = process.env.DB_HOST;
-
-if (!process.env.DB_USER) {
-  throw new Error(`DB_USER is missing`);
-}
-const DB_USER = process.env.DB_USER;
-
-if (!process.env.DB_PASSWORD) {
-  throw new Error(`DB_PASSWORD is missing`);
-}
-const DB_PASSWORD = process.env.DB_PASSWORD;
-
-if (!process.env.DB_PORT) {
-  throw new Error(`DB_PORT is missing`);
-}
-const DB_PORT = parseInt(process.env.DB_PORT);
-
-if (!process.env.TOKEN_SECRET) {
-  throw new Error(`TOKEN_SECRET is missing`);
-}
-const TOKEN_SECRET = process.env.TOKEN_SECRET;
-
-if (!process.env.NEXT_PUBLIC_API_URL) {
-  throw new Error(`NEXT_PUBLIC_API_URL is missing`);
-}
-const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
+const DB_NAME = process.env.DB_NAME!;
+const DB_HOST = process.env.DB_HOST!;
+const DB_USER = process.env.DB_USER!;
+const DB_PASSWORD = process.env.DB_PASSWORD!;
+const DB_PORT = parseInt(process.env.DB_PORT!);
+const TOKEN_SECRET = process.env.TOKEN_SECRET!;
+const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL!;
+const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET!;
 
 export {
   DB_NAME,
@@ -41,4 +15,5 @@ export {
   DB_PORT,
   TOKEN_SECRET,
   NEXT_PUBLIC_API_URL,
+  NEXTAUTH_SECRET,
 };
