@@ -1,4 +1,4 @@
-import { ClientUser } from "@/lib/types";
+import { UserClient } from "@/lib/types";
 import { getUserByName } from "@/server/database/repositories/userRepository";
 import { NoResultError } from "kysely";
 
@@ -10,7 +10,7 @@ export const GET = async (
     const user = await getUserByName(params.username);
     const { id, username: fetchedUser, apartment, role } = user;
 
-    const res: ClientUser = {
+    const res: UserClient = {
       id,
       username: fetchedUser,
       apartment,

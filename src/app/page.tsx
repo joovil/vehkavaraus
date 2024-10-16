@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ClientUser, UserCredentials } from "../lib/types";
+import { UserClient, UserCredentials } from "../lib/types";
 import { loginUser } from "../services/auth/loginUser";
 import { fetchAllUsers } from "@/services/users/fetchAllUsers";
 import { fetchUserById } from "@/services/users/fetchUserById";
@@ -9,8 +9,8 @@ import { fetchUserByName } from "@/services/users/fetchUserByName";
 import { fetchAllGames } from "@/services/games/fetchAllGames";
 
 export default function Home() {
-  const [persons, setPersons] = useState<ClientUser[]>([]);
-  const [person, _setPerson] = useState<ClientUser>();
+  const [persons, setPersons] = useState<UserClient[]>([]);
+  const [person, _setPerson] = useState<UserClient>();
   const [newApartment, setNewApartment] = useState<string>("");
   const [updateId, setUpdateId] = useState<string>("");
   const [token, setToken] = useState("");
@@ -19,7 +19,7 @@ export default function Home() {
     const res = await fetchAllUsers();
     const data = await res.json();
 
-    const isPersonArray = (data: ClientUser[]): data is ClientUser[] => {
+    const isPersonArray = (data: UserClient[]): data is UserClient[] => {
       return (
         Array.isArray(data) &&
         data.every(

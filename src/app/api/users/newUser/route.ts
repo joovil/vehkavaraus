@@ -1,13 +1,17 @@
-import { ClientUser } from "@/lib/types";
+import { UserClient } from "@/lib/types";
 import { insertUser } from "@/server/database/repositories/userRepository";
 import bcryptjs from "bcryptjs";
 import { DatabaseError } from "pg";
 
 export const POST = async (req: Request) => {
-  const { username, password, apartment } = await req.json();
+  const { username, password, email, apartment } = await req.json();
 
   if (!/^[ab]\d{1,3}$/.test(apartment)) {
-    throw Error("Apartment not valid");
+    return Response.json({ error: "Apartment not valid" }, { status: 400 });
+  }
+
+  if (!/[A-Za-z0-9\._%+\-]+@[A-Za-z0-9\.\-]+\.[A-Za-z]{2,}/.test(email)) {
+    return Response.json({ error: "Email not valid" }, { status: 400 });
   }
 
   try {
@@ -16,10 +20,11 @@ export const POST = async (req: Request) => {
     const newUser = await insertUser({
       username,
       password_hash,
+      email,
       apartment,
     });
 
-    const createdUser: ClientUser = {
+    const createdUser: UserClient = {
       id: newUser.id,
       username: newUser.username,
       apartment: newUser.apartment,
@@ -35,7 +40,7 @@ export const POST = async (req: Request) => {
         message = "Username too short";
       }
       if ((error.code = "23505")) {
-        message = "Username already in use";
+        message = `Error in ${error.column}`;
       }
     }
 

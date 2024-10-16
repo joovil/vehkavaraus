@@ -1,4 +1,4 @@
-import { ClientUser } from "@/lib/types";
+import { UserClient } from "@/lib/types";
 import { getUserById } from "@/server/database/repositories/userRepository";
 import { NoResultError } from "kysely";
 import { DatabaseError } from "pg";
@@ -11,7 +11,7 @@ export const GET = async (
     const user = await getUserById(params.id);
     const { id: userId, username, apartment, role } = user;
 
-    const res: ClientUser = {
+    const res: UserClient = {
       id: userId,
       username,
       apartment,

@@ -1,4 +1,4 @@
-import { ClientUser, UserCredentials } from "@/lib/types";
+import { UserClient, UserCredentials } from "@/lib/types";
 import { getUserByName } from "@/server/database/repositories/userRepository";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -17,7 +17,7 @@ export const POST = async (req: Request) => {
       userToCompare.password_hash
     );
 
-    const userForClient: ClientUser = {
+    const userForClient: UserClient = {
       id: userToCompare.id,
       username: userToCompare.username,
       apartment: userToCompare.apartment,

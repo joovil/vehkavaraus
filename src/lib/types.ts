@@ -7,6 +7,7 @@ import {
 } from "kysely";
 
 export enum Roles {
+  "unverified",
   "user",
   "admin",
 }
@@ -21,12 +22,14 @@ export interface Database {
   users: UserTable;
   games: GameTable;
   borrows: BorrowTable;
+  verifications: VerificationTable;
 }
 
 export interface UserTable {
   id: Generated<string>;
   username: string;
   password_hash: string;
+  email: string;
   apartment: string;
   role: Roles | undefined;
 }
@@ -35,7 +38,7 @@ export type User = Selectable<UserTable>;
 export type NewUser = Insertable<UserTable>;
 export type UserUpdate = Updateable<UserTable>;
 
-export type ClientUser = Omit<User, "password_hash">;
+export type UserClient = Omit<User, "password_hash" | "email">;
 
 export type UserCredentials = {
   username: string;
@@ -63,3 +66,13 @@ export interface BorrowTable {
 export type Borrow = Selectable<BorrowTable>;
 export type NewBorrow = Insertable<BorrowTable>;
 export type BorrowUpdate = Updateable<BorrowTable>;
+
+export interface VerificationTable {
+  verification_key: ColumnType<string, string, never>;
+  user_id: ColumnType<string, string, never>;
+  used: ColumnType<boolean, never, boolean>;
+}
+
+export type Verification = Selectable<VerificationTable>;
+export type NewVerification = Insertable<VerificationTable>;
+export type VerificationUpdate = Updateable<VerificationTable>;
