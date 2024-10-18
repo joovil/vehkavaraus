@@ -1,4 +1,4 @@
-import { VehkaHorizontal } from "./components/icons/VehkaHorizontal";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -17,7 +17,12 @@ export default function Home() {
           Site under construction
         </div>
         <div className="mt-7">
-          <VehkaHorizontal className="fill-pink h-full w-full object-scale-down" />
+          <Image
+            src="/vehka-pink.png"
+            alt="horizontal Vehka logo"
+            width={270}
+            height={116}
+          />
         </div>
       </div>
     </div>
