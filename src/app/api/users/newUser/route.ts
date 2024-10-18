@@ -1,5 +1,5 @@
-import { UserClient } from "@/lib/types";
-import { insertUser } from "@/server/database/repositories/userRepository";
+import { UserClient } from "@/types/types";
+import { insertUser } from "@/lib/database/repositories/userRepository";
 import bcryptjs from "bcryptjs";
 import { DatabaseError } from "pg";
 

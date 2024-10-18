@@ -1,4 +1,4 @@
-import { UserClient } from "@/lib/types";
+import { UserClient } from "@/types/types";
 
 declare module "next-auth" {
   interface Session {

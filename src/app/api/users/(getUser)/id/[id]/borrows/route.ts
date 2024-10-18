@@ -1,7 +1,7 @@
-import { getBorrowById } from "@/server/database/repositories/borrowRepository";
+import { getBorrowById } from "@/lib/database/repositories/borrowRepository";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
-import { TOKEN_SECRET } from "@/lib/envVariables";
+import { TOKEN_SECRET } from "@/lib/utils/envVariables";
 
 export const GET = async (
   _req: Request,

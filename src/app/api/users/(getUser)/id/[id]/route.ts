@@ -1,5 +1,5 @@
-import { UserClient } from "@/lib/types";
-import { getUserById } from "@/server/database/repositories/userRepository";
+import { UserClient } from "@/types/types";
+import { getUserById } from "@/lib/database/repositories/userRepository";
 import { NoResultError } from "kysely";
 import { DatabaseError } from "pg";
 

@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { UserClient, UserCredentials } from "../lib/types";
-import { loginUser } from "../services/auth/loginUser";
-import { fetchAllUsers } from "@/services/users/fetchAllUsers";
-import { fetchUserById } from "@/services/users/fetchUserById";
-import { fetchUserByName } from "@/services/users/fetchUserByName";
-import { fetchAllGames } from "@/services/games/fetchAllGames";
+import { UserClient, UserCredentials } from "../types/types";
+import { loginUser } from "../lib/services/auth/loginUser";
+import { fetchAllUsers } from "@/lib/services/users/fetchAllUsers";
+import { fetchUserById } from "@/lib/services/users/fetchUserById";
+import { fetchUserByName } from "@/lib/services/users/fetchUserByName";
+import { fetchAllGames } from "@/lib/services/games/fetchAllGames";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 

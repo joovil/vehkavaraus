@@ -1,5 +1,5 @@
-import { UserClient } from "@/lib/types";
-import { getUserByName } from "@/server/database/repositories/userRepository";
+import { UserClient } from "@/types/types";
+import { getUserByName } from "@/lib/database/repositories/userRepository";
 import { NoResultError } from "kysely";
 
 export const GET = async (

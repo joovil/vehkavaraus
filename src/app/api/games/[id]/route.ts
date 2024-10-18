@@ -1,4 +1,4 @@
-import { getGameById } from "@/server/database/repositories/gameRepository";
+import { getGameById } from "@/lib/database/repositories/gameRepository";
 import { NoResultError } from "kysely";
 
 export const GET = async (

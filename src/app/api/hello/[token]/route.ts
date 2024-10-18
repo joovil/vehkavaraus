@@ -1,9 +1,9 @@
 import { decodeToken } from "@/lib/auth/decodeToken";
-import { Roles } from "@/lib/types";
+import { Roles } from "@/types/types";
 import {
   getUserById,
   updateUserRole,
-} from "@/server/database/repositories/userRepository";
+} from "@/lib/database/repositories/userRepository";
 import { NoResultError } from "kysely";
 import { DatabaseError } from "pg";
 

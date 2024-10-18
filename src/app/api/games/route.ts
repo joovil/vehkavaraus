@@ -1,8 +1,8 @@
-import { NewGame } from "@/lib/types";
+import { NewGame } from "@/types/types";
 import {
   getAllGames,
   createGame,
-} from "@/server/database/repositories/gameRepository";
+} from "@/lib/database/repositories/gameRepository";
 
 export const GET = async () => {
   const res = await getAllGames();

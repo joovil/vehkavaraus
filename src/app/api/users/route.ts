@@ -1,4 +1,4 @@
-import { getAllUsers } from "@/server/database/repositories/userRepository";
+import { getAllUsers } from "@/lib/database/repositories/userRepository";
 
 export const GET = async () => {
   const res = await getAllUsers();

@@ -1,13 +1,13 @@
 import { Kysely, PostgresDialect } from "kysely";
 import { Pool } from "pg";
-import { Database } from "../../lib/types";
+import { Database } from "../../types/types";
 import {
   DB_NAME,
   DB_HOST,
   DB_PASSWORD,
   DB_USER,
   DB_PORT,
-} from "@/lib/envVariables";
+} from "@/lib/utils/envVariables";
 
 const dialect = new PostgresDialect({
   pool: new Pool({

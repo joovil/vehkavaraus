@@ -1,4 +1,4 @@
-import { NewGame } from "@/lib/types";
+import { NewGame } from "@/types/types";
 import { db } from "../database";
 
 export const getAllGames = async () => {

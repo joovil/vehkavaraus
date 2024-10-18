@@ -1,8 +1,8 @@
-import { UserClient, UserCredentials } from "@/lib/types";
-import { getUserByName } from "@/server/database/repositories/userRepository";
+import { UserClient, UserCredentials } from "@/types/types";
+import { getUserByName } from "@/lib/database/repositories/userRepository";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { TOKEN_SECRET } from "@/lib/envVariables";
+import { TOKEN_SECRET } from "@/lib/utils/envVariables";
 import { NoResultError } from "kysely";
 import { cookies } from "next/headers";
 

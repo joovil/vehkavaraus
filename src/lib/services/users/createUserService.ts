@@ -1,5 +1,5 @@
-import apiFetch from "@/lib/apiFetch";
-import { NewUser } from "@/lib/types";
+import apiFetch from "@/lib/utils/apiFetch";
+import { NewUser } from "@/types/types";
 
 export const createUserService = async (newUser: NewUser) => {
   const res = apiFetch("/users/newUser", {

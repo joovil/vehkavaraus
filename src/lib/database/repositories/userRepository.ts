@@ -1,4 +1,4 @@
-import { NewUser, Roles } from "../../../lib/types";
+import { NewUser, Roles } from "../../../types/types";
 import { db } from "../database";
 
 export const getAllUsers = async () => {

@@ -1,5 +1,5 @@
-import { TOKEN_SECRET } from "../envVariables";
-import { UserClient } from "../types";
+import { TOKEN_SECRET } from "../utils/envVariables";
+import { UserClient } from "../../types/types";
 import jwt from "jsonwebtoken";
 
 export const decodeToken = (token: string): UserClient => {

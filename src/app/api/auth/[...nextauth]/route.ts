@@ -1,8 +1,8 @@
-import { getUserByName } from "@/server/database/repositories/userRepository";
+import { getUserByName } from "@/lib/database/repositories/userRepository";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcryptjs from "bcryptjs";
-import { UserClient } from "@/lib/types";
+import { UserClient } from "@/types/types";
 
 const handler = NextAuth({
   providers: [

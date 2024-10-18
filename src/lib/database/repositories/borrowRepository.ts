@@ -1,4 +1,4 @@
-import { NewBorrow } from "@/lib/types";
+import { NewBorrow } from "@/types/types";
 import { db } from "../database";
 
 export const getAllBorrows = async () => {
