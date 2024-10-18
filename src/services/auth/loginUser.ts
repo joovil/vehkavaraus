@@ -6,5 +6,5 @@ export const loginUser = async (credentials: UserCredentials) => {
     method: "POST",
     body: JSON.stringify(credentials),
   });
-  return res;
+  return res.json();
 };

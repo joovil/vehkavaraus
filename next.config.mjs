@@ -18,6 +18,7 @@ export default (phase) => {
       "DB_PORT",
       "TOKEN_SECRET",
       "NEXT_PUBLIC_API_URL",
+      "NEXTAUTH_URL",
       "NEXTAUTH_SECRET",
     ];
 
