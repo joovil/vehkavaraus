@@ -21,7 +21,6 @@ const handler = NextAuth({
         },
       },
       async authorize(credentials, _req) {
-        console.log("\x1b[45m## authorize ##\x1b[0m");
         if (!credentials) {
           return null;
         }
@@ -52,7 +51,6 @@ const handler = NextAuth({
       if (user) {
         token.user = user;
       }
-      console.log(token);
 
       return token;
     },
@@ -60,7 +58,6 @@ const handler = NextAuth({
       if (token.user) {
         session.user = token.user;
       }
-      console.log(session);
 
       return session;
     },
