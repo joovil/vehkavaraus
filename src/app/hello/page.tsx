@@ -1,7 +1,9 @@
+import { EmailTemplate } from "@/components/EmailTemplate";
+
 export default function Page() {
   return (
     <>
-      <div>Hello</div>
+      <EmailTemplate username="Foo" />
     </>
   );
 }

@@ -17,8 +17,8 @@ export default function Home() {
 
   return (
     <div className="flex flex-col justify-center items-center h-full">
-      <div>Hello</div>
-      <div>{data.user}</div>
+      <div className="font-circularBold">Hello</div>
+      <div>{data && data.data?.user.username}</div>
       <div className="flex flex-row w-full h-fit  items-center text-center">
         <div className="w-1/2 flex justify-end">
           <FirstHalf setPersons={setPersons} persons={persons} />

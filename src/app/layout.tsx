@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { circularBold, circularMedium, circularBook } from "./fonts/fonts";
 import { getServerSession } from "next-auth";
 import SessionProvider from "@/components/SessionProvider";
 
@@ -9,6 +10,7 @@ const geistSans = localFont({
   variable: "--font-geist-sans",
   weight: "100 900",
 });
+
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
@@ -30,7 +32,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
+        className={`${circularBold.variable} ${circularMedium.variable} ${circularBook.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionProvider session={session}>{children}</SessionProvider>
       </body>

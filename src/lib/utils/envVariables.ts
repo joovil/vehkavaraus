@@ -7,6 +7,7 @@ const TOKEN_SECRET = process.env.TOKEN_SECRET!;
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL!;
 const NEXTAUTH_URL = process.env.NEXTAUTH_URL!;
 const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET!;
+const RESEND_API_KEY = process.env.RESEND_API_KEY!;
 
 export {
   DB_NAME,
@@ -18,4 +19,5 @@ export {
   NEXT_PUBLIC_API_URL,
   NEXTAUTH_URL,
   NEXTAUTH_SECRET,
+  RESEND_API_KEY,
 };

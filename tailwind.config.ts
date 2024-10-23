@@ -8,10 +8,20 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        circularBold: ["var(--font-circular-bold)"],
+        circularMedium: ["var(--font-circular-medium)"],
+        circularBook: ["var(--font-circular-book)"],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
         pink: "#E83C6A",
+        lightGreenV: "#E6F5F0",
+        darkGreenV: "#078571",
+        offWhiteV: "#FBFBFB",
+        bodyText: "#222222",
+        lightGrayV: "#535353",
       },
     },
   },
