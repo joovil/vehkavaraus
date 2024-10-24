@@ -1,6 +1,6 @@
 import { Kysely, PostgresDialect } from "kysely";
 import { Pool } from "pg";
-import { Database } from "../../types/types";
+import { Database } from "@/types/types";
 import {
   DB_NAME,
   DB_HOST,

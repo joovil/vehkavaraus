@@ -1,0 +1,10 @@
+{
+  "overrides": [
+    {
+      "files": "src/types/*.ts",
+      "options": {
+        "printWidth": 100
+      }
+    }
+  ]
+}
