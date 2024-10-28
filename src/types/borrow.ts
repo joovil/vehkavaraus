@@ -1,7 +1,7 @@
+import { ColumnType } from "kysely";
 import { z } from "zod";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const BorrowTableSchema = z.object({
+export const BorrowSchema = z.object({
   id: z.number(),
   borrower: z.string(),
   game: z.number(),
@@ -9,8 +9,24 @@ const BorrowTableSchema = z.object({
   return_date: z.date(),
 });
 
-export type BorrowTable = z.infer<typeof BorrowTableSchema>;
+export const NewBorrowSchema = BorrowSchema.omit({
+  id: true,
+  borrow_date: true,
+  return_date: true,
+});
 
-export type Borrow = BorrowTable;
-export type NewBorrow = Omit<BorrowTable, "id" | "borrow_date" | "return_date">;
-export type BorrowUpdate = Pick<BorrowTable, "return_date">;
+export const BorrowUpdateSchema = BorrowSchema.pick({
+  return_date: true,
+});
+
+export type Borrow = z.infer<typeof BorrowSchema>;
+export type NewBorrow = z.infer<typeof NewBorrowSchema>;
+export type BorrowUpdate = z.infer<typeof BorrowUpdateSchema>;
+
+export interface BorrowTable {
+  id: ColumnType<number, never, never>;
+  borrower: ColumnType<string, string, never>;
+  game: ColumnType<number, number, never>;
+  borrow_date: ColumnType<Date, never>;
+  return_date: ColumnType<Date, never, Date>;
+}

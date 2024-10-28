@@ -1,14 +1,14 @@
+import { z } from "zod";
 import { BorrowTable } from "./borrow";
 import { GameTable } from "./game";
 import { UserTable } from "./user";
-import { VerificationTable } from "./verification";
-import { z } from "zod";
+import { Verification } from "./verification";
 
 export interface Database {
   users: UserTable;
   games: GameTable;
   borrows: BorrowTable;
-  verifications: VerificationTable;
+  verifications: Verification;
 }
 
 export const UserCredentialsSchema = z.object({

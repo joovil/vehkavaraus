@@ -1,14 +1,14 @@
 import { z } from "zod";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const VerificationTableSchema = z.object({
+export const VerificationSchema = z.object({
   verification_key: z.string(),
   user_id: z.string(),
   used: z.boolean(),
 });
 
-export type VerificationTable = z.infer<typeof VerificationTableSchema>;
+export const NewVerificationSchema = VerificationSchema.pick({ user_id: true });
+export const VerificationUpdateSchema = VerificationSchema.pick({ used: true });
 
-export type Verification = VerificationTable;
-export type NewVerification = Omit<VerificationTable, "verification_key" | "user_id">;
-export type VerificationUpdate = Partial<VerificationTable>;
+export type Verification = z.TypeOf<typeof VerificationSchema>;
+export type NewVerification = z.TypeOf<typeof NewVerificationSchema>;
+export type VerificationUpdate = z.TypeOf<typeof VerificationUpdateSchema>;

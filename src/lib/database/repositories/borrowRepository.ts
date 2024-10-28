@@ -1,5 +1,5 @@
-import { NewBorrow } from "@/types/types";
-import { db } from "../database";
+import { BorrowUpdate, NewBorrow } from "@/types/borrow";
+import db from "..";
 
 export const getAllBorrows = async () => {
   return await db.selectFrom("borrows").selectAll().execute();
@@ -18,5 +18,14 @@ export const createBorrow = async (borrow: NewBorrow) => {
     .insertInto("borrows")
     .values(borrow)
     .returningAll()
+    .executeTakeFirstOrThrow();
+};
+
+// TODO: Not implemented this is only test code for the types
+export const updateBorrow = async (id: number, borrowUpdate: BorrowUpdate) => {
+  return await db
+    .updateTable("borrows")
+    .set(borrowUpdate)
+    .where("id", "=", id)
     .executeTakeFirstOrThrow();
 };

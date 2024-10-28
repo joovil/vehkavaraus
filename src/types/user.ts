@@ -1,8 +1,8 @@
-import { Generated, Selectable } from "kysely";
+import { ColumnType } from "kysely";
 import { z } from "zod";
 
-const Roles = z.enum(["unverified", "user", "admin"]);
-export type Roles = z.infer<typeof Roles>;
+export const RolesEnum = z.enum(["unverified", "user", "admin"]);
+export type RolesType = z.infer<typeof RolesEnum>;
 
 const UserSchema = z.object({
   id: z.string(),
@@ -10,17 +10,28 @@ const UserSchema = z.object({
   password_hash: z.string(),
   email: z.string().email(),
   apartment: z.string(),
-  role: Roles,
+  role: RolesEnum,
 });
 
-type UserSchema = z.infer<typeof UserSchema>;
+export const NewUserSchema = UserSchema.omit({
+  id: true,
+  password_hash: true,
+  role: true,
+});
 
-export interface UserTable extends Omit<UserSchema, "id"> {
-  id: Generated<string>;
+export const UserUpdateSchema = UserSchema.partial().omit({
+  id: true,
+});
+
+export type User = z.TypeOf<typeof UserSchema>;
+export type NewUser = z.TypeOf<typeof NewUserSchema>;
+export type UserUpdate = z.TypeOf<typeof UserUpdateSchema>;
+
+export interface UserTable {
+  id: ColumnType<string, never, never>;
+  username: ColumnType<string, string, string>;
+  password_hash: ColumnType<never, never, string>;
+  email: ColumnType<string, string, string>;
+  apartment: ColumnType<string, string, string>;
+  role: ColumnType<string, never, string>;
 }
-
-export type User = Selectable<UserTable>;
-export type NewUser = Omit<User, "id" | "role">;
-export type UserUpdate = Partial<Omit<User, "id">>;
-
-export type UserClient = Pick<UserTable, "password_hash">;

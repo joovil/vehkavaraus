@@ -1,4 +1,4 @@
-import { db } from "../database";
+import db from "..";
 
 export const getAllVerifications = async () => {
   return await db.selectFrom("verifications").selectAll().execute();
@@ -15,7 +15,7 @@ export const getVerificationByKey = async (key: string) => {
 export const getVerificationByUser = async (userId: string) => {
   return await db
     .selectFrom("verifications")
-  .where("user_id", "=", userId)
+    .where("user_id", "=", userId)
     .selectAll()
     .executeTakeFirstOrThrow();
 };

@@ -1,5 +1,5 @@
-import { NewUser, Roles } from "../../../types/types";
-import { db } from "../database";
+import { NewUser, RolesType } from "@/types/user";
+import db from "..";
 
 export const getAllUsers = async () => {
   return await db.selectFrom("users").selectAll().execute();
@@ -21,15 +21,15 @@ export const getUserByName = async (username: string) => {
     .executeTakeFirstOrThrow();
 };
 
-export const insertUser = async (user: NewUser) => {
+export const createUser = async (newUser: NewUser) => {
   return await db
     .insertInto("users")
-    .values(user)
+    .values(newUser)
     .returningAll()
     .executeTakeFirstOrThrow();
 };
 
-export const updateUserRole = async (id: string, role: Roles) => {
+export const updateUserRole = async (id: string, role: RolesType) => {
   await db
     .updateTable("users")
     .set({ role })
