@@ -1,5 +1,5 @@
-import { ColumnType } from "kysely";
 import { z } from "zod";
+import { TableType } from "./types";
 
 const BorrowStatuses = z.enum(["free", "borrowed", "late"]);
 export type BorrowStatuses = z.infer<typeof BorrowStatuses>;
@@ -17,8 +17,4 @@ export type Game = z.TypeOf<typeof GameSchema>;
 export type NewGame = z.TypeOf<typeof NewGameSchema>;
 export type GameUpdate = z.TypeOf<typeof GameUpdateSchema>;
 
-export interface GameTable {
-  id: ColumnType<number, never, never>;
-  name: ColumnType<string, string, never>;
-  borrow_status: ColumnType<string, never, string>;
-}
+export type GameTable = TableType<Game, NewGame, GameUpdate>;

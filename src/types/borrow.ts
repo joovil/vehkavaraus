@@ -1,5 +1,5 @@
-import { ColumnType } from "kysely";
 import { z } from "zod";
+import { TableType } from "./types";
 
 export const BorrowSchema = z.object({
   id: z.number(),
@@ -23,10 +23,4 @@ export type Borrow = z.infer<typeof BorrowSchema>;
 export type NewBorrow = z.infer<typeof NewBorrowSchema>;
 export type BorrowUpdate = z.infer<typeof BorrowUpdateSchema>;
 
-export interface BorrowTable {
-  id: ColumnType<number, never, never>;
-  borrower: ColumnType<string, string, never>;
-  game: ColumnType<number, number, never>;
-  borrow_date: ColumnType<Date, never>;
-  return_date: ColumnType<Date, never, Date>;
-}
+export type BorrowTable = TableType<Borrow, NewBorrow, BorrowUpdate>;
