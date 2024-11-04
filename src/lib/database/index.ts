@@ -1,13 +1,13 @@
+import { Database } from "@/types/types";
 import { Kysely, PostgresDialect } from "kysely";
 import { Pool } from "pg";
-import { Database } from "@/types/types";
 import {
-  DB_NAME,
   DB_HOST,
+  DB_NAME,
   DB_PASSWORD,
-  DB_USER,
   DB_PORT,
-} from "@/lib/utils/envVariables";
+  DB_USER,
+} from "../utils/envVariables";
 
 const dialect = new PostgresDialect({
   pool: new Pool({
@@ -23,3 +23,5 @@ const dialect = new PostgresDialect({
 export const db = new Kysely<Database>({
   dialect,
 });
+
+export default db;
