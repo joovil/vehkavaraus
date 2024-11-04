@@ -1,0 +1,20 @@
+meta {
+  name: new user
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:3000/api/users/newUser
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "bob",
+    "password": "pass",
+    "email": "test@abc.com",
+    "apartment": "a1"
+  }
+}

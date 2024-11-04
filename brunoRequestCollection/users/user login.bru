@@ -1,0 +1,23 @@
+meta {
+  name: user login
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:3000/api/auth/callback/credentials
+  body: json
+  auth: none
+}
+
+headers {
+  Cookie: next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000;next-auth.csrf-token=88fa807660ca2bf4e59999655f2102ebe6f0560d4c7e4d0750042812afcc5987%7C329811dc4c1673d0a9ea0f7b712757eba04d1614083ac1a90dd7a4165382bb10
+}
+
+body:json {
+  {
+    "csrfToken": "2c5db9bc771a60ea5a435237ead4493f46d658da3644050b6531f6a20280a063",
+    "username": "asd",
+    "password": "pass"
+  }
+}

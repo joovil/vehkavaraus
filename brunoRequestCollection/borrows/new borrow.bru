@@ -1,0 +1,19 @@
+meta {
+  name: new borrow
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/borrows
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "borrower": "a5301b5a-c761-4bd7-bad6-6f2e6816e67e",
+    "game": "1"
+  }
+  
+}
