@@ -1,5 +1,5 @@
-import { UserClient } from "@/types/types";
-import { insertUser } from "@/lib/database/repositories/userRepository";
+import { createUser } from "@/lib/database/repositories/userRepository";
+import { UserClient } from "@/types/user";
 import bcryptjs from "bcryptjs";
 import { DatabaseError } from "pg";
 
@@ -24,7 +24,7 @@ export const POST = async (req: Request) => {
     }
     const password_hash = await bcryptjs.hash(password, 10);
 
-    const newUser = await insertUser({
+    const newUser = await createUser({
       username,
       password_hash,
       email,

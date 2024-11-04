@@ -27,3 +27,12 @@ export type NewUser = z.TypeOf<typeof NewUserSchema>;
 export type UserUpdate = z.TypeOf<typeof UserUpdateSchema>;
 
 export type UserTable = TableType<User, NewUser, UserUpdate>;
+
+export const UserClientSchema = UserSchema.pick({
+  id: true,
+  username: true,
+  apartment: true,
+  role: true,
+});
+
+export type UserClient = z.TypeOf<typeof UserClientSchema>;
