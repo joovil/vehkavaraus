@@ -3,8 +3,13 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
+    coverage: {
+      include: ["src/**"],
+      exclude: ["src/app", "src/components"],
+    },
     globals: true,
-    setupFiles: ["./src/tests/setup.ts", "./src/lib/utils/envVariables.ts"],
+    setupFiles: ["./src/tests/setup.ts"],
+    include: ["./src/**/*.spec.ts"],
   },
   plugins: [tsconfigPaths()],
 });

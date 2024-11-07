@@ -1,4 +1,4 @@
-import { NewUser, RolesType } from "@/types/user";
+import { NewUser, UserUpdate } from "@/types/user";
 import db from "..";
 
 export const getAllUsers = async () => {
@@ -29,18 +29,11 @@ export const createUser = async (newUser: NewUser) => {
     .executeTakeFirstOrThrow();
 };
 
-export const updateUserRole = async (id: string, role: RolesType) => {
-  await db
+export const updateUser = async (id: string, updateWith: UserUpdate) => {
+  return await db
     .updateTable("users")
-    .set({ role })
+    .set(updateWith)
     .where("id", "=", id)
-    .executeTakeFirstOrThrow();
-};
-
-export const updateUserApartment = async (id: string, apartment: string) => {
-  await db
-    .updateTable("users")
-    .set({ apartment })
-    .where("id", "=", id)
+    .returningAll()
     .executeTakeFirstOrThrow();
 };

@@ -5,7 +5,7 @@ export const RolesEnum = z.enum(["unverified", "user", "admin"]);
 export type RolesType = z.infer<typeof RolesEnum>;
 
 const UserSchema = z.object({
-  id: z.string(),
+  id: z.string().uuid(),
   username: z.string(),
   password_hash: z.string(),
   email: z.string().email(),
