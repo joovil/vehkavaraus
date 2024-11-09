@@ -58,7 +58,7 @@ describe("User repository", () => {
         username: "Bob",
         password_hash: "hash3",
         email: "bob@site.com",
-        apartment: "c3",
+        apartment: "a3",
       };
 
       const createdUser = await userRepo.createUser(newUser);
