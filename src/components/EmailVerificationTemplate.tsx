@@ -14,7 +14,7 @@ import { randomUUID } from "crypto";
 
 const EmailVerificationTemplate = ({ user }: { user: User }) => {
   const id = randomUUID();
-  const emailLink = `${NEXT_PUBLIC_API_URL}/api/verification/${id}`;
+  const emailLink = `${NEXT_PUBLIC_API_URL}/api/auth/verification/${id}`;
 
   return (
     <Tailwind
