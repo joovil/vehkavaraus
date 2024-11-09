@@ -1,4 +1,7 @@
+import { RolesEnum } from "@/types/user";
+import { NewVerification } from "@/types/verification";
 import db from "..";
+import { updateUser } from "./userRepository";
 
 export const getAllVerifications = async () => {
   return await db.selectFrom("verifications").selectAll().execute();
@@ -20,33 +23,24 @@ export const getVerificationByUser = async (userId: string) => {
     .executeTakeFirstOrThrow();
 };
 
-export const updateVerificationStatus = async (
-  userId: string,
+export const addVerificationRecord = async (
+  newVerification: NewVerification
+) => {
+  return await db
+    .insertInto("verifications")
+    .values(newVerification)
+    .executeTakeFirstOrThrow();
+};
+
+export const updateVerificationStatusAndRole = async (
   verificationKey: string
 ) => {
-  // Check that user is not already verified
-  const alreadyVerified = await db
-    .selectFrom("verifications")
-    .where("user_id", "=", userId)
-    .executeTakeFirst();
-
-  if (alreadyVerified) {
-    throw Error("User already confirmed");
-  }
-
-  // Check that key is not already used
-  const keyUsed = await db
-    .selectFrom("verifications")
-    .where("verification_key", "=", verificationKey)
-    .executeTakeFirst();
-
-  if (keyUsed) {
-    throw Error("Key already used");
-  }
-
-  await db
+  const userWithId = await db
     .updateTable("verifications")
     .set("used", true)
-    .where("user_id", "=", userId)
+    .where("verification_key", "=", verificationKey)
+    .returning("user_id")
     .executeTakeFirstOrThrow();
+
+  await updateUser(userWithId.user_id, { role: RolesEnum.Enum.user });
 };

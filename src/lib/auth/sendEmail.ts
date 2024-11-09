@@ -5,13 +5,16 @@ import { RESEND_API_KEY } from "../utils/envVariables";
 
 const resend = new Resend(RESEND_API_KEY);
 
-export const SendVerificationEmail = async (user: User) => {
+export const SendVerificationEmail = async (
+  user: User,
+  verification_key: string
+) => {
   try {
     await resend.emails.send({
       from: "noreply@vehkavaraus.fi",
       to: user.email,
       subject: "Verify your email",
-      react: EmailVerificationTemplate({ user }),
+      react: EmailVerificationTemplate({ user, verification_key }),
     });
   } catch (error) {
     // TODO: Error handling

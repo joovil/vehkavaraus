@@ -35,5 +35,5 @@ CREATE TABLE verifications (
     verification_key UUID PRIMARY KEY,
     user_id UUID NOT NULL,
     used BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );

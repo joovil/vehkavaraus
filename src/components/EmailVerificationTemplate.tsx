@@ -1,5 +1,4 @@
 import { NEXT_PUBLIC_API_URL } from "@/lib/utils/envVariables";
-import { User } from "@/types/user";
 import {
   Body,
   Button,
@@ -10,11 +9,16 @@ import {
   Tailwind,
   Text,
 } from "@react-email/components";
-import { randomUUID } from "crypto";
+import { User } from "next-auth";
 
-const EmailVerificationTemplate = ({ user }: { user: User }) => {
-  const id = randomUUID();
-  const emailLink = `${NEXT_PUBLIC_API_URL}/api/auth/verification/${id}`;
+const EmailVerificationTemplate = ({
+  user,
+  verification_key,
+}: {
+  user: User;
+  verification_key: string;
+}) => {
+  const emailLink = `${NEXT_PUBLIC_API_URL}/api/auth/verification/${verification_key}`;
 
   return (
     <Tailwind

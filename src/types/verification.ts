@@ -7,7 +7,10 @@ export const VerificationSchema = z.object({
   used: z.boolean(),
 });
 
-export const NewVerificationSchema = VerificationSchema.pick({ user_id: true });
+export const NewVerificationSchema = VerificationSchema.pick({
+  user_id: true,
+  verification_key: true,
+});
 export const VerificationUpdateSchema = VerificationSchema.pick({ used: true });
 
 export type Verification = z.TypeOf<typeof VerificationSchema>;
