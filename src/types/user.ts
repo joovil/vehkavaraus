@@ -6,10 +6,10 @@ export type RolesType = z.infer<typeof RolesEnum>;
 
 const UserSchema = z.object({
   id: z.string().uuid(),
-  username: z.string(),
+  username: z.string().min(1),
   password_hash: z.string(),
   email: z.string().email(),
-  apartment: z.string(),
+  apartment: z.string().regex(/^[ab]\d{1,3}$/),
   role: RolesEnum,
 });
 
@@ -28,11 +28,8 @@ export type UserUpdate = z.TypeOf<typeof UserUpdateSchema>;
 
 export type UserTable = TableType<User, NewUser, UserUpdate>;
 
-export const UserClientSchema = UserSchema.pick({
-  id: true,
-  username: true,
-  apartment: true,
-  role: true,
+export const UserClientSchema = UserSchema.omit({
+  password_hash: true,
 });
 
 export type UserClient = z.TypeOf<typeof UserClientSchema>;
