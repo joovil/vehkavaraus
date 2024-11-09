@@ -21,18 +21,32 @@ export const getVerificationByUser = async (userId: string) => {
 };
 
 export const updateVerificationStatus = async (
-  identifier: { userId?: string; verificationKey?: string },
-  status: boolean
+  userId: string,
+  verificationKey: string
 ) => {
-  const query = db.updateTable("verifications").set({ used: status });
+  // Check that user is not already verified
+  const alreadyVerified = await db
+    .selectFrom("verifications")
+    .where("user_id", "=", userId)
+    .executeTakeFirst();
 
-  if (identifier.userId) {
-    query.where("user_id", "=", identifier.userId);
-  } else if (identifier.verificationKey) {
-    query.where("verification_key", "=", identifier.verificationKey);
-  } else {
-    throw new Error("Either userId or verificationKey must be provided.");
+  if (alreadyVerified) {
+    throw Error("User already confirmed");
   }
 
-  return await query.executeTakeFirstOrThrow();
+  // Check that key is not already used
+  const keyUsed = await db
+    .selectFrom("verifications")
+    .where("verification_key", "=", verificationKey)
+    .executeTakeFirst();
+
+  if (keyUsed) {
+    throw Error("Key already used");
+  }
+
+  await db
+    .updateTable("verifications")
+    .set("used", true)
+    .where("user_id", "=", userId)
+    .executeTakeFirstOrThrow();
 };
