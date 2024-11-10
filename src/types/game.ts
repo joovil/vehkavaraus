@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { TableType } from "./types";
 
-const BorrowStatuses = z.enum(["free", "borrowed", "late"]);
+export const BorrowStatuses = z.enum(["free", "borrowed", "late"]);
 export type BorrowStatuses = z.infer<typeof BorrowStatuses>;
 
 export const GameSchema = z.object({

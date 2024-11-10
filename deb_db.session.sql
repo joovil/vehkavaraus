@@ -1,10 +1,18 @@
-DELETE FROM users WHERE username='bob' ;
+INSERT INTO users (
+		username,
+		password_hash,
+		email,
+		apartment
+	)
+VALUES (
+		'user',
+		'hash',
+		'email@mail.com',
+		'a1'
+	);
 
--- Drop the existing foreign key constraint
-ALTER TABLE verifications
-DROP CONSTRAINT verifications_user_id_fkey;
 
--- Add a new foreign key constraint with ON DELETE CASCADE
-ALTER TABLE verifications
-ADD CONSTRAINT verifications_user_id_fkey
-FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+DROP TABLE users;
+DROP TYPE roles;
+
+DROP TABLE kysely_migration, kysely_migration_lock;
