@@ -1,12 +1,18 @@
-import { updateVerificationStatusAndRole } from "@/lib/database/repositories/verificationRepository";
+import {
+  getVerificationByKey,
+  updateVerificationStatusAndRole,
+} from "@/lib/database/repositories/verificationRepository";
 
 export const GET = async (
   _req: Request,
   { params }: { params: { id: string } }
 ) => {
-  updateVerificationStatusAndRole(params.id);
+  const verification = await getVerificationByKey(params.id);
 
-  console.log(params);
-  // TODO: finish implementation
-  return Response.json({ hello: "testing" });
+  if (verification.used) {
+    return Response.json({ message: "Link expired" }, { status: 400 });
+  }
+
+  updateVerificationStatusAndRole(params.id);
+  return Response.json({ message: "Email verified" });
 };

@@ -1,9 +1,7 @@
-import { SendVerificationEmail } from "@/lib/auth/sendVerificationEmail";
+import { newUserVerification } from "@/lib/auth/newUserVerification";
 import { createUser } from "@/lib/database/repositories/userRepository";
-import { addVerificationRecord } from "@/lib/database/repositories/verificationRepository";
 import { NewUserSchema, UserClientSchema } from "@/types/user";
 import bcryptjs from "bcryptjs";
-import { randomUUID } from "crypto";
 import { DatabaseError } from "pg";
 
 export const POST = async (req: Request) => {
@@ -15,10 +13,7 @@ export const POST = async (req: Request) => {
       NewUserSchema.parse({ ...data, password_hash })
     );
 
-    const verification_key = randomUUID();
-
-    SendVerificationEmail(newUser, verification_key);
-    addVerificationRecord({ user_id: newUser.id, verification_key });
+    newUserVerification(newUser);
 
     const createdUser = UserClientSchema.parse(newUser);
     return Response.json({ returnPerson: createdUser });

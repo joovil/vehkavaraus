@@ -46,3 +46,7 @@ export const updateVerificationStatusAndRole = async (
 
   await updateUser(userWithId.user_id, { role: RolesEnum.Enum.user });
 };
+
+export const deleteVerificationByUserId = async (id: string) => {
+  await db.deleteFrom("verifications").where("user_id", "=", id).execute();
+};

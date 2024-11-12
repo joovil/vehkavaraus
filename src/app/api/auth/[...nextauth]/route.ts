@@ -1,8 +1,8 @@
 import { getUserByName } from "@/lib/database/repositories/userRepository";
+import { UserClient } from "@/types/user";
+import bcryptjs from "bcryptjs";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import bcryptjs from "bcryptjs";
-import { UserClient } from "@/types/types";
 
 const handler = NextAuth({
   providers: [
@@ -38,6 +38,7 @@ const handler = NextAuth({
         const retUser: UserClient = {
           id: userToCompare.id,
           username: userToCompare.username,
+          email: userToCompare.email,
           apartment: userToCompare.apartment,
           role: userToCompare.role,
         };
