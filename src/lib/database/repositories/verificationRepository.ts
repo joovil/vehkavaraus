@@ -29,12 +29,14 @@ export const addVerificationRecord = async (
   return await db
     .insertInto("verifications")
     .values(newVerification)
+    .returningAll()
     .executeTakeFirstOrThrow();
 };
 
 export const updateVerificationStatusAndRole = async (
   verificationKey: string
 ) => {
+  console.log(verificationKey);
   const userWithId = await db
     .updateTable("verifications")
     .set("used", true)

@@ -1,4 +1,4 @@
-import { SendVerificationEmail } from "@/lib/auth/sendEmail";
+import { SendVerificationEmail } from "@/lib/auth/sendVerificationEmail";
 import { createUser } from "@/lib/database/repositories/userRepository";
 import { addVerificationRecord } from "@/lib/database/repositories/verificationRepository";
 import { NewUserSchema, UserClientSchema } from "@/types/user";
