@@ -1,9 +1,9 @@
+import Navbar from "@/components/Navbar";
+import SessionProvider from "@/components/SessionProvider";
 import type { Metadata } from "next";
+import { getServerSession } from "next-auth";
 import localFont from "next/font/local";
 import "./globals.css";
-import { circularBold, circularMedium, circularBook } from "./fonts/fonts";
-import { getServerSession } from "next-auth";
-import SessionProvider from "@/components/SessionProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -15,6 +15,28 @@ const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
+});
+
+const circular = localFont({
+  src: [
+    {
+      path: "./fonts/CircularStd-Black.woff",
+      style: "black",
+    },
+    {
+      path: "./fonts/CircularStd-Bold.woff",
+      style: "bold",
+    },
+    {
+      path: "./fonts/CircularStd-Medium.woff",
+      style: "medium",
+    },
+    {
+      path: "./fonts/CircularStd-Book.woff",
+      style: "normal",
+    },
+  ],
+  variable: "--font-circular",
 });
 
 export const metadata: Metadata = {
@@ -32,8 +54,9 @@ export default async function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body
-        className={`${circularBold.variable} ${circularMedium.variable} ${circularBook.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${circular.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Navbar />
         <SessionProvider session={session}>{children}</SessionProvider>
       </body>
     </html>

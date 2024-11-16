@@ -1,7 +1,10 @@
 export const BasicButton = ({ text }: { text: string }) => {
   return (
     <>
-      <button className="py-5 px-10 bg-darkGreenV font-circularBold rounded-md text-3xl">
+      <button
+        className="bg-darkGreenV font-black text-offWhiteV mt-4 rounded py-2 px-5 w-fit"
+        type="submit"
+      >
         {text}
       </button>
     </>

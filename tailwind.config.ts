@@ -9,15 +9,14 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        circularBold: ["var(--font-circular-bold)"],
-        circularMedium: ["var(--font-circular-medium)"],
-        circularBook: ["var(--font-circular-book)"],
+        circular: ["var(--font-circular)"],
       },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        pink: "#E83C6A",
+        pinkV: "#E83C6A",
         lightGreenV: "#E6F5F0",
+        inputGreenV: "#B2D8D2",
         darkGreenV: "#078571",
         offWhiteV: "#FBFBFB",
         bodyText: "#222222",
