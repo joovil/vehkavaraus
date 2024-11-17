@@ -7,6 +7,7 @@ export default defineConfig({
       include: ["src/**"],
       exclude: ["src/app", "src/components"],
     },
+    fileParallelism: false,
     globals: true,
     setupFiles: ["./src/tests/setup.ts"],
     include: ["./src/**/*.spec.ts"],

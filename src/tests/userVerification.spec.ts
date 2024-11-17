@@ -1,6 +1,5 @@
 import {
   createUser,
-  deleteUser,
   getUserById,
 } from "@/lib/database/repositories/userRepository";
 import {
@@ -10,7 +9,7 @@ import {
 import { NewUser, RolesEnum, User } from "@/types/user";
 import { Verification } from "@/types/verification";
 import { randomUUID, UUID } from "node:crypto";
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
 describe("User verification works", () => {
   const newUser: NewUser = {
@@ -25,11 +24,6 @@ describe("User verification works", () => {
   beforeAll(async () => {
     testUser = await createUser(newUser);
     verificationKey = randomUUID();
-    console.log(verificationKey);
-  });
-
-  afterAll(async () => {
-    await deleteUser(testUser.id);
   });
 
   it("Adds verification record to database correctly", async () => {
