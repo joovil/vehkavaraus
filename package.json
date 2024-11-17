@@ -15,6 +15,7 @@
     "test": " vitest",
     "coverage": "vitest run --coverage",
     "migrate": "tsx ./src/lib/database/migrate/migrate.ts",
+    "migrate:down": "tsx ./src/lib/database/migrate/migrateDown.ts",
     "migrate:test": "cross-env NODE_ENV=test tsx ./src/lib/database/migrate/migrate.ts"
   },
   "dependencies": {

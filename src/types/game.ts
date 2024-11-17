@@ -8,6 +8,7 @@ export const GameSchema = z.object({
   id: z.number(),
   name: z.string(),
   borrow_status: BorrowStatuses,
+  available_date: z.date().optional(),
 });
 
 export const NewGameSchema = GameSchema.pick({ name: true });
