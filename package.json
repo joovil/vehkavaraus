@@ -16,38 +16,40 @@
     "coverage": "vitest run --coverage",
     "migrate": "tsx ./src/lib/database/migrate/migrate.ts",
     "migrate:down": "tsx ./src/lib/database/migrate/migrateDown.ts",
-    "migrate:test": "cross-env NODE_ENV=test tsx ./src/lib/database/migrate/migrate.ts"
+    "migrate:test": "cross-env NODE_ENV=test tsx ./src/lib/database/migrate/migrate.ts",
+    "checkTypes": "tsc --noEmit"
   },
   "dependencies": {
     "@react-email/components": "^0.0.28",
+    "@vercel/blob": "^0.26.0",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",
     "kysely": "^0.27.4",
     "next": "14.2.13",
-    "next-auth": "^4.24.8",
-    "pg": "^8.13.0",
+    "next-auth": "^4.24.10",
+    "pg": "^8.13.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "resend": "^4.0.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@next/env": "^15.0.2",
+    "@next/env": "^15.0.3",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.7",
-    "@types/node": "^20.16.11",
+    "@types/node": "^20.17.6",
     "@types/pg": "^8.11.10",
-    "@types/react": "^18.3.11",
+    "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitest/coverage-v8": "2.1.3",
     "cross-env": "^7.0.3",
-    "eslint": "^8",
+    "eslint": "^8.57.1",
     "eslint-config-next": "14.2.15",
-    "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.13",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
     "typescript": "^5.6.3",
-    "vite-tsconfig-paths": "^5.0.1",
-    "vitest": "^2.1.3"
+    "vite-tsconfig-paths": "^5.1.2",
+    "vitest": "^2.1.5"
   },
   "packageManager": "pnpm@9.11.0+sha512.0a203ffaed5a3f63242cd064c8fb5892366c103e328079318f78062f24ea8c9d50bc6a47aa3567cabefd824d170e78fa2745ed1f16b132e16436146b7688f19b"
 }

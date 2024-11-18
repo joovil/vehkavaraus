@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default async function Navbar() {
   return (
-    <nav className="flex items-center justify-center mt-4">
+    <nav className="flex items-center justify-center my-4">
       <Image
         src="/icons/vehka_horizontal_pink.svg"
         height={0}

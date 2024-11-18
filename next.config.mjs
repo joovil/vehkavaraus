@@ -33,7 +33,16 @@ export default (phase) => {
     }
   }
 
-  const nextConfig = {};
+  const nextConfig = {
+    images: {
+      remotePatterns: [
+        {
+          protocol: "https",
+          hostname: "uqcnfgb6afellrqu.public.blob.vercel-storage.com",
+        },
+      ],
+    },
+  };
 
   return nextConfig;
 };
