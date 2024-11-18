@@ -1,11 +1,12 @@
-import { newUserVerification } from "@/lib/auth/newUserVerification";
-import { deleteVerificationByUserId } from "@/lib/database/repositories/verificationRepository";
-import { User } from "@/types/user";
-
-export const POST = async (user: User) => {
+export const POST = async (req: Request) => {
+  // TODO: Fix
   try {
-    await deleteVerificationByUserId(user.id);
-    await newUserVerification(user);
+    const data = req.json();
+    console.log(data);
+    // const user = data.
+
+    // await deleteVerificationByUserId(user.id);
+    // await newUserVerification(user);
 
     return Response.json({ message: "New verification email sent" });
   } catch (error) {

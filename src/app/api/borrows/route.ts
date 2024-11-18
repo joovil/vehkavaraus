@@ -1,8 +1,8 @@
-import { NewBorrow } from "@/types/types";
 import {
   createBorrow,
   getAllBorrows,
 } from "@/lib/database/repositories/borrowRepository";
+import { NewBorrow } from "@/types/borrow";
 
 export const GET = async () => {
   try {
