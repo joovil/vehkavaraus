@@ -1,14 +1,16 @@
-import Game from "@/components/Game";
-import { fetchAllGames } from "@/lib/services/games/fetchAllGames";
+import GameCard from "@/components/GameCard";
+import { getAllGames } from "@/lib/database/repositories/gameRepository";
 
 const Home = async () => {
-  const games = await fetchAllGames();
+  const games = await getAllGames();
 
   return (
     <div>
-      {games.map((g) => (
-        <Game key={g.id} game={g.name} date="asd" status={g.borrow_status} />
-      ))}
+      <div className="w-3/4 gap-y-8 m-auto grid grid-cols-[repeat(auto-fit,minmax(300px,auto))] justify-between">
+        {games.map((g) => (
+          <GameCard key={g.id} game={g} />
+        ))}
+      </div>
     </div>
   );
 };
