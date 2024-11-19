@@ -6,7 +6,7 @@ const Home = async () => {
 
   return (
     <div>
-      <div className="w-3/4 gap-y-8 m-auto grid grid-cols-[repeat(auto-fit,minmax(300px,auto))] justify-between">
+      <div className="w-1/2 gap-y-8 m-auto grid grid-cols-[repeat(auto-fit,minmax(300px,auto))] justify-between">
         {games.map((g) => (
           <GameCard key={g.id} game={g} />
         ))}
