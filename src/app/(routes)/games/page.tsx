@@ -1,5 +1,5 @@
-import GameCard from "@/components/GameCard";
 import { getAllGames } from "@/database/repositories/gameRepository";
+import GameCard from "./GameCard";
 
 const Home = async () => {
   const games = await getAllGames();
