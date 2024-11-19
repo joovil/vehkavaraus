@@ -9,7 +9,7 @@ export const GameSchema = z.object({
   name: z.string(),
   borrow_status: BorrowStatuses,
   available_date: z.date().optional(),
-  image: z.string(),
+  image: z.string().optional(),
 });
 
 export const NewGameSchema = GameSchema.pick({ name: true, image: true });
