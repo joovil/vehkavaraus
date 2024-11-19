@@ -14,9 +14,9 @@
     "entertestdb": "docker exec -it vehkavaraus_test psql -U postgres",
     "test": " vitest",
     "coverage": "vitest run --coverage",
-    "migrate": "tsx ./src/lib/database/migrate/migrate.ts",
-    "migrate:down": "tsx ./src/lib/database/migrate/migrateDown.ts",
-    "migrate:test": "cross-env NODE_ENV=test tsx ./src/lib/database/migrate/migrate.ts",
+    "migrate": "tsx ./src/database/migrations/utils/migrate.ts",
+    "migrate:down": "tsx ./src/database/migrations/utils/migrateDown.ts",
+    "migrate:test": "cross-env NODE_ENV=test tsx ./src/database/migrations/utils/migrate.ts",
     "checkTypes": "tsc --noEmit"
   },
   "dependencies": {

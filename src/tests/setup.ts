@@ -1,5 +1,5 @@
+import db from "@/database";
 import "@/lib/utils/envConfig";
-import db from "@/lib/database";
 import { sql } from "kysely";
 import { beforeAll } from "vitest";
 

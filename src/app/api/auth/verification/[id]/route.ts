@@ -1,7 +1,7 @@
 import {
   getVerificationByKey,
   updateVerificationStatusAndRole,
-} from "@/lib/database/repositories/verificationRepository";
+} from "@/database/repositories/verificationRepository";
 
 export const GET = async (
   _req: Request,

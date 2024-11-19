@@ -1,5 +1,5 @@
+import { createUser } from "@/database/repositories/userRepository";
 import { newUserVerification } from "@/lib/auth/newUserVerification";
-import { createUser } from "@/lib/database/repositories/userRepository";
 import { NewUserSchema, UserClientSchema } from "@/types/user";
 import bcryptjs from "bcryptjs";
 import { DatabaseError } from "pg";

@@ -2,7 +2,7 @@ import "@/lib/utils/envConfig";
 import { promises as fs } from "fs";
 import { FileMigrationProvider, Migrator } from "kysely";
 import * as path from "path";
-import db from "..";
+import db from "../..";
 
 export async function migrateToLatest() {
   const migrator = new Migrator({
@@ -11,7 +11,7 @@ export async function migrateToLatest() {
       fs,
       path,
       // This needs to be an absolute path.
-      migrationFolder: path.join(__dirname, "./migrations"),
+      migrationFolder: path.join(__dirname, "../."),
     }),
   });
 

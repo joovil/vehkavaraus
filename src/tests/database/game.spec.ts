@@ -1,9 +1,9 @@
 import {
   createGame,
   getGameById,
-} from "@/lib/database/repositories/gameRepository";
-import { createUser } from "@/lib/database/repositories/userRepository";
-import { createBorrowUpdateAvailability } from "@/lib/database/wrappers/createBorrowUpdateAvailability";
+} from "@/database/repositories/gameRepository";
+import { createUser } from "@/database/repositories/userRepository";
+import { createBorrowUpdateAvailability } from "@/database/wrappers/createBorrowUpdateAvailability";
 import { NewBorrow } from "@/types/borrow";
 import { Game, NewGame } from "@/types/game";
 import { NewUser, User } from "@/types/user";

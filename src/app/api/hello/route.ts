@@ -1,4 +1,4 @@
-import { createBorrowUpdateAvailability } from "@/lib/database/wrappers/createBorrowUpdateAvailability";
+import { createBorrowUpdateAvailability } from "@/database/wrappers/createBorrowUpdateAvailability";
 import { NewBorrow } from "@/types/borrow";
 
 export const GET = async () => {

@@ -2,7 +2,7 @@ import EmailVerificationTemplate from "@/components/EmailVerificationTemplate";
 import { User } from "@/types/user";
 import { randomUUID } from "crypto";
 import { Resend } from "resend";
-import { addVerificationRecord } from "../database/repositories/verificationRepository";
+import { addVerificationRecord } from "../../database/repositories/verificationRepository";
 import { RESEND_API_KEY } from "../utils/envVariables";
 
 const resend = new Resend(RESEND_API_KEY);

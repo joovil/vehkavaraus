@@ -1,4 +1,4 @@
-import { getUserByName } from "@/lib/database/repositories/userRepository";
+import { getUserByName } from "@/database/repositories/userRepository";
 import { UserClient } from "@/types/user";
 import bcryptjs from "bcryptjs";
 import NextAuth from "next-auth";

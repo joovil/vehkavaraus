@@ -1,11 +1,11 @@
 import {
   createUser,
   getUserById,
-} from "@/lib/database/repositories/userRepository";
+} from "@/database/repositories/userRepository";
 import {
   addVerificationRecord,
   updateVerificationStatusAndRole,
-} from "@/lib/database/repositories/verificationRepository";
+} from "@/database/repositories/verificationRepository";
 import { NewUser, RolesEnum, User } from "@/types/user";
 import { Verification } from "@/types/verification";
 import { randomUUID, UUID } from "node:crypto";

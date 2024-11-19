@@ -1,5 +1,5 @@
-import db from "@/lib/database";
-import * as userRepo from "@/lib/database/repositories/userRepository";
+import db from "@/database";
+import * as userRepo from "@/database/repositories/userRepository";
 import { NewUser, NewUserSchema, RolesEnum, UserUpdate } from "@/types/user";
 import { UUID } from "crypto";
 import { sql } from "kysely";

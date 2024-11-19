@@ -1,7 +1,7 @@
 import {
   createGame,
   getAllGames,
-} from "@/lib/database/repositories/gameRepository";
+} from "@/database/repositories/gameRepository";
 import { NewGame } from "@/types/game";
 
 export const GET = async () => {
