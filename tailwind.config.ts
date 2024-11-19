@@ -21,6 +21,7 @@ const config: Config = {
         offWhiteV: "#FBFBFB",
         bodyText: "#222222",
         lightGrayV: "#535353",
+        orangeV: "#F38B11",
       },
     },
   },

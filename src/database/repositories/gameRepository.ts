@@ -28,3 +28,19 @@ export const updateGame = async (id: number, game: GameUpdate) => {
     .where("id", "=", id)
     .executeTakeFirstOrThrow();
 };
+
+export const gamesForAdminPanel = async () => {
+  return db
+    .selectFrom("games")
+    .leftJoin("borrows", "borrows.game", "games.id")
+    .leftJoin("users", "borrows.borrower", "users.id")
+    .select([
+      "games.id",
+      "games.name",
+      "games.borrow_status",
+      "users.apartment",
+      "borrows.borrow_date",
+      "borrows.return_date",
+    ])
+    .execute();
+};

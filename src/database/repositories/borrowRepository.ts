@@ -2,7 +2,17 @@ import { BorrowUpdate, NewBorrow } from "@/types/borrow";
 import db from "..";
 
 const getAllBorrows = async () => {
-  return await db.selectFrom("borrows").selectAll().execute();
+  return await db
+    .selectFrom("borrows")
+    .innerJoin("games", "games.id", "borrows.game")
+    .select([
+      "borrows.id",
+      "games.name as game",
+      "games.borrow_status",
+      "borrows.borrow_date",
+      "borrows.return_date",
+    ])
+    .execute();
 };
 
 const getBorrowById = async (id: string) => {
