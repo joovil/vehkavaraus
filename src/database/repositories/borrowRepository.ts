@@ -1,11 +1,11 @@
 import { BorrowUpdate, NewBorrow } from "@/types/borrow";
 import db from "..";
 
-export const getAllBorrows = async () => {
+const getAllBorrows = async () => {
   return await db.selectFrom("borrows").selectAll().execute();
 };
 
-export const getBorrowById = async (id: string) => {
+const getBorrowById = async (id: string) => {
   return await db
     .selectFrom("borrows")
     .where("borrower", "=", id)
@@ -13,7 +13,7 @@ export const getBorrowById = async (id: string) => {
     .execute();
 };
 
-export const createBorrow = async (borrow: NewBorrow) => {
+const createBorrow = async (borrow: NewBorrow) => {
   return await db
     .insertInto("borrows")
     .values(borrow)
@@ -22,10 +22,19 @@ export const createBorrow = async (borrow: NewBorrow) => {
 };
 
 // TODO: Not implemented this is only test code for the types
-export const updateBorrow = async (id: number, borrowUpdate: BorrowUpdate) => {
+const updateBorrow = async (id: number, borrowUpdate: BorrowUpdate) => {
   return await db
     .updateTable("borrows")
     .set(borrowUpdate)
     .where("id", "=", id)
     .executeTakeFirstOrThrow();
 };
+
+const borrowRepository = {
+  getAllBorrows,
+  getBorrowById,
+  createBorrow,
+  updateBorrow,
+};
+
+export default borrowRepository;

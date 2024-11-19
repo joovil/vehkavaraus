@@ -14,7 +14,9 @@ export const POST = async (req: Request) => {
 
   const newGame: NewGame = {
     name: body.name,
+    image: body.image,
   };
+
   const res = await createGame(newGame);
   return Response.json(res);
 };

@@ -3,7 +3,7 @@ import {
   getGameById,
 } from "@/database/repositories/gameRepository";
 import { createUser } from "@/database/repositories/userRepository";
-import { createBorrowUpdateAvailability } from "@/database/wrappers/createBorrowUpdateAvailability";
+import { createBorrow } from "@/lib/actions/createBorrow";
 import { NewBorrow } from "@/types/borrow";
 import { Game, NewGame } from "@/types/game";
 import { NewUser, User } from "@/types/user";
@@ -35,7 +35,7 @@ describe("Game addition", () => {
       game: game.id,
     };
 
-    const borrow = await createBorrowUpdateAvailability(newBorrow);
+    const borrow = await createBorrow(newBorrow);
     const gameAfterBorrow = await getGameById(borrow.game);
 
     expect(gameAfterBorrow.available_date).toEqual(borrow.return_date);

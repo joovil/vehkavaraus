@@ -1,10 +1,10 @@
+import borrowRepository from "@/database/repositories/borrowRepository";
+import { updateGame } from "@/database/repositories/gameRepository";
 import { NewBorrow } from "@/types/borrow";
 import { BorrowStatuses, GameUpdate } from "@/types/game";
-import { createBorrow } from "../repositories/borrowRepository";
-import { updateGame } from "../repositories/gameRepository";
 
-export const createBorrowUpdateAvailability = async (borrow: NewBorrow) => {
-  const createdBorrow = await createBorrow(borrow);
+export const createBorrow = async (borrow: NewBorrow) => {
+  const createdBorrow = await borrowRepository.createBorrow(borrow);
   const gameUpdate: GameUpdate = {
     available_date: createdBorrow.return_date,
     borrow_status: BorrowStatuses.enum.borrowed,

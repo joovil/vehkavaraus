@@ -1,12 +1,8 @@
-import {
-  createBorrow,
-  getAllBorrows,
-} from "@/database/repositories/borrowRepository";
-import { NewBorrow } from "@/types/borrow";
+import borrowRepository from "@/database/repositories/borrowRepository";
 
 export const GET = async () => {
   try {
-    const res = await getAllBorrows();
+    const res = await borrowRepository.getAllBorrows();
     return Response.json(res);
   } catch (error) {
     const message = "Unknown error";
@@ -18,14 +14,7 @@ export const GET = async () => {
     return Response.json({ message }, { status: 404 });
   }
 };
-
-export const POST = async (req: Request) => {
-  const borrowToCreate: NewBorrow = await req.json();
-
-  try {
-    const createdBorrow = await createBorrow(borrowToCreate);
-    return Response.json(createdBorrow);
-  } catch (error) {
-    return Response.json(error);
-  }
+// TODO: Implement POST route
+export const POST = async (_req: Request) => {
+  return Response.json({ message: "Not implemented" }, { status: 400 });
 };
