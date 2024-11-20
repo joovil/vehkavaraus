@@ -1,10 +1,14 @@
 import { getUserByName } from "@/database/repositories/userRepository";
 import { UserClient } from "@/types/user";
 import bcryptjs from "bcryptjs";
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
+  pages: {
+    signIn: "/login",
+  },
+
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -48,21 +52,22 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ user, token }) {
       if (user) {
         token.user = user;
       }
-
       return token;
     },
-    async session({ session, token }) {
+
+    async session({ session, user, token }) {
       if (token.user) {
         session.user = token.user;
       }
-
       return session;
     },
   },
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

@@ -1,5 +1,6 @@
+import Debug from "@/components/Debug";
 import Navbar from "@/components/Navbar";
-import SessionProvider from "@/components/SessionProvider";
+import SessionProviderClient from "@/components/SessionProviderClient";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import localFont from "next/font/local";
@@ -56,8 +57,11 @@ export default async function RootLayout({
       <body
         className={`${circular.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-        <SessionProvider session={session}>{children}</SessionProvider>
+        <SessionProviderClient session={session}>
+          <Navbar />
+          <Debug />
+          {children}
+        </SessionProviderClient>
       </body>
     </html>
   );
