@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      height: {
+        fullMinusNav: "calc(100vh - 6rem)",
+      },
       fontFamily: {
         circular: ["var(--font-circular)"],
       },
