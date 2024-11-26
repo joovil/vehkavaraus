@@ -1,9 +1,9 @@
 import borrowRepository from "@/database/repositories/borrowRepository";
 import { updateGame } from "@/database/repositories/gameRepository";
-import { NewBorrow } from "@/types/borrow";
+import { Borrow, NewBorrow } from "@/types/borrow";
 import { BorrowStatuses, GameUpdate } from "@/types/game";
 
-export const createBorrow = async (borrow: NewBorrow) => {
+export const createBorrow = async (borrow: NewBorrow): Promise<Borrow> => {
   const createdBorrow = await borrowRepository.createBorrow(borrow);
   const gameUpdate: GameUpdate = {
     available_date: createdBorrow.return_date,

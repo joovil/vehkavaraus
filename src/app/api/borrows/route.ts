@@ -1,4 +1,6 @@
 import borrowRepository from "@/database/repositories/borrowRepository";
+import { createBorrow } from "@/lib/actions/createBorrow";
+import { NewBorrowSchema } from "@/types/borrow";
 
 export const GET = async () => {
   try {
@@ -14,7 +16,15 @@ export const GET = async () => {
     return Response.json({ message }, { status: 404 });
   }
 };
-// TODO: Implement POST route
-export const POST = async (_req: Request) => {
-  return Response.json({ message: "Not implemented" }, { status: 400 });
+export const POST = async (req: Request) => {
+  try {
+    const body = await req.json();
+
+    const borrow = NewBorrowSchema.parse(body);
+    const res = await createBorrow(borrow);
+
+    return Response.json(res);
+  } catch (error) {
+    return Response.json({ error }, { status: 400 });
+  }
 };

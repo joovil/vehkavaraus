@@ -34,7 +34,10 @@ body {
 
 @layer base {
   input {
-    @apply bg-inputGreenV text-white;
+    @apply bg-inputGreenV text-black;
+    &:focus {
+      @apply outline-none;
+    }
     &::placeholder {
       @apply text-gray-500;
     }

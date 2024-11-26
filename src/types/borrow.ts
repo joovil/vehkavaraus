@@ -4,9 +4,9 @@ import { TableType } from "./types";
 export const BorrowSchema = z.object({
   id: z.number(),
   borrower: z.string(),
-  game: z.number(),
-  borrow_date: z.date(),
-  return_date: z.date(),
+  game: z.coerce.number(),
+  borrow_date: z.coerce.date(),
+  return_date: z.coerce.date(),
 });
 
 export const NewBorrowSchema = BorrowSchema.omit({
