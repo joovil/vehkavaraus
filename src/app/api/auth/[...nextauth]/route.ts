@@ -25,6 +25,7 @@ export const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials, _req) {
+        console.log("auth");
         if (!credentials) {
           return null;
         }
@@ -59,12 +60,17 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
 
-    async session({ session, user, token }) {
+    async session({ session, token }) {
       if (token.user) {
         session.user = token.user;
       }
       return session;
     },
+
+    // async redirect({ url, baseUrl }) {
+    // if (url.startsWith("/")) return `${baseUrl}${url}`;
+    // return baseUrl;
+    // },
   },
 };
 

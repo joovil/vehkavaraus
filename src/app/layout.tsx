@@ -1,5 +1,4 @@
-import Debug from "@/components/Debug";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbar/Navbar";
 import SessionProviderClient from "@/components/SessionProviderClient";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -59,7 +58,7 @@ export default async function RootLayout({
       >
         <SessionProviderClient session={session}>
           <Navbar />
-          <Debug />
+          {/* <Debug /> */}
           {children}
         </SessionProviderClient>
       </body>

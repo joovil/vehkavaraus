@@ -26,10 +26,20 @@ body {
   }
 }
 
+@layer components {
+  .btn-primary {
+    @apply bg-darkGreenV font-black text-offWhiteV rounded py-2 px-5 w-fit;
+  }
+}
+
 @layer base {
   input {
-    @apply bg-inputGreenV;
+    @apply bg-inputGreenV text-white;
+    &::placeholder {
+      @apply text-gray-500;
+    }
   }
+
   input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px theme("colors.inputGreenV") inset;
   }
