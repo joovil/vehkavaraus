@@ -16,7 +16,7 @@ const GameCard = ({
   updateGames: (id: number) => void;
 }) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-[400px]">
       <div className="w-[300px] h-[300px] relative">
         <Image
           src={game.image || "test.png"}
@@ -41,6 +41,7 @@ const GameCard = ({
   );
 };
 
+// TODO: Reduce delay after borrowing
 const Buttons = ({
   game,
   updateGames,
@@ -66,7 +67,7 @@ const Buttons = ({
       game: game.id,
     });
 
-    const res = await createBorrowService(borrowToCreate);
+    createBorrowService(borrowToCreate);
     updateGames(game.id);
   };
   return (

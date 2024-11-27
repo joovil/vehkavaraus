@@ -20,9 +20,11 @@ const DisplayGames = ({ games }: { games: Game[] }) => {
   return (
     <div className="">
       <div className="w-1/2 gap-y-8 m-auto flex flex-col grid-cols-[repeat(auto-fit,minmax(300px,auto))] items-center min-[1250px]:justify-between min-[1250px]:grid">
-        {clientGames.map((g) => (
-          <GameCard key={g.id} game={g} updateGames={updateGames} />
-        ))}
+        {clientGames
+          .sort((a, b) => a.id - b.id)
+          .map((g) => (
+            <GameCard key={g.id} game={g} updateGames={updateGames} />
+          ))}
       </div>
     </div>
   );
