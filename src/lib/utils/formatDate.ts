@@ -1,4 +1,4 @@
-export const formatDate = (date: Date | undefined) => {
+export const formatDate = (date: Date | undefined | null) => {
   if (!date) return;
 
   const day = new Date(date).getDate();
