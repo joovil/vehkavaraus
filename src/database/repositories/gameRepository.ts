@@ -2,7 +2,7 @@ import { GameUpdate, NewGame } from "@/types/game";
 import db from "..";
 
 export const getAllGames = async () => {
-  return await db.selectFrom("games").selectAll().execute();
+  return await db.selectFrom("games").orderBy("id asc").selectAll().execute();
 };
 
 export const getGameById = async (id: number) => {

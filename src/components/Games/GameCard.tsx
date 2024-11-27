@@ -41,7 +41,6 @@ const GameCard = ({
   );
 };
 
-// TODO: Reduce delay after borrowing
 const Buttons = ({
   game,
   updateGames,
@@ -50,10 +49,12 @@ const Buttons = ({
   updateGames: (id: number) => void;
 }) => {
   const [visible, setVisible] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(false);
   const session = useSession();
 
   const handleBorrow = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setDisabled(true);
     console.log(session);
 
     // TODO: handle non logged user
@@ -67,14 +68,18 @@ const Buttons = ({
       game: game.id,
     });
 
-    createBorrowService(borrowToCreate);
+    await createBorrowService(borrowToCreate);
     updateGames(game.id);
   };
   return (
     <>
       {visible ? (
         <div className="flex gap-3">
-          <button className="btn-primary" onClick={handleBorrow}>
+          <button
+            className="btn-primary disabled:bg-[#033029]"
+            onClick={handleBorrow}
+            disabled={disabled}
+          >
             Confirm
           </button>
           <button className="btn-primary" onClick={(v) => setVisible(!v)}>
