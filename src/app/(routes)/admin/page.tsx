@@ -11,6 +11,8 @@ interface GameProp {
   return_date: Date | null;
 }
 
+const colNames = ["Name", "Status", "Apartment", "Borrowed", "Return"];
+
 const Home = async () => {
   const games = await gamesForAdminPanel();
   console.log(games);
@@ -19,8 +21,13 @@ const Home = async () => {
     <main>
       <div className="bg-offWhiteV w-1/2 m-auto shadow-primary p-4">
         <div className="grid grid-cols-5 text-xl gap-y-3">
-          <Cols />
+          {colNames.map((col) => (
+            <span key={col} className="font-black">
+              {col}
+            </span>
+          ))}
           {games
+            // TODO: check if the sort is needed
             .sort((a, b) => a.id - b.id)
             .map((g) => {
               return <GameRow key={g.id} game={g} />;
@@ -56,18 +63,6 @@ const GameRow = ({ game }: { game: GameProp }) => {
       <span>{game.apartment?.toUpperCase() || "-"}</span>
       <span>{formatDate(game.borrow_date) || "-"}</span>
       <span>{formatDate(game.return_date) || "-"}</span>
-    </>
-  );
-};
-
-const Cols = () => {
-  return (
-    <>
-      <span className="font-black">Name</span>
-      <span className="font-black">Status</span>
-      <span className="font-black">Apartment</span>
-      <span className="font-black">Borrowed</span>
-      <span className="font-black">Return</span>
     </>
   );
 };
