@@ -30,17 +30,37 @@ body {
   .btn-primary {
     @apply bg-darkGreenV font-black text-offWhiteV rounded py-2 px-5 w-fit;
   }
+
+  .box-basic {
+    @apply bg-offWhiteV shadow-primary p-4;
+  }
+
+  .settings-form {
+    @apply flex flex-col gap-y-3 w-1/2;
+
+    div {
+      @apply flex flex-col gap-y-1 text-lg;
+    }
+  }
 }
 
 @layer base {
   input {
-    @apply bg-inputGreenV text-black;
+    @apply bg-inputGreenV text-black p-1;
     &:focus {
       @apply outline-none;
     }
     &::placeholder {
       @apply text-gray-500;
     }
+  }
+
+  h2 {
+    @apply font-bold text-2xl;
+  }
+
+  h3 {
+    @apply m-auto ml-0 font-bold text-xl;
   }
 
   input:-webkit-autofill {

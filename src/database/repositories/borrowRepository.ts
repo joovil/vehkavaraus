@@ -40,11 +40,21 @@ const updateBorrow = async (id: number, borrowUpdate: BorrowUpdate) => {
     .executeTakeFirstOrThrow();
 };
 
+const getBorrowByIdWithGame = async (borrowerId: string) => {
+  return await db
+    .selectFrom("borrows")
+    .innerJoin("games", "games.id", "borrows.game")
+    .where("borrower", "=", borrowerId)
+    .select(["games.name", "borrow_status", "borrow_date", "return_date"])
+    .execute();
+};
+
 const borrowRepository = {
   getAllBorrows,
   getBorrowById,
   createBorrow,
   updateBorrow,
+  getBorrowByIdWithGame,
 };
 
 export default borrowRepository;
