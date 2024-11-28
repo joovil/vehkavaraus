@@ -28,6 +28,7 @@ const config: Config = {
         bodyText: "#222222",
         lightGrayV: "#535353",
         orangeV: "#F38B11",
+        greenDisabledV: "#609c92",
       },
     },
   },

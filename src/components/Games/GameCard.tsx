@@ -76,7 +76,7 @@ const Buttons = ({
       {visible ? (
         <div className="flex gap-3">
           <button
-            className="btn-primary disabled:bg-[#033029]"
+            className="btn-primary disabled:bg-greenDisabledV"
             onClick={handleBorrow}
             disabled={disabled}
           >
