@@ -1,0 +1,18 @@
+meta {
+  name: update user
+  type: http
+  seq: 7
+}
+
+put {
+  url: http://localhost:3000/api/users
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": "b2bb094c-03e2-4f40-ac52-e0eb21d4baed",
+    "password": "asdasd"
+  }
+}
