@@ -9,7 +9,9 @@ const UserSchema = z.object({
   username: z.string().min(1),
   password_hash: z.string(),
   email: z.string().email(),
-  apartment: z.string().regex(/^[ab]\d{1,3}$/),
+  apartment: z
+    .string()
+    .regex(/^[ab]\d{1,3}$/, { message: "Invalid apartment" }),
   role: RolesEnum,
 });
 
@@ -30,6 +32,7 @@ export type UserTable = TableType<User, NewUser, UserUpdate>;
 
 export const UserClientSchema = UserSchema.omit({
   password_hash: true,
+  id: true,
 });
 
 export type UserClient = z.TypeOf<typeof UserClientSchema>;

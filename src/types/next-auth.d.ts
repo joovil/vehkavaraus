@@ -2,7 +2,9 @@ import { UserClient } from "./user";
 
 declare module "next-auth" {
   interface Session {
-    user: UserClient;
+    user: UserClient & {
+      id: string;
+    };
   }
 
   interface User extends UserClient {
@@ -12,6 +14,8 @@ declare module "next-auth" {
 
 declare module "next-auth/jwt" {
   interface JWT {
-    user: UserClient;
+    user: UserClient & {
+      id: string;
+    };
   }
 }

@@ -41,7 +41,7 @@ export const LoginLogout = ({ user }: { user: UserClient | undefined }) => {
 
   return (
     <div className="flex flex-col ml-auto text-right text-lg">
-      <Link href={`/user/${user.id}`} className="font-semibold text-xl">
+      <Link href={`/user/${user.username}`} className="font-semibold text-xl">
         {user.username}
       </Link>
       <LogoutButton />
