@@ -8,9 +8,9 @@ export const PUT = async (req: Request) => {
   try {
     const session = await auth();
     if (!session)
-      return Response.json({ message: "Not authenticated" }, { status: 401 });
+      return Response.json({ error: "Not authenticated" }, { status: 401 });
 
-    const user = session?.user;
+    const user = session.user;
 
     const { password, apartment } = await req.json();
 

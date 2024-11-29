@@ -27,7 +27,7 @@ const SingleForm = ({
     setTimeout(() => {
       errorSetter("");
     }, 3000);
-  }, [errorMessage]);
+  }, [errorMessage, errorSetter]);
 
   return (
     <div className="basis-0 flex-grow">
