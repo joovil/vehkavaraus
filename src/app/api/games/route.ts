@@ -1,11 +1,8 @@
-import {
-  createGame,
-  getAllGames,
-} from "@/database/repositories/gameRepository";
+import gameRepository from "@/database/repositories/gameRepository";
 import { NewGame } from "@/types/game";
 
 export const GET = async () => {
-  const res = await getAllGames();
+  const res = await gameRepository.getAllGames();
   return Response.json(res);
 };
 
@@ -17,6 +14,6 @@ export const POST = async (req: Request) => {
     image: body.image,
   };
 
-  const res = await createGame(newGame);
+  const res = await gameRepository.createGame(newGame);
   return Response.json(res);
 };

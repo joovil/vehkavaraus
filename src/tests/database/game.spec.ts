@@ -1,7 +1,4 @@
-import {
-  createGame,
-  getGameById,
-} from "@/database/repositories/gameRepository";
+import gameRepository from "@/database/repositories/gameRepository";
 import { createUser } from "@/database/repositories/userRepository";
 import { createBorrow } from "@/lib/actions/createBorrow";
 import { NewBorrow } from "@/types/borrow";
@@ -25,7 +22,7 @@ describe("Game addition", () => {
   let user: User;
 
   beforeAll(async () => {
-    game = await createGame(newGame);
+    game = await gameRepository.createGame(newGame);
     user = await createUser(newUser);
   });
 
@@ -36,7 +33,7 @@ describe("Game addition", () => {
     };
 
     const borrow = await createBorrow(newBorrow);
-    const gameAfterBorrow = await getGameById(borrow.game);
+    const gameAfterBorrow = await gameRepository.getGameById(borrow.game);
 
     expect(gameAfterBorrow.available_date).toEqual(borrow.return_date);
   });

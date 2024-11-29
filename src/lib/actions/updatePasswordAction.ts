@@ -1,12 +1,9 @@
 "use server";
 
-import { updateUser } from "@/database/repositories/userRepository";
 import { UserUpdate } from "@/types/user";
 import bcryptjs from "bcryptjs";
 
 const updatePasswordAction = async (newPassword: string) => {
-  c;
-
   try {
     const password_hash = await bcryptjs.hash(newPassword, 10);
 
@@ -14,7 +11,7 @@ const updatePasswordAction = async (newPassword: string) => {
       password_hash: password_hash,
     };
 
-    await updateUser(userUpdate);
+    // await gameRepository.updateUser(userUpdate);
   } catch (error) {
     if (error instanceof Error) {
     }

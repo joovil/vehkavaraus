@@ -1,11 +1,11 @@
 import { GameUpdate, NewGame } from "@/types/game";
 import db from "..";
 
-export const getAllGames = async () => {
+const getAllGames = async () => {
   return await db.selectFrom("games").orderBy("id asc").selectAll().execute();
 };
 
-export const getGameById = async (id: number) => {
+const getGameById = async (id: number) => {
   return db
     .selectFrom("games")
     .where("id", "=", id)
@@ -13,7 +13,7 @@ export const getGameById = async (id: number) => {
     .executeTakeFirstOrThrow();
 };
 
-export const createGame = async (game: NewGame) => {
+const createGame = async (game: NewGame) => {
   return await db
     .insertInto("games")
     .values(game)
@@ -21,7 +21,7 @@ export const createGame = async (game: NewGame) => {
     .executeTakeFirstOrThrow();
 };
 
-export const updateGame = async (id: number, game: GameUpdate) => {
+const updateGame = async (id: number, game: GameUpdate) => {
   return await db
     .updateTable("games")
     .set(game)
@@ -29,7 +29,7 @@ export const updateGame = async (id: number, game: GameUpdate) => {
     .executeTakeFirstOrThrow();
 };
 
-export const gamesForAdminPanel = async () => {
+const gamesForAdminPanel = async () => {
   return db
     .selectFrom("games")
     .leftJoin("borrows", "borrows.game", "games.id")
@@ -45,7 +45,7 @@ export const gamesForAdminPanel = async () => {
     .execute();
 };
 
-export const returnGame = async (borrowId: number, gameId: number) => {
+const returnGame = async (borrowId: number, gameId: number) => {
   await db.transaction().execute(async (trx) => {
     await trx
       .updateTable("borrows")
@@ -60,3 +60,14 @@ export const returnGame = async (borrowId: number, gameId: number) => {
       .executeTakeFirstOrThrow();
   });
 };
+
+const gameRepository = {
+  getAllGames,
+  getGameById,
+  createGame,
+  updateGame,
+  gamesForAdminPanel,
+  returnGame,
+};
+
+export default gameRepository;

@@ -1,4 +1,4 @@
-import { gamesForAdminPanel } from "@/database/repositories/gameRepository";
+import gameRepository from "@/database/repositories/gameRepository";
 import { formatDate } from "@/lib/utils/formatDate";
 import { BorrowStatuses } from "@/types/game";
 
@@ -14,7 +14,7 @@ interface GameProp {
 const colNames = ["Name", "Status", "Apartment", "Borrowed", "Return"];
 
 const Home = async () => {
-  const games = await gamesForAdminPanel();
+  const games = await gameRepository.gamesForAdminPanel();
   console.log(games);
 
   return (

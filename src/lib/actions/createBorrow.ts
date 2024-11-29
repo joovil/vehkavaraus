@@ -1,5 +1,5 @@
 import borrowRepository from "@/database/repositories/borrowRepository";
-import { updateGame } from "@/database/repositories/gameRepository";
+import gameRepository from "@/database/repositories/gameRepository";
 import { Borrow, NewBorrow } from "@/types/borrow";
 import { BorrowStatuses, GameUpdate } from "@/types/game";
 
@@ -9,7 +9,7 @@ export const createBorrow = async (borrow: NewBorrow): Promise<Borrow> => {
     available_date: createdBorrow.return_date,
     borrow_status: BorrowStatuses.enum.borrowed,
   };
-  updateGame(borrow.game, gameUpdate);
+  gameRepository.updateGame(borrow.game, gameUpdate);
 
   return createdBorrow;
 };
