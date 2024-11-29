@@ -45,18 +45,20 @@ const gamesForAdminPanel = async () => {
     .execute();
 };
 
+// FIXME: Timestamps are currently in UTF time, fix if time is left
 const returnGame = async (borrowId: number, gameId: number) => {
-  await db.transaction().execute(async (trx) => {
-    await trx
-      .updateTable("borrows")
-      .set({ return_date: new Date() })
-      .where("id", "=", borrowId)
-      .executeTakeFirstOrThrow();
-
+  return await db.transaction().execute(async (trx) => {
     await trx
       .updateTable("games")
       .set({ available_date: null, borrow_status: "free" })
       .where("id", "=", gameId)
+      .executeTakeFirstOrThrow();
+
+    return await trx
+      .updateTable("borrows")
+      .set({ return_date: new Date() })
+      .where("id", "=", borrowId)
+      .returning("borrows.id as returnedGameId")
       .executeTakeFirstOrThrow();
   });
 };

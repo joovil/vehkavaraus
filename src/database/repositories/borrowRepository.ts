@@ -15,12 +15,29 @@ const getAllBorrows = async () => {
     .execute();
 };
 
-const getBorrowById = async (id: string) => {
+const getBorrowByUserId = async (id: string) => {
   return await db
     .selectFrom("borrows")
     .where("borrower", "=", id)
     .selectAll()
     .execute();
+};
+
+const getActiveBorrows = async (id: string) => {
+  return await db
+    .selectFrom("borrows")
+    .where("borrower", "=", id)
+    .where("return_date", "<", new Date())
+    .selectAll()
+    .execute();
+};
+
+const getBorrowById = async (id: number) => {
+  return await db
+    .selectFrom("borrows")
+    .where("id", "=", id)
+    .selectAll()
+    .executeTakeFirstOrThrow();
 };
 
 const createBorrow = async (borrow: NewBorrow) => {
@@ -45,13 +62,23 @@ const getBorrowByIdWithGame = async (borrowerId: string) => {
     .selectFrom("borrows")
     .innerJoin("games", "games.id", "borrows.game")
     .where("borrower", "=", borrowerId)
-    .select(["games.name", "borrow_status", "borrow_date", "return_date"])
+    .where("borrows.return_date", ">", new Date())
+    .select([
+      "games.name",
+      "borrow_status",
+      "borrow_date",
+      "return_date",
+      "borrows.id as borrowId",
+      "games.id as gameId",
+    ])
     .execute();
 };
 
 const borrowRepository = {
   getAllBorrows,
+  getBorrowByUserId,
   getBorrowById,
+  getActiveBorrows,
   createBorrow,
   updateBorrow,
   getBorrowByIdWithGame,
