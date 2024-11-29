@@ -44,3 +44,19 @@ export const gamesForAdminPanel = async () => {
     ])
     .execute();
 };
+
+export const returnGame = async (borrowId: number, gameId: number) => {
+  await db.transaction().execute(async (trx) => {
+    await trx
+      .updateTable("borrows")
+      .set({ return_date: new Date() })
+      .where("id", "=", borrowId)
+      .executeTakeFirstOrThrow();
+
+    await trx
+      .updateTable("games")
+      .set({ available_date: null, borrow_status: "free" })
+      .where("id", "=", gameId)
+      .executeTakeFirstOrThrow();
+  });
+};

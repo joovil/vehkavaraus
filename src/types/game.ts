@@ -8,7 +8,7 @@ export const GameSchema = z.object({
   id: z.number(),
   name: z.string(),
   borrow_status: BorrowStatuses,
-  available_date: z.date().optional(),
+  available_date: z.date().optional().nullable(),
   image: z.string().optional(),
 });
 
