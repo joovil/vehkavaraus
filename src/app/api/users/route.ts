@@ -30,7 +30,6 @@ export const PUT = async (req: Request) => {
     return Response.json(ret);
   } catch (error) {
     if (error instanceof ZodError) {
-      console.log(error);
       return Response.json({ error: error.issues[0].message }, { status: 400 });
     }
 
