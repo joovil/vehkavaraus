@@ -1,7 +1,7 @@
 "use client";
 
+import updateApartmentService from "@/lib/services/users/updateApartmentService";
 import updatePasswordService from "@/lib/services/users/updatePasswordService";
-import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 interface FormElements extends HTMLFormControlsCollection {
@@ -9,21 +9,17 @@ interface FormElements extends HTMLFormControlsCollection {
   val2: HTMLInputElement;
 }
 
-interface SettingsFormElemens extends HTMLFormElement {
+interface SettingsFormElements extends HTMLFormElement {
   readonly elements: FormElements;
 }
 
 const SettingsForms = () => {
-  const session = useSession();
-
   const handlePasswordChange = async (
-    e: React.FormEvent<SettingsFormElemens>
+    e: React.FormEvent<SettingsFormElements>
   ) => {
     e.preventDefault();
     const newPassword = e.currentTarget.elements.val1.value;
     const newPassword2 = e.currentTarget.elements.val1.value;
-
-    console.log(newPassword, newPassword2);
 
     if (!validValues(newPassword, newPassword2)) return;
 
@@ -36,7 +32,26 @@ const SettingsForms = () => {
     }
   };
 
-  const handleApartmentChange = () => {};
+  const handleApartmentChange = async (
+    e: React.FormEvent<SettingsFormElements>
+  ) => {
+    e.preventDefault();
+
+    const newApartment = e.currentTarget.elements.val1.value;
+    const newApartment2 = e.currentTarget.elements.val2.value;
+
+    if (!validValues(newApartment, newApartment2)) return;
+
+    //TODO: show error
+    try {
+      const res = await updateApartmentService(newApartment);
+      console.log(await res.json());
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    }
+  };
 
   // const validValues = (val1: string, val2: string): boolean => {
   //   return !!val1 && !!val2 && val1 === val2;

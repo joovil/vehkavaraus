@@ -11,7 +11,7 @@ const Home = async () => {
   const borrows = await borrowRepository.getBorrowByIdWithGame(
     session!.user.id
   );
-  // console.log(borrows);
+  console.log(session);
 
   return (
     <div className="w-1/2 m-auto flex flex-col gap-y-6">

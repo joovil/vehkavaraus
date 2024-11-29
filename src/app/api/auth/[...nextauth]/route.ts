@@ -41,14 +41,13 @@ export const authOptions: NextAuthOptions = {
         if (!loginSuccess) throw Error("Invalid credentials");
 
         const retUser: UserClient = {
-          id: userToCompare.id,
           username: userToCompare.username,
           email: userToCompare.email,
           apartment: userToCompare.apartment,
           role: userToCompare.role,
         };
 
-        return retUser;
+        return { ...retUser, id: userToCompare.id };
       },
     }),
   ],
@@ -66,11 +65,6 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-
-    // async redirect({ url, baseUrl }) {
-    // if (url.startsWith("/")) return `${baseUrl}${url}`;
-    // return baseUrl;
-    // },
   },
 };
 
