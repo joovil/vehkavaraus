@@ -28,11 +28,8 @@ const BorrowsBox = async () => {
         {cols.map((col) => (
           <h3 key={col}>{col}</h3>
         ))}
-        <DisplayBorrows borrows={borrows} />
-        {/* {borrows.map((borrow) => (
-          <BorrowRow key={borrow.name} borrow={borrow} />
-        ))} */}
       </div>
+      <DisplayBorrows borrows={borrows} />
     </div>
   );
 };
