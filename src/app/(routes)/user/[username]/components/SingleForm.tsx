@@ -1,5 +1,6 @@
 "use client";
 
+import { showError } from "@/lib/utils/showError";
 import { useEffect, useState } from "react";
 import { SettingsFormElements } from "./SettingsForms";
 
@@ -23,10 +24,7 @@ const SingleForm = ({
   const inputClass = !fieldsMatch || errorMessage ? "bg-red-200" : "";
 
   useEffect(() => {
-    errorSetter(errorMessage);
-    setTimeout(() => {
-      errorSetter("");
-    }, 3000);
+    showError(errorSetter, errorMessage);
   }, [errorMessage, errorSetter]);
 
   return (

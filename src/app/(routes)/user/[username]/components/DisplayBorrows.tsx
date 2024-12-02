@@ -2,6 +2,7 @@
 
 import returnBorrowService from "@/lib/services/borrows/returnBorrowService";
 import { formatDate } from "@/lib/utils/formatDate";
+import { showError } from "@/lib/utils/showError";
 import { BorrowStatuses } from "@/types/game";
 import { useState } from "react";
 
@@ -40,8 +41,9 @@ const BorrowRow = ({
   const handleReturn = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const res = await returnBorrowService(borrow.borrowId, borrow.gameId);
+    const res = await returnBorrowService(150, borrow.gameId);
     const data = await res.json();
+    console.log(data);
 
     if (res.status === 200) {
       const { returnedGameId } = data;
@@ -49,10 +51,7 @@ const BorrowRow = ({
         borrows.filter((b) => b.borrowId !== returnedGameId)
       );
     } else {
-      setErrorMessage(data.error);
-      setTimeout(() => {
-        setErrorMessage("");
-      }, 3000);
+      showError(setErrorMessage, data.error);
     }
   };
 
