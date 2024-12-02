@@ -1,6 +1,6 @@
 "use client";
 
-import GameCard from "@/components/Games/GameCard";
+import GameCard from "@/app/(routes)/games/components/GameCard";
 import { getGameByIdService } from "@/lib/services/games/getGameByIdService";
 import { Game } from "@/types/game";
 import { useState } from "react";

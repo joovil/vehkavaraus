@@ -1,5 +1,5 @@
 import gameRepository from "@/database/repositories/gameRepository";
-import DisplayGames from "./DisplayGames";
+import DisplayGames from "./components/DisplayGames";
 
 const Home = async () => {
   const games = await gameRepository.getAllGames();
