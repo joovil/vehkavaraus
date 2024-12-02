@@ -1,0 +1,14 @@
+
+Todo:
+  Needed:
+    - Adding games
+    - Creating new users
+    - Game status changes to "late" if return date is gone over
+    - Adding new admin accounts
+    - Managing games from admin panel
+    - Stop unverified users from borrowing games
+    - Show admin page only to admins
+  Maybies:
+    - Borrow history
+  Future features:
+    - Ability to create minutes and to send them after completion
