@@ -1,6 +1,6 @@
 import borrowRepository from "@/database/repositories/borrowRepository";
 import gameRepository from "@/database/repositories/gameRepository";
-import { getUserById } from "@/database/repositories/userRepository";
+import userRepository from "@/database/repositories/userRepository";
 import { createBorrow } from "@/lib/actions/createBorrow";
 import { auth } from "@/lib/utils/auth";
 import { NewBorrowSchema } from "@/types/borrow";
@@ -47,7 +47,7 @@ export const PUT = async (req: Request) => {
 
     const borrow = await borrowRepository.getBorrowById(borrowId);
     console.log(borrow);
-    const user = await getUserById(borrow.borrower);
+    const user = await userRepository.getUserById(borrow.borrower);
     console.log(user);
 
     if (borrow.borrower !== session.user.id && user.id !== session.user.id) {

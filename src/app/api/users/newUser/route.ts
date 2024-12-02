@@ -1,4 +1,4 @@
-import { createUser } from "@/database/repositories/userRepository";
+import userRepository from "@/database/repositories/userRepository";
 import { newUserVerification } from "@/lib/auth/newUserVerification";
 import { NewUserSchema, UserClientSchema } from "@/types/user";
 import bcryptjs from "bcryptjs";
@@ -9,7 +9,7 @@ export const POST = async (req: Request) => {
     const data = await req.json();
     const password_hash = await bcryptjs.hash(data.password, 10);
 
-    const newUser = await createUser(
+    const newUser = await userRepository.createUser(
       NewUserSchema.parse({ ...data, password_hash })
     );
 

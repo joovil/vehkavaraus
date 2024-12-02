@@ -1,5 +1,5 @@
 import gameRepository from "@/database/repositories/gameRepository";
-import { createUser } from "@/database/repositories/userRepository";
+import userRepository from "@/database/repositories/userRepository";
 import { createBorrow } from "@/lib/actions/createBorrow";
 import { NewBorrow } from "@/types/borrow";
 import { Game, NewGame } from "@/types/game";
@@ -23,7 +23,7 @@ describe("Game addition", () => {
 
   beforeAll(async () => {
     game = await gameRepository.createGame(newGame);
-    user = await createUser(newUser);
+    user = await userRepository.createUser(newUser);
   });
 
   it("Updates game availability when borrow is created", async () => {

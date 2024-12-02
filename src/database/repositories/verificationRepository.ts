@@ -1,7 +1,7 @@
 import { RolesEnum } from "@/types/user";
 import { NewVerification } from "@/types/verification";
 import db from "..";
-import { updateUser } from "./userRepository";
+import userRepository from "./userRepository";
 
 export const getAllVerifications = async () => {
   return await db.selectFrom("verifications").selectAll().execute();
@@ -44,7 +44,9 @@ export const updateVerificationStatusAndRole = async (
     .returning("user_id")
     .executeTakeFirstOrThrow();
 
-  await updateUser(userWithId.user_id, { role: RolesEnum.Enum.user });
+  await userRepository.updateUser(userWithId.user_id, {
+    role: RolesEnum.Enum.user,
+  });
 };
 
 export const deleteVerificationByUserId = async (id: string) => {

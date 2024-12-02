@@ -1,7 +1,4 @@
-import {
-  createUser,
-  getUserById,
-} from "@/database/repositories/userRepository";
+import userRepository from "@/database/repositories/userRepository";
 import {
   addVerificationRecord,
   updateVerificationStatusAndRole,
@@ -22,7 +19,7 @@ describe("User verification works", () => {
   let verificationKey: UUID;
 
   beforeAll(async () => {
-    testUser = await createUser(newUser);
+    testUser = await userRepository.createUser(newUser);
     verificationKey = randomUUID();
   });
 
@@ -42,7 +39,7 @@ describe("User verification works", () => {
 
   it("Updates verification status and verification record", async () => {
     await updateVerificationStatusAndRole(verificationKey);
-    testUser = await getUserById(testUser.id);
+    testUser = await userRepository.getUserById(testUser.id);
     expect(testUser.role).toBe(RolesEnum.enum.user);
   });
 });
