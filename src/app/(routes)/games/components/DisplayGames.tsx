@@ -1,12 +1,20 @@
 "use client";
 
 import GameCard from "@/app/(routes)/games/components/GameCard";
+import { getAllGamesAction } from "@/lib/actions/getAllGamesAction";
 import { getGameByIdService } from "@/lib/services/games/getGameByIdService";
 import { Game } from "@/types/game";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const DisplayGames = ({ games }: { games: Game[] }) => {
   const [clientGames, setClientGames] = useState<Game[]>(games);
+
+  useEffect(() => {
+    const fetchGames = async () => {
+      setClientGames(await getAllGamesAction());
+    };
+    fetchGames();
+  }, []);
 
   const updateGames = async (id: number) => {
     const updatedGame = await getGameByIdService(id);

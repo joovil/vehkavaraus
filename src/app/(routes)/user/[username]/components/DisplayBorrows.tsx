@@ -1,10 +1,11 @@
 "use client";
 
+import { borrowByIdWithGame } from "@/lib/actions/borrowByIdWithGame";
 import returnBorrowService from "@/lib/services/borrows/returnBorrowService";
 import { formatDate } from "@/lib/utils/formatDate";
 import { showError } from "@/lib/utils/showError";
 import { BorrowStatuses } from "@/types/game";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface borrowProps {
   borrow_date: Date;
@@ -17,6 +18,13 @@ export interface borrowProps {
 
 const DisplayBorrows = ({ borrows }: { borrows: borrowProps[] }) => {
   const [clientBorrows, setClientBorrows] = useState<borrowProps[]>(borrows);
+
+  useEffect(() => {
+    const fetchBorrows = async () => {
+      setClientBorrows(await borrowByIdWithGame());
+    };
+    fetchBorrows();
+  }, []);
 
   return clientBorrows.map((borrow) => (
     <div key={borrow.borrowId} className="grid gap-y-3">

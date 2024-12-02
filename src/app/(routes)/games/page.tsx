@@ -1,9 +1,10 @@
-import gameRepository from "@/database/repositories/gameRepository";
+import { getAllGamesAction } from "@/lib/actions/getAllGamesAction";
 import DisplayGames from "./components/DisplayGames";
 
 const Home = async () => {
-  const games = await gameRepository.getAllGames();
-  console.log(games);
+  // NOTE: Loads the games before page is loaded for the first time.
+  // Subsequent loads happen in client component
+  const games = await getAllGamesAction();
 
   return <DisplayGames games={games} />;
 };

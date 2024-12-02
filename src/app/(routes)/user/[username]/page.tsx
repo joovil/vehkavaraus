@@ -1,4 +1,4 @@
-import borrowRepository from "@/database/repositories/borrowRepository";
+import { borrowByIdWithGame } from "@/lib/actions/borrowByIdWithGame";
 import { auth } from "@/lib/utils/auth";
 import DisplayBorrows from "./components/DisplayBorrows";
 import SettingsForms from "./components/SettingsForms";
@@ -16,9 +16,10 @@ const cols = ["Games borrowed", "Return date", "Return"];
 
 const BorrowsBox = async () => {
   const session = await auth();
-  const borrows = await borrowRepository.getBorrowByIdWithGame(
-    session!.user.id
-  );
+
+  // NOTE: Loads the borrows before page is loaded for the first time.
+  // Subsequent loads happen in client component
+  const borrows = await borrowByIdWithGame();
 
   return (
     <div className="box-basic">
