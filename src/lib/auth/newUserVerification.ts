@@ -1,8 +1,8 @@
 import EmailVerificationTemplate from "@/components/EmailVerificationTemplate";
+import verificationRepository from "@/database/repositories/verificationRepository";
 import { User } from "@/types/user";
 import { randomUUID } from "crypto";
 import { Resend } from "resend";
-import { addVerificationRecord } from "../../database/repositories/verificationRepository";
 import { RESEND_API_KEY } from "../utils/envVariables";
 
 const resend = new Resend(RESEND_API_KEY);
@@ -11,7 +11,10 @@ export const newUserVerification = async (user: User) => {
   try {
     const verification_key = randomUUID();
 
-    addVerificationRecord({ verification_key, user_id: user.id });
+    verificationRepository.addVerificationRecord({
+      verification_key,
+      user_id: user.id,
+    });
 
     await resend.emails.send({
       from: "noreply@vehkavaraus.fi",

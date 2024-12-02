@@ -1,8 +1,5 @@
 import userRepository from "@/database/repositories/userRepository";
-import {
-  addVerificationRecord,
-  updateVerificationStatusAndRole,
-} from "@/database/repositories/verificationRepository";
+import verificationRepository from "@/database/repositories/verificationRepository";
 import { NewUser, RolesEnum, User } from "@/types/user";
 import { Verification } from "@/types/verification";
 import { randomUUID, UUID } from "node:crypto";
@@ -24,7 +21,7 @@ describe("User verification works", () => {
   });
 
   it("Adds verification record to database correctly", async () => {
-    const vRecord = await addVerificationRecord({
+    const vRecord = await verificationRepository.addVerificationRecord({
       verification_key: verificationKey,
       user_id: testUser.id,
     });
@@ -38,7 +35,9 @@ describe("User verification works", () => {
   });
 
   it("Updates verification status and verification record", async () => {
-    await updateVerificationStatusAndRole(verificationKey);
+    await verificationRepository.updateVerificationStatusAndRole(
+      verificationKey
+    );
     testUser = await userRepository.getUserById(testUser.id);
     expect(testUser.role).toBe(RolesEnum.enum.user);
   });

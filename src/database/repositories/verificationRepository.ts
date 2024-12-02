@@ -3,11 +3,11 @@ import { NewVerification } from "@/types/verification";
 import db from "..";
 import userRepository from "./userRepository";
 
-export const getAllVerifications = async () => {
+const getAllVerifications = async () => {
   return await db.selectFrom("verifications").selectAll().execute();
 };
 
-export const getVerificationByKey = async (key: string) => {
+const getVerificationByKey = async (key: string) => {
   return await db
     .selectFrom("verifications")
     .where("verification_key", "=", key)
@@ -15,7 +15,7 @@ export const getVerificationByKey = async (key: string) => {
     .executeTakeFirstOrThrow();
 };
 
-export const getVerificationByUser = async (userId: string) => {
+const getVerificationByUser = async (userId: string) => {
   return await db
     .selectFrom("verifications")
     .where("user_id", "=", userId)
@@ -23,9 +23,7 @@ export const getVerificationByUser = async (userId: string) => {
     .executeTakeFirstOrThrow();
 };
 
-export const addVerificationRecord = async (
-  newVerification: NewVerification
-) => {
+const addVerificationRecord = async (newVerification: NewVerification) => {
   return await db
     .insertInto("verifications")
     .values(newVerification)
@@ -33,9 +31,7 @@ export const addVerificationRecord = async (
     .executeTakeFirstOrThrow();
 };
 
-export const updateVerificationStatusAndRole = async (
-  verificationKey: string
-) => {
+const updateVerificationStatusAndRole = async (verificationKey: string) => {
   console.log(verificationKey);
   const userWithId = await db
     .updateTable("verifications")
@@ -49,6 +45,17 @@ export const updateVerificationStatusAndRole = async (
   });
 };
 
-export const deleteVerificationByUserId = async (id: string) => {
+const deleteVerificationByUserId = async (id: string) => {
   await db.deleteFrom("verifications").where("user_id", "=", id).execute();
 };
+
+const verificationRepository = {
+  getAllVerifications,
+  getVerificationByKey,
+  getVerificationByUser,
+  addVerificationRecord,
+  updateVerificationStatusAndRole,
+  deleteVerificationByUserId,
+};
+
+export default verificationRepository;
