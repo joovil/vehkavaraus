@@ -1,4 +1,5 @@
-import { BorrowUpdate, NewBorrow } from "@/types/borrow";
+import { Borrow, BorrowUpdate, NewBorrow } from "@/types/borrow";
+import { GameUpdate } from "@/types/game";
 import db from "..";
 
 const getAllBorrows = async () => {
@@ -40,12 +41,28 @@ const getBorrowById = async (id: number) => {
     .executeTakeFirstOrThrow();
 };
 
-const createBorrow = async (borrow: NewBorrow) => {
-  return await db
-    .insertInto("borrows")
-    .values(borrow)
-    .returningAll()
-    .executeTakeFirstOrThrow();
+const createBorrow = async (borrow: NewBorrow): Promise<Borrow> => {
+  return await db.transaction().execute(async (trx) => {
+    const createdBorrow = await trx
+      .insertInto("borrows")
+      .values(borrow)
+      .returningAll()
+      .executeTakeFirstOrThrow();
+
+    const gameUpdate: GameUpdate = {
+      available_date: createdBorrow.return_date,
+      borrow_status: "borrowed",
+      current_borrow: createdBorrow.id,
+    };
+
+    await trx
+      .updateTable("games")
+      .set(gameUpdate)
+      .where("id", "=", borrow.game)
+      .executeTakeFirstOrThrow();
+
+    return createdBorrow;
+  });
 };
 
 // TODO: Not implemented this is only test code for the types

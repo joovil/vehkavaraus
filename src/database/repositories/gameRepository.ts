@@ -32,8 +32,17 @@ const updateGame = async (id: number, game: GameUpdate) => {
 const gamesForAdminPanel = async () => {
   return db
     .selectFrom("games")
-    .leftJoin("borrows", "borrows.game", "games.id")
-    .leftJoin("users", "borrows.borrower", "users.id")
+    .leftJoin(
+      db
+        .selectFrom("borrows")
+        .select(["game", db.fn.max("id").as("max_id")])
+        .groupBy("game")
+        .as("b2"),
+      "games.id",
+      "b2.game"
+    )
+    .leftJoin("borrows", "b2.max_id", "borrows.id")
+    .leftJoin("users", "users.id", "borrows.borrower")
     .select([
       "games.id",
       "games.name",
@@ -42,6 +51,7 @@ const gamesForAdminPanel = async () => {
       "borrows.borrow_date",
       "borrows.return_date",
     ])
+    .orderBy("games.id", "asc")
     .execute();
 };
 
@@ -50,7 +60,11 @@ const returnGame = async (borrowId: number, gameId: number) => {
   return await db.transaction().execute(async (trx) => {
     await trx
       .updateTable("games")
-      .set({ available_date: null, borrow_status: "free" })
+      .set({
+        available_date: null,
+        borrow_status: "free",
+        current_borrow: null,
+      })
       .where("id", "=", gameId)
       .executeTakeFirstOrThrow();
 

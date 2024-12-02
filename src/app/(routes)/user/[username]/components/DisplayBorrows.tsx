@@ -41,7 +41,7 @@ const BorrowRow = ({
   const handleReturn = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const res = await returnBorrowService(150, borrow.gameId);
+    const res = await returnBorrowService(borrow.borrowId, borrow.gameId);
     const data = await res.json();
     console.log(data);
 
