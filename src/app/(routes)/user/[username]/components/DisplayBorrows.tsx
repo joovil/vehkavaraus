@@ -26,6 +26,10 @@ const DisplayBorrows = ({ borrows }: { borrows: borrowProps[] }) => {
     fetchBorrows();
   }, []);
 
+  if (clientBorrows.length === 0) {
+    return <span>Nothing borrowed</span>;
+  }
+
   return clientBorrows.map((borrow) => (
     <div key={borrow.borrowId} className="grid gap-y-3">
       <BorrowRow
@@ -45,9 +49,11 @@ const BorrowRow = ({
   setClientBorrows: React.Dispatch<React.SetStateAction<borrowProps[]>>;
 }) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   const handleReturn = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setDisabled(true);
 
     const res = await returnBorrowService(borrow.borrowId, borrow.gameId);
     const data = await res.json();
@@ -70,8 +76,12 @@ const BorrowRow = ({
         <span className="flex items-center">
           {formatDate(borrow.return_date)}
         </span>
-        <button className="btn-primary" onClick={handleReturn}>
-          Return button
+        <button
+          className="btn-primary disabled:bg-greenDisabledV"
+          disabled={disabled}
+          onClick={handleReturn}
+        >
+          Mark returned
         </button>
       </div>
       <span className="text-red-500">{errorMessage}</span>
