@@ -3,16 +3,16 @@ import SessionProviderClient from "@/components/SessionProviderClient";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import localFont from "next/font/local";
-import "./globals.css";
+import "./styles/globals.css";
 
 const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
+  src: "./styles/fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
 
 const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
+  src: "./styles/fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });
@@ -20,19 +20,19 @@ const geistMono = localFont({
 const circular = localFont({
   src: [
     {
-      path: "./fonts/CircularStd-Black.woff",
+      path: "./styles/fonts/CircularStd-Black.woff",
       style: "black",
     },
     {
-      path: "./fonts/CircularStd-Bold.woff",
+      path: "./styles/fonts/CircularStd-Bold.woff",
       style: "bold",
     },
     {
-      path: "./fonts/CircularStd-Medium.woff",
+      path: "./styles/fonts/CircularStd-Medium.woff",
       style: "medium",
     },
     {
-      path: "./fonts/CircularStd-Book.woff",
+      path: "./styles/fonts/CircularStd-Book.woff",
       style: "normal",
     },
   ],
