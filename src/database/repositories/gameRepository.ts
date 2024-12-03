@@ -1,6 +1,9 @@
 import { GameUpdate, NewGame } from "@/types/game";
 import db from "..";
 
+// TODO: Available_date should be removed from games and the date should be gotten
+// from the latest_borrow
+
 const getAllGames = async () => {
   return await db.selectFrom("games").orderBy("id asc").selectAll().execute();
 };
@@ -29,19 +32,10 @@ const updateGame = async (id: number, game: GameUpdate) => {
     .executeTakeFirstOrThrow();
 };
 
-const gamesForAdminPanel = async () => {
-  return db
+const getGamesWithCurrentBorrow = async () => {
+  return await db
     .selectFrom("games")
-    .leftJoin(
-      db
-        .selectFrom("borrows")
-        .select(["game", db.fn.max("id").as("max_id")])
-        .groupBy("game")
-        .as("b2"),
-      "games.id",
-      "b2.game"
-    )
-    .leftJoin("borrows", "b2.max_id", "borrows.id")
+    .leftJoin("borrows", "games.current_borrow", "borrows.id")
     .leftJoin("users", "users.id", "borrows.borrower")
     .select([
       "games.id",
@@ -51,7 +45,7 @@ const gamesForAdminPanel = async () => {
       "borrows.borrow_date",
       "borrows.return_date",
     ])
-    .orderBy("games.id", "asc")
+    .orderBy("games.id asc")
     .execute();
 };
 
@@ -82,7 +76,7 @@ const gameRepository = {
   getGameById,
   createGame,
   updateGame,
-  gamesForAdminPanel,
+  getGamesWithCurrentBorrow,
   returnGame,
 };
 
