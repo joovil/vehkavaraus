@@ -1,4 +1,4 @@
-import { borrowByIdWithGame } from "@/lib/actions/borrowByIdWithGame";
+import { getBorrowByIdWithGameAction } from "@/lib/actions/borrows/getBorrowByIdWithGameAction";
 import { auth } from "@/lib/utils/auth";
 import DisplayBorrows from "./components/DisplayBorrows";
 import SettingsForms from "./components/SettingsForms";
@@ -19,7 +19,7 @@ const BorrowsBox = async () => {
 
   // NOTE: Loads the borrows before page is loaded for the first time.
   // Subsequent loads happen in client component
-  const borrows = await borrowByIdWithGame();
+  const borrows = await getBorrowByIdWithGameAction();
 
   return (
     <div className="box-basic">

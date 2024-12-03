@@ -1,7 +1,7 @@
 import borrowRepository from "@/database/repositories/borrowRepository";
 import gameRepository from "@/database/repositories/gameRepository";
 import userRepository from "@/database/repositories/userRepository";
-import { createBorrow } from "@/lib/actions/createBorrow";
+import { createBorrow } from "@/lib/actions/borrows/createBorrow";
 import { auth } from "@/lib/utils/auth";
 import { NewBorrowSchema } from "@/types/borrow";
 import { NoResultError } from "kysely";

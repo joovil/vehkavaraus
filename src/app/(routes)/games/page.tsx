@@ -1,4 +1,4 @@
-import { getAllGamesAction } from "@/lib/actions/getAllGamesAction";
+import { getAllGamesAction } from "@/lib/actions/games/getAllGamesAction";
 import DisplayGames from "./components/DisplayGames";
 
 const Home = async () => {

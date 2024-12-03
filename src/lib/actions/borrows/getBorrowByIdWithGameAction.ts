@@ -1,9 +1,9 @@
 "use server";
 
 import borrowRepository from "@/database/repositories/borrowRepository";
-import { auth } from "../utils/auth";
+import { auth } from "@/lib/utils/auth";
 
-export const borrowByIdWithGame = async () => {
+export const getBorrowByIdWithGameAction = async () => {
   const session = await auth();
 
   return await borrowRepository.getBorrowByIdWithGame(session!.user.id);

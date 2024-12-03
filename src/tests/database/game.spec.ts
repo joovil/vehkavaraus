@@ -1,6 +1,6 @@
 import gameRepository from "@/database/repositories/gameRepository";
 import userRepository from "@/database/repositories/userRepository";
-import { createBorrow } from "@/lib/actions/createBorrow";
+import { createBorrow } from "@/lib/actions/borrows/createBorrow";
 import { NewBorrow } from "@/types/borrow";
 import { Game, NewGame } from "@/types/game";
 import { NewUser, User } from "@/types/user";

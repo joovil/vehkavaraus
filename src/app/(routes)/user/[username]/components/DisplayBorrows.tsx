@@ -1,6 +1,6 @@
 "use client";
 
-import { borrowByIdWithGame } from "@/lib/actions/borrowByIdWithGame";
+import { getBorrowByIdWithGameAction } from "@/lib/actions/borrows/getBorrowByIdWithGameAction";
 import returnBorrowService from "@/lib/services/borrows/returnBorrowService";
 import { formatDate } from "@/lib/utils/formatDate";
 import { showError } from "@/lib/utils/showError";
@@ -21,7 +21,7 @@ const DisplayBorrows = ({ borrows }: { borrows: borrowProps[] }) => {
 
   useEffect(() => {
     const fetchBorrows = async () => {
-      setClientBorrows(await borrowByIdWithGame());
+      setClientBorrows(await getBorrowByIdWithGameAction());
     };
     fetchBorrows();
   }, []);
