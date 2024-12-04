@@ -1,11 +1,11 @@
 "use client";
 
+import ImageBasic from "@/components/ImageBasic";
 import { createBorrowService } from "@/lib/services/borrows/createBorrowService";
 import { formatDate } from "@/lib/utils/formatDate";
 import { NewBorrowSchema } from "@/types/borrow";
 import { Game } from "@/types/game";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import { useState } from "react";
 
 const GameCard = ({
@@ -17,14 +17,7 @@ const GameCard = ({
 }) => {
   return (
     <div className="flex flex-col h-[400px]">
-      <div className="w-[300px] h-[300px] relative">
-        <Image
-          src={game.image || "test.png"}
-          alt="Picture of a board game"
-          fill
-          className="object-cover"
-        />
-      </div>
+      <ImageBasic src={game.image} size="300px" />
       <span className="font-bold text-2xl my-2">{game.name}</span>
 
       {game.borrow_status === "free" ? (

@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 const DisplayGames = ({ games }: { games: Game[] }) => {
   const [clientGames, setClientGames] = useState<Game[]>(games);
 
+  // FIXME: Database is called more times that is should be
   useEffect(() => {
     const fetchGames = async () => {
       setClientGames(await getAllGamesAction());
