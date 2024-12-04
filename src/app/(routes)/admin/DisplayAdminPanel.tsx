@@ -4,9 +4,18 @@ import { getGamesWithCurrentBorrow } from "@/lib/actions/games/getGamesWithCurre
 import { useEffect, useState } from "react";
 import GameRow from "./components/GameRow";
 import MoreInfo from "./components/MoreInfo";
-import { GameProp } from "./page";
 
 const colNames = ["Name", "Status", "Apartment", "Borrowed", "Return"];
+
+export interface GameProp {
+  id: number;
+  name: string;
+  borrow_status: "free" | "borrowed" | "late";
+  image: string | undefined;
+  apartment: string | null;
+  borrow_date: Date | null;
+  return_date: Date | null;
+}
 
 export interface HistoryItem {
   borrowId: number;
@@ -29,6 +38,8 @@ const DisplayAdminPanel = ({ initialGames }: { initialGames: GameProp[] }) => {
     };
     getGames();
   }, []);
+
+  // console.log(games[0]);
 
   return (
     <>

@@ -1,8 +1,8 @@
 "use client";
 
 import { formatDate } from "@/lib/utils/formatDate";
-import { BorrowStatuses } from "@/types/game";
-import { GameProp } from "../page";
+import { BorrowStatusesType } from "@/types/borrow";
+import { GameProp } from "../DisplayAdminPanel";
 
 const GameRow = ({
   game,
@@ -43,7 +43,7 @@ const GameRow = ({
   );
 };
 
-const getCellColor = (status: BorrowStatuses) => {
+const getCellColor = (status: BorrowStatusesType) => {
   switch (status) {
     case "free":
       return "bg-darkGreenV text-offWhiteV";

@@ -1,13 +1,12 @@
 "use client";
 
+import ImageBasic from "@/components/ImageBasic";
 import { getBorrowByGameIdAction } from "@/lib/actions/borrows/getBorrowByGameIdAction";
 import { formatDate } from "@/lib/utils/formatDate";
-import { BorrowStatuses } from "@/types/game";
-import { useEffect } from "react";
-import { HistoryItem } from "../DisplayAdminPanel";
-import { GameProp } from "../page";
+import React, { useEffect } from "react";
+import { GameProp, HistoryItem } from "../DisplayAdminPanel";
+import BorrowStatusButtons from "./BorrowStatusButtons";
 
-const borrowStatusList = Object.keys(BorrowStatuses.Enum);
 const cols = ["Borrower", "Date borrowed", "Date returned"];
 
 const MoreInfo = ({
@@ -42,16 +41,12 @@ const MoreInfo = ({
       <div className="box-basic" hidden={!isVisible}>
         <h2>More Info</h2>
         <h3>{game.name}</h3>
+
+        <ImageBasic src={game.image} />
+
         <div className="flex gap-3 text-xl items-center">
-          Mark as:{" "}
-          {borrowStatusList
-            .filter((status) => status !== game.borrow_status)
-            .map((s) => (
-              // TODO: Add functionality to buttons
-              <button className="btn-primary" key={s}>
-                {s}
-              </button>
-            ))}
+          <span>Mark as: </span>
+          <BorrowStatusButtons game={game} />
         </div>
 
         <div>
@@ -62,7 +57,7 @@ const MoreInfo = ({
             ))}
             {history.map((b) => (
               // TODO: Add loading indicator
-              <>
+              <React.Fragment key={b.borrowId}>
                 <li key={`${b.borrowId}-username`}>{b.username}</li>
                 <li key={`${b.borrowId}-borrow_date`}>
                   {formatDate(b.borrow_date)}
@@ -70,7 +65,7 @@ const MoreInfo = ({
                 <li key={`${b.borrowId}-return_date`}>
                   {formatDate(b.return_date)}
                 </li>
-              </>
+              </React.Fragment>
             ))}
           </ul>
         </div>

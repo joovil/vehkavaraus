@@ -10,7 +10,9 @@ Todo:
     - Stop unverified users from borrowing games
     - Show admin page only to admins
     - Mobile css
+    - Improve site performance, reduce database queries and improve caching
   Maybies:
+    - Change icon to ADMIN icon when using admin account
 
 Future features:
   - Ability to create minutes and to send them after completion
