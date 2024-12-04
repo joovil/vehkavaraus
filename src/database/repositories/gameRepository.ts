@@ -1,3 +1,4 @@
+import logger from "@/lib/utils/logger";
 import { GameUpdate, NewGame } from "@/types/game";
 import db from "..";
 
@@ -5,6 +6,7 @@ import db from "..";
 // from the latest_borrow
 
 const getAllGames = async () => {
+  logger.database("getAllGames");
   return await db.selectFrom("games").orderBy("id asc").selectAll().execute();
 };
 
@@ -33,6 +35,7 @@ const updateGame = async (id: number, game: GameUpdate) => {
 };
 
 const getGamesWithCurrentBorrow = async () => {
+  logger.database("getGamesWithCurrentBorrow");
   return await db
     .selectFrom("games")
     .leftJoin("borrows", "games.current_borrow", "borrows.id")
@@ -40,6 +43,7 @@ const getGamesWithCurrentBorrow = async () => {
     .select([
       "games.id",
       "games.name",
+      "games.image",
       "games.borrow_status",
       "users.apartment",
       "borrows.borrow_date",
