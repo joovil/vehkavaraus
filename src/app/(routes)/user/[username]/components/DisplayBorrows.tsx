@@ -55,16 +55,14 @@ const BorrowRow = ({
     e.preventDefault();
     setDisabled(true);
 
-    const res = await returnBorrowService(borrow.borrowId, borrow.gameId);
-    const data = await res.json();
-    console.log(data);
+    const res = await returnBorrowService(borrow.borrowId);
 
     if (res.status === 200) {
-      const { returnedGameId } = data;
       setClientBorrows((borrows) =>
-        borrows.filter((b) => b.borrowId !== returnedGameId)
+        borrows.filter((b) => b.borrowId !== borrow.borrowId)
       );
     } else {
+      const data = await res.json();
       showError(setErrorMessage, data.error);
     }
   };

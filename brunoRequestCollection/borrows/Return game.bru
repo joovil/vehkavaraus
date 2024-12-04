@@ -4,10 +4,14 @@ meta {
   seq: 3
 }
 
-put {
-  url: http://localhost:3000/api/borrows
-  body: json
+post {
+  url: http://localhost:3000/api/borrows/return/1
+  body: none
   auth: none
+}
+
+headers {
+  Cookie: next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..UvaThNxXRteV8QRj.MfTusWyr5kGQyOB-vv8YWbFtjPNH2TvJjjSjb71vG7gBGiMsvMWxy-7Z1yQpdA6QiOZRlP7L6WBNBTdRDh-uVh_AZluTF9eEV9YaH6tQOwYRKTgXs2ripfdnzN1aXoosisUHaoT93ijVdNL1O7O0IH7jmFnD1E55NecGedciMcFn8FM6uY_0cgEJj94o1lDhFj5CmZ5lpMaukvD0DbESwrtcr1BPPP_DjINHFKbmSidJZsAFujqvE4y5XDTO79x8DpWs0ow7UWBiHwk-e0d-EU36JiJJTGghIb3_T1iQCzWYMr19_sYCY2LEAr6LyC3cj8difw06UYByxfcdHUOaWygTUFxew-PtTHof_Ft3aw7AVxDdjbRimg.xy_TOeMEnW2qVWf9zYtlng;
 }
 
 body:json {

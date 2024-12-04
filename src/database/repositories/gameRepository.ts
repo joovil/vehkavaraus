@@ -54,23 +54,23 @@ const getGamesWithCurrentBorrow = async () => {
 };
 
 // FIXME: Timestamps are currently in UTF time, fix if time is left
-const returnGame = async (borrowId: number, gameId: number) => {
+const returnGame = async (borrowId: number) => {
   return await db.transaction().execute(async (trx) => {
-    await trx
+    const borrow = await trx
+      .updateTable("borrows")
+      .set({ return_date: new Date() })
+      .where("id", "=", borrowId)
+      .returning("borrows.game")
+      .executeTakeFirstOrThrow();
+
+    return await trx
       .updateTable("games")
       .set({
         available_date: null,
         borrow_status: "free",
         current_borrow: null,
       })
-      .where("id", "=", gameId)
-      .executeTakeFirstOrThrow();
-
-    return await trx
-      .updateTable("borrows")
-      .set({ return_date: new Date() })
-      .where("id", "=", borrowId)
-      .returning("borrows.id as returnedGameId")
+      .where("id", "=", borrow.game)
       .executeTakeFirstOrThrow();
   });
 };
