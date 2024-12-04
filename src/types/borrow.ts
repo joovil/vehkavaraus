@@ -1,6 +1,9 @@
 import { z } from "zod";
 import { TableType } from "./types";
 
+export const BorrowStatuses = z.enum(["free", "borrowed", "late"]);
+export type BorrowStatusesType = z.infer<typeof BorrowStatuses>;
+
 export const BorrowSchema = z.object({
   id: z.number(),
   borrower: z.string(),

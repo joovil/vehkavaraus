@@ -1,4 +1,4 @@
-import { BorrowStatuses } from "@/types/game";
+import { BorrowStatuses } from "@/types/borrow";
 import { Database } from "@/types/types";
 import { RolesEnum } from "@/types/user";
 import { Kysely, sql } from "kysely";

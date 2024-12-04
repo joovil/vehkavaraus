@@ -4,13 +4,13 @@ import { getBorrowByIdWithGameAction } from "@/lib/actions/borrows/getBorrowById
 import returnBorrowService from "@/lib/services/borrows/returnBorrowService";
 import { formatDate } from "@/lib/utils/formatDate";
 import { showError } from "@/lib/utils/showError";
-import { BorrowStatuses } from "@/types/game";
+import { BorrowStatusesType } from "@/types/borrow";
 import { useEffect, useState } from "react";
 
 export interface borrowProps {
   borrow_date: Date;
   return_date: Date;
-  borrow_status: BorrowStatuses;
+  borrow_status: BorrowStatusesType;
   name: string;
   borrowId: number;
   gameId: number;
