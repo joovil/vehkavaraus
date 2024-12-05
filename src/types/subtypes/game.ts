@@ -6,7 +6,7 @@ export const GameSchema = z.object({
   id: z.number(),
   name: z.string().min(1),
   borrowStatus: BorrowStatuses,
-  available_date: z.date().optional().nullable(),
+  availableDate: z.date().optional().nullable(),
   imageUrl: z.string().optional(),
   current_borrow: z.number().nullable(),
 });

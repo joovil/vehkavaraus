@@ -25,7 +25,7 @@ const GameCard = ({
         <div className="font-bold text-2xl my-2 flex flex-col">
           <div className="font-normal">
             <span>Available: </span>
-            <span>{formatDate(game.available_date)}</span>
+            <span>{formatDate(game.availableDate)}</span>
           </div>
         </div>
       )}
