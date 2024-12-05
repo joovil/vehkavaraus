@@ -1,4 +1,4 @@
-import { UserClient } from "@/types/user";
+import { UserClient } from "@/types";
 import jwt from "jsonwebtoken";
 import { TOKEN_SECRET } from "../utils/envVariables";
 

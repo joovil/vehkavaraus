@@ -3,8 +3,7 @@
 import ImageBasic from "@/components/ImageBasic";
 import { createBorrowService } from "@/lib/services/borrows/createBorrowService";
 import { formatDate } from "@/lib/utils/formatDate";
-import { NewBorrowSchema } from "@/types/borrow";
-import { Game } from "@/types/game";
+import { Game, NewBorrowSchema } from "@/types";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 

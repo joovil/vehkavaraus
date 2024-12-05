@@ -1,5 +1,4 @@
-import { RolesEnum } from "@/types/user";
-import { NewVerification } from "@/types/verification";
+import { NewVerification, RolesEnum } from "@/types";
 import db from "..";
 import userRepository from "./userRepository";
 

@@ -1,5 +1,5 @@
 import { auth } from "@/lib/utils/auth";
-import { UserClient } from "@/types/user";
+import { UserClient } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { LogoutButton } from "./LogoutButton";

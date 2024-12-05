@@ -1,5 +1,5 @@
 import logger from "@/lib/utils/logger";
-import { GameUpdate, NewGame } from "@/types/game";
+import { GameUpdate, NewGame } from "@/types";
 import db from "..";
 
 // TODO: Available_date should be removed from games and the date should be gotten

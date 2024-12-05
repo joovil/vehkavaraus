@@ -1,5 +1,5 @@
 import apiFetch from "@/lib/utils/apiFetch";
-import { Borrow, BorrowSchema, NewBorrow } from "@/types/borrow";
+import { Borrow, BorrowSchema, NewBorrow } from "@/types";
 
 export const createBorrowService = async (
   newBorrow: NewBorrow

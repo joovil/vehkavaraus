@@ -1,6 +1,6 @@
 import borrowRepository from "@/database/repositories/borrowRepository";
 import { createBorrow } from "@/lib/actions/borrows/createBorrow";
-import { NewBorrowSchema } from "@/types/borrow";
+import { NewBorrowSchema } from "@/types";
 
 export const GET = async () => {
   try {

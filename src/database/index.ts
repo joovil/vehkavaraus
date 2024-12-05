@@ -5,7 +5,7 @@ import {
   DB_PORT,
   DB_USER,
 } from "@/lib/utils/envVariables";
-import { Database } from "@/types/types";
+import { Database } from "@/types";
 import { Kysely, PostgresDialect } from "kysely";
 import { Pool } from "pg";
 

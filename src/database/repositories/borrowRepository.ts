@@ -1,5 +1,4 @@
-import { Borrow, BorrowUpdate, NewBorrow } from "@/types/borrow";
-import { GameUpdate } from "@/types/game";
+import { Borrow, BorrowUpdate, GameUpdate, NewBorrow } from "@/types";
 import db from "..";
 
 const getAllBorrows = async () => {

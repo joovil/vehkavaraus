@@ -1,6 +1,4 @@
-import { BorrowStatuses } from "@/types/borrow";
-import { Database } from "@/types/types";
-import { RolesEnum } from "@/types/user";
+import { BorrowStatuses, Database, RolesEnum } from "@/types";
 import { Kysely, sql } from "kysely";
 
 export const up = async (db: Kysely<Database>): Promise<void> => {

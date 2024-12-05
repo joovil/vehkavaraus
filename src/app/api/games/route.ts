@@ -1,5 +1,5 @@
 import gameRepository from "@/database/repositories/gameRepository";
-import { NewGame } from "@/types/game";
+import { NewGame } from "@/types";
 
 export const GET = async () => {
   const res = await gameRepository.getAllGames();

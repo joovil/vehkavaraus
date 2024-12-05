@@ -3,7 +3,7 @@
 import GameCard from "@/app/(routes)/games/components/GameCard";
 import { getAllGamesAction } from "@/lib/actions/games/getAllGamesAction";
 import { getGameByIdService } from "@/lib/services/games/getGameByIdService";
-import { Game } from "@/types/game";
+import { Game } from "@/types";
 import { useEffect, useState } from "react";
 
 const DisplayGames = ({ games }: { games: Game[] }) => {

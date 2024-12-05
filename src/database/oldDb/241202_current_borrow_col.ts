@@ -1,4 +1,4 @@
-import { Database } from "@/types/types";
+import { Database } from "@/types";
 import { Kysely } from "kysely";
 
 export const up = async (db: Kysely<Database>): Promise<void> => {

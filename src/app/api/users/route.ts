@@ -1,6 +1,6 @@
 import userRepository from "@/database/repositories/userRepository";
 import { auth } from "@/lib/utils/auth";
-import { UserClientSchema, UserUpdate } from "@/types/user";
+import { UserClientSchema, UserUpdate } from "@/types";
 import bcryptjs from "bcryptjs";
 import { ZodError } from "zod";
 

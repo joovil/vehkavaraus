@@ -1,6 +1,6 @@
 import db from "@/database";
 import userRepository from "@/database/repositories/userRepository";
-import { NewUser, NewUserSchema, RolesEnum, UserUpdate } from "@/types/user";
+import { NewUser, NewUserSchema, RolesEnum, UserUpdate } from "@/types";
 import { UUID } from "crypto";
 import { sql } from "kysely";
 import { beforeEach, describe, expect, it } from "vitest";

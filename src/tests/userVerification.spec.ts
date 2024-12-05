@@ -1,7 +1,6 @@
 import userRepository from "@/database/repositories/userRepository";
 import verificationRepository from "@/database/repositories/verificationRepository";
-import { NewUser, RolesEnum, User } from "@/types/user";
-import { Verification } from "@/types/verification";
+import { NewUser, RolesEnum, User, Verification } from "@/types";
 import { randomUUID, UUID } from "node:crypto";
 import { beforeAll, describe, expect, it } from "vitest";
 

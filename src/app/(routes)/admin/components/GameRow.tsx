@@ -1,7 +1,7 @@
 "use client";
 
 import { formatDate } from "@/lib/utils/formatDate";
-import { BorrowStatusesType } from "@/types/borrow";
+import { BorrowStatusesType } from "@/types";
 import { GameProp } from "../DisplayAdminPanel";
 
 const GameRow = ({

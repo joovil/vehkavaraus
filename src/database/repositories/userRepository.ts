@@ -1,4 +1,4 @@
-import { NewUser, UserUpdate } from "@/types/user";
+import { NewUser, UserUpdate } from "@/types";
 import db from "..";
 
 const getAllUsers = async () => {

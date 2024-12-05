@@ -1,4 +1,4 @@
-import { BorrowStatuses } from "@/types/borrow";
+import { BorrowStatuses } from "@/types";
 import { GameProp } from "../DisplayAdminPanel";
 
 const borrowStatusList = Object.keys(BorrowStatuses.Enum);

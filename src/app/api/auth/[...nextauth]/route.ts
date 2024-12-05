@@ -1,5 +1,5 @@
 import userRepository from "@/database/repositories/userRepository";
-import { UserClient } from "@/types/user";
+import { UserClient } from "@/types";
 import bcryptjs from "bcryptjs";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";

@@ -1,6 +1,6 @@
 import EmailVerificationTemplate from "@/components/EmailVerificationTemplate";
 import verificationRepository from "@/database/repositories/verificationRepository";
-import { User } from "@/types/user";
+import { User } from "@/types";
 import { randomUUID } from "crypto";
 import { Resend } from "resend";
 import { RESEND_API_KEY } from "../utils/envVariables";

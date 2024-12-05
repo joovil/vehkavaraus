@@ -1,5 +1,5 @@
 import apiFetch from "@/lib/utils/apiFetch";
-import { Game } from "@/types/game";
+import { Game } from "@/types";
 
 export const getGamesService = async (): Promise<Game[]> => {
   const res = await apiFetch("/games");
