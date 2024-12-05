@@ -6,39 +6,59 @@ skinparam linetype ortho
 !define primary_key(x) <b><&key> x</b>
 !define column(x) <&media-record> x
 
-entity "user" as user {
+entity "users" as users {
   primary_key( id ): UUID
   --
-  column( apartment ): text
+  column( username ): text
   column( password_hash ): text
-  column( role ): <<FK>>
+  column( email ): text
+  column( apartment ): text
+  column( role ): roles
 }
 
-entity "role" as role {
-  primary_key( role_id ): smallint
-  --
-  admin( admin ): boolean
-}
-
-role ||-|| user
-
-entity "game" as game {
-  primary_key( id ): UUID
+entity "games" as games {
+  primary_key( id ): serial
   --
   column( name ): text
-  column( borrow_status ): smallint
+  column( borrow_status ): borrow_statuses
+  column( available_date ): timestamp
+  column( image_url ): text
 }
 
-entity "borrow_history" as borrow_history {
-  primary_key( id ): SERIAL
+entity "borrows" as borrows {
+  primary_key( id ): serial
   --
-  column( user ): <<FK>>
-  column( game ): <<FK>>
-  column( borrow_date ): TIMESTAMP
-  column( return_date ): TIMESTAMP
+  column( borrower_id ): <<FK>> UUID
+  column( game_id ): <<FK>> UUID
+  column( borrow_date ): timestamp
+  column( return_date ): timestamp
+  column( due_date ): timestamp
 }
 
-borrow_history ||--|| game
-borrow_history ||--||user
+entity "verifications" as verifications {
+  primary_key( verification_key ): UUID
+  --
+  column( user_id ): <<FK>> UUID
+  column( used ): boolean
+}
+
+enum "roles" as roles {
+  unverified
+  user
+  admin
+}
+
+enum "borrow_statuses" as borrow_statuses {
+  free
+  borrowed
+  late
+}
+
+users ||--o{ games
+users ||-o{ verifications
+games ||-o{ borrows
+
+games -[hidden]-> roles
+games -[hidden]-> borrow_statuses
 
 @enduml
