@@ -34,43 +34,23 @@ const updateGame = async (id: number, game: GameUpdate) => {
     .executeTakeFirstOrThrow();
 };
 
-const getGamesWithCurrentBorrow = async () => {
-  logger.database("getGamesWithCurrentBorrow");
-  return await db
-    .selectFrom("games")
-    .leftJoin("borrows", "games.current_borrow", "borrows.id")
-    .leftJoin("users", "users.id", "borrows.borrower")
-    .select([
-      "games.id",
-      "games.name",
-      "games.image",
-      "games.borrow_status",
-      "users.apartment",
-      "borrows.borrow_date",
-      "borrows.return_date",
-    ])
-    .orderBy("games.id asc")
-    .execute();
-};
-
 // FIXME: Timestamps are currently in UTF time, fix if time is left
 const returnGame = async (borrowId: number) => {
   return await db.transaction().execute(async (trx) => {
     const borrow = await trx
       .updateTable("borrows")
-      .set({ return_date: new Date() })
+      .set({ returnDate: new Date() })
       .where("id", "=", borrowId)
-      .returning("borrows.game")
+      .returning("borrows.gameId")
       .executeTakeFirstOrThrow();
 
     return await trx
       .updateTable("games")
       .set({
-        available_date: null,
-        borrow_status: "free",
-        current_borrow: null,
+        availableDate: null,
+        borrowStatus: "free",
       })
-      .where("id", "=", borrow.game)
+      .where("id", "=", borrow.gameId)
       .executeTakeFirstOrThrow();
   });
 };
@@ -80,7 +60,6 @@ const gameRepository = {
   getGameById,
   createGame,
   updateGame,
-  getGamesWithCurrentBorrow,
   returnGame,
 };
 

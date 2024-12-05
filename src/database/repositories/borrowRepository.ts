@@ -5,14 +5,13 @@ const getAllBorrows = async () => {
   return await db
     .selectFrom("borrows")
     .innerJoin("games", "games.id", "borrows.gameId")
-    .selectAll()
-    // .select([
-    //   "borrows.id",
-    //   "games.name as game",
-    //   "games.borrow_status",
-    //   "borrows.borrow_date",
-    //   "borrows.return_date",
-    // ])
+    .select([
+      "borrows.id",
+      "games.name",
+      "games.borrowStatus",
+      "borrows.borrowDate",
+      "borrows.returnDate",
+    ])
     .execute();
 };
 
@@ -27,7 +26,7 @@ const getBorrowById = async (id: number) => {
 const getBorrowByUserId = async (id: string) => {
   return await db
     .selectFrom("borrows")
-    .where("borrower", "=", id)
+    .where("borrowerId", "=", id)
     .selectAll()
     .execute();
 };
@@ -35,13 +34,13 @@ const getBorrowByUserId = async (id: string) => {
 const getBorrowByGameId = async (id: number) => {
   return await db
     .selectFrom("borrows")
-    .innerJoin("users", "users.id", "borrows.borrower")
-    .where("borrows.game", "=", id)
+    .innerJoin("users", "users.id", "borrows.borrowerId")
+    .where("borrows.gameId", "=", id)
     .select([
       "users.username",
-      "borrows.id as borrowId",
-      "borrows.borrow_date",
-      "borrows.return_date",
+      "borrows.id",
+      "borrows.borrowDate",
+      "borrows.returnDate",
     ])
     .execute();
 };
@@ -49,8 +48,8 @@ const getBorrowByGameId = async (id: number) => {
 const getActiveBorrows = async (id: string) => {
   return await db
     .selectFrom("borrows")
-    .where("borrower", "=", id)
-    .where("return_date", "<", new Date())
+    .where("borrowerId", "=", id)
+    .where("returnDate", "<", new Date())
     .selectAll()
     .execute();
 };
@@ -64,15 +63,14 @@ const createBorrow = async (borrow: NewBorrow): Promise<Borrow> => {
       .executeTakeFirstOrThrow();
 
     const gameUpdate: GameUpdate = {
-      available_date: createdBorrow.return_date,
+      availableDate: createdBorrow.returnDate,
       borrowStatus: "borrowed",
-      current_borrow: createdBorrow.id,
     };
 
     await trx
       .updateTable("games")
       .set(gameUpdate)
-      .where("id", "=", borrow.game)
+      .where("id", "=", borrow.gameId)
       .executeTakeFirstOrThrow();
 
     return createdBorrow;
@@ -91,16 +89,16 @@ const updateBorrow = async (id: number, borrowUpdate: BorrowUpdate) => {
 const getBorrowByIdWithGame = async (borrowerId: string) => {
   return await db
     .selectFrom("borrows")
-    .innerJoin("games", "games.id", "borrows.game")
-    .where("borrower", "=", borrowerId)
-    .where("borrows.return_date", ">", new Date())
+    .innerJoin("games", "games.id", "borrows.gameId")
+    .where("borrowerId", "=", borrowerId)
+    .where("borrows.returnDate", ">", new Date())
     .select([
       "games.name",
-      "borrow_status",
-      "borrow_date",
-      "return_date",
-      "borrows.id as borrowId",
-      "games.id as gameId",
+      "borrowStatus",
+      "borrowDate",
+      "returnDate",
+      "borrows.id",
+      "borrows.gameId",
     ])
     .execute();
 };
