@@ -1,6 +1,6 @@
 "use client";
 
-import { getGamesWithCurrentBorrow } from "@/lib/actions/games/getGamesWithCurrentBorrow";
+import { getGamesWithCurrentBorrowAction } from "@/lib/actions/games/getGamesWithCurrentBorrowAction";
 import { useEffect, useState } from "react";
 import GameRow from "./components/GameRow";
 import MoreInfo from "./components/MoreInfo";
@@ -34,7 +34,7 @@ const DisplayAdminPanel = ({ initialGames }: { initialGames: GameProp[] }) => {
 
   useEffect(() => {
     const getGames = async () => {
-      setGames(await getGamesWithCurrentBorrow());
+      setGames(await getGamesWithCurrentBorrowAction());
     };
     getGames();
   }, []);

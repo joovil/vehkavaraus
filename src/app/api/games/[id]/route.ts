@@ -1,4 +1,4 @@
-import gameRepository from "@/database/repositories/gameRepository";
+import { getGameById } from "@/database/repositories/gameRepository";
 import { NoResultError } from "kysely";
 
 export const GET = async (
@@ -6,7 +6,7 @@ export const GET = async (
   { params }: { params: { id: number } }
 ) => {
   try {
-    const res = await gameRepository.getGameById(params.id);
+    const res = await getGameById(params.id);
 
     return Response.json(res);
   } catch (error) {

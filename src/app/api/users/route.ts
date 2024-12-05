@@ -1,4 +1,4 @@
-import userRepository from "@/database/repositories/userRepository";
+import { updateUser } from "@/database/repositories/userRepository";
 import { auth } from "@/lib/utils/auth";
 import { UserClientSchema, UserUpdate } from "@/types";
 import bcryptjs from "bcryptjs";
@@ -24,7 +24,7 @@ export const PUT = async (req: Request) => {
       apartment,
     };
 
-    const updatedUser = await userRepository.updateUser(user.id, userUpdate);
+    const updatedUser = await updateUser(user.id, userUpdate);
     const ret = UserClientSchema.parse(updatedUser);
 
     return Response.json(ret);

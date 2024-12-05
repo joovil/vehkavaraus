@@ -1,7 +1,7 @@
 "use server";
 
-import gameRepository from "@/database/repositories/gameRepository";
+import { getAllGames } from "@/database/repositories/gameRepository";
 
 export const getAllGamesAction = async () => {
-  return await gameRepository.getAllGames();
+  return await getAllGames();
 };

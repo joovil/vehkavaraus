@@ -1,5 +1,11 @@
 import db from "@/database";
-import userRepository from "@/database/repositories/userRepository";
+import {
+  createUser,
+  getAllUsers,
+  getUserById,
+  getUserByName,
+  updateUser,
+} from "@/database/repositories/userRepository";
 import { NewUser, NewUserSchema, RolesEnum, UserUpdate } from "@/types";
 import { UUID } from "crypto";
 import { sql } from "kysely";
@@ -28,25 +34,25 @@ describe("User repository", () => {
 
   describe("Getting users from db", () => {
     it("Should get all users", async () => {
-      const res = await userRepository.getAllUsers();
+      const res = await getAllUsers();
       expect(res.length).toBe(2);
     });
 
     it("Should get user by username", async () => {
-      const user = await userRepository.getUserByName(users[0].username);
+      const user = await getUserByName(users[0].username);
       expect(NewUserSchema.parse(user)).toStrictEqual(users[0]);
     });
 
     it("Should get user by id", async () => {
-      const users = await userRepository.getAllUsers();
+      const users = await getAllUsers();
       const userId = users[0].id;
 
-      const user = await userRepository.getUserById(userId);
+      const user = await getUserById(userId);
       expect(user).toStrictEqual(users[0]);
     });
 
     it("Should create id and role when added to db", async () => {
-      const users = await userRepository.getAllUsers();
+      const users = await getAllUsers();
       expect(users[0].id).toBeDefined();
       expect(users[0].role).toBe(RolesEnum.Enum.unverified);
     });
@@ -61,29 +67,29 @@ describe("User repository", () => {
         apartment: "a3",
       };
 
-      const createdUser = await userRepository.createUser(newUser);
+      const createdUser = await createUser(newUser);
       expect(NewUserSchema.parse(createdUser)).toStrictEqual(newUser);
       expect(createdUser.id).toBeDefined();
       expect(createdUser.role).toBe(RolesEnum.Enum.unverified);
     });
 
     it("Should update user role", async () => {
-      const user = (await userRepository.getAllUsers())[0];
+      const user = (await getAllUsers())[0];
       const update: UserUpdate = {
         role: RolesEnum.Enum.user,
       };
 
-      const res = await userRepository.updateUser(user.id, update);
+      const res = await updateUser(user.id, update);
       expect(res.role).toBe(RolesEnum.Enum.user);
     });
 
     it("Should update user apartment", async () => {
-      const user = (await userRepository.getAllUsers())[0];
+      const user = (await getAllUsers())[0];
       const update: UserUpdate = {
         apartment: "b4",
       };
 
-      const res = await userRepository.updateUser(user.id, update);
+      const res = await updateUser(user.id, update);
       expect(res.apartment).toBe("b4");
     });
   });
@@ -91,14 +97,12 @@ describe("User repository", () => {
   describe("Invalid operations should not work", () => {
     it("Should cause an error with invalid id", async () => {
       const invalidId: UUID = "a-b-c-d-e";
-      await expect(userRepository.getUserById(invalidId)).rejects.toThrow();
+      await expect(getUserById(invalidId)).rejects.toThrow();
     });
 
     it("Should cause an error with invalid username", async () => {
       const invalidUsername = "invalidUser";
-      await expect(
-        userRepository.getUserByName(invalidUsername)
-      ).rejects.toThrow();
+      await expect(getUserByName(invalidUsername)).rejects.toThrow();
     });
   });
 });

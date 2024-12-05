@@ -1,5 +1,8 @@
-import gameRepository from "@/database/repositories/gameRepository";
-import userRepository from "@/database/repositories/userRepository";
+import {
+  createGame,
+  getGameById,
+} from "@/database/repositories/gameRepository";
+import { createUser } from "@/database/repositories/userRepository";
 import { createBorrow } from "@/lib/actions/borrows/createBorrow";
 import { Game, NewBorrow, NewGame, NewUser, User } from "@/types";
 import { beforeAll, describe, expect, it } from "vitest";
@@ -20,19 +23,19 @@ describe("Game addition", () => {
   let user: User;
 
   beforeAll(async () => {
-    game = await gameRepository.createGame(newGame);
-    user = await userRepository.createUser(newUser);
+    game = await createGame(newGame);
+    user = await createUser(newUser);
   });
 
   it("Updates game availability when borrow is created", async () => {
     const newBorrow: NewBorrow = {
-      borrower: user.id,
-      game: game.id,
+      borrowerId: user.id,
+      gameId: game.id,
     };
 
     const borrow = await createBorrow(newBorrow);
-    const gameAfterBorrow = await gameRepository.getGameById(borrow.game);
+    const gameAfterBorrow = await getGameById(borrow.gameId);
 
-    expect(gameAfterBorrow.available_date).toEqual(borrow.returnDate);
+    expect(gameAfterBorrow.availableDate).toEqual(borrow.returnDate);
   });
 });

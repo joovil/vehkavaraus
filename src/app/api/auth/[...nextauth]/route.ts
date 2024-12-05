@@ -1,4 +1,4 @@
-import userRepository from "@/database/repositories/userRepository";
+import { getUserByName } from "@/database/repositories/userRepository";
 import { UserClient } from "@/types";
 import bcryptjs from "bcryptjs";
 import NextAuth, { NextAuthOptions } from "next-auth";
@@ -31,11 +31,11 @@ export const authOptions: NextAuthOptions = {
         }
         const { username, password } = credentials;
 
-        const userToCompare = await userRepository.getUserByName(username);
+        const userToCompare = await getUserByName(username);
 
         const loginSuccess = await bcryptjs.compare(
           password,
-          userToCompare.password_hash
+          userToCompare.passwordHash
         );
 
         if (!loginSuccess) throw Error("Invalid credentials");

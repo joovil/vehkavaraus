@@ -1,11 +1,7 @@
 import { NewUser, UserUpdate } from "@/types";
 import db from "..";
 
-const getAllUsers = async () => {
-  return await db.selectFrom("users").selectAll().execute();
-};
-
-const getUserById = async (id: string) => {
+export const getUserById = async (id: string) => {
   return await db
     .selectFrom("users")
     .where("id", "=", id)
@@ -13,7 +9,7 @@ const getUserById = async (id: string) => {
     .executeTakeFirstOrThrow();
 };
 
-const getUserByName = async (username: string) => {
+export const getUserByName = async (username: string) => {
   return await db
     .selectFrom("users")
     .where("username", "=", username)
@@ -21,7 +17,11 @@ const getUserByName = async (username: string) => {
     .executeTakeFirstOrThrow();
 };
 
-const createUser = async (newUser: NewUser) => {
+export const getAllUsers = async () => {
+  return await db.selectFrom("users").selectAll().execute();
+};
+
+export const createUser = async (newUser: NewUser) => {
   return await db
     .insertInto("users")
     .values(newUser)
@@ -29,7 +29,7 @@ const createUser = async (newUser: NewUser) => {
     .executeTakeFirstOrThrow();
 };
 
-const updateUser = async (id: string, updateWith: UserUpdate) => {
+export const updateUser = async (id: string, updateWith: UserUpdate) => {
   return await db
     .updateTable("users")
     .set(updateWith)
@@ -38,17 +38,6 @@ const updateUser = async (id: string, updateWith: UserUpdate) => {
     .executeTakeFirstOrThrow();
 };
 
-const deleteUser = async (id: string) => {
-  return await db.deleteFrom("users").where("id", "=", id).execute();
-};
-
-const userRepository = {
-  getAllUsers,
-  getUserById,
-  getUserByName,
-  createUser,
-  updateUser,
-  deleteUser,
-};
-
-export default userRepository;
+// const deleteUser = async (id: string) => {
+//   return await db.deleteFrom("users").where("id", "=", id).execute();
+// };

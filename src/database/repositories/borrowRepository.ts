@@ -1,7 +1,6 @@
-import { Borrow, BorrowUpdate, GameUpdate, NewBorrow } from "@/types";
 import db from "..";
 
-const getAllBorrows = async () => {
+export const getAllBorrows = async () => {
   return await db
     .selectFrom("borrows")
     .innerJoin("games", "games.id", "borrows.gameId")
@@ -15,7 +14,7 @@ const getAllBorrows = async () => {
     .execute();
 };
 
-const getBorrowById = async (id: number) => {
+export const getBorrowById = async (id: number) => {
   return await db
     .selectFrom("borrows")
     .where("id", "=", id)
@@ -23,15 +22,7 @@ const getBorrowById = async (id: number) => {
     .executeTakeFirstOrThrow();
 };
 
-const getBorrowByUserId = async (id: string) => {
-  return await db
-    .selectFrom("borrows")
-    .where("borrowerId", "=", id)
-    .selectAll()
-    .execute();
-};
-
-const getBorrowByGameId = async (id: number) => {
+export const getBorrowByGameId = async (id: number) => {
   return await db
     .selectFrom("borrows")
     .innerJoin("users", "users.id", "borrows.borrowerId")
@@ -45,48 +36,7 @@ const getBorrowByGameId = async (id: number) => {
     .execute();
 };
 
-const getActiveBorrows = async (id: string) => {
-  return await db
-    .selectFrom("borrows")
-    .where("borrowerId", "=", id)
-    .where("returnDate", "<", new Date())
-    .selectAll()
-    .execute();
-};
-
-const createBorrow = async (borrow: NewBorrow): Promise<Borrow> => {
-  return await db.transaction().execute(async (trx) => {
-    const createdBorrow = await trx
-      .insertInto("borrows")
-      .values(borrow)
-      .returningAll()
-      .executeTakeFirstOrThrow();
-
-    const gameUpdate: GameUpdate = {
-      availableDate: createdBorrow.returnDate,
-      borrowStatus: "borrowed",
-    };
-
-    await trx
-      .updateTable("games")
-      .set(gameUpdate)
-      .where("id", "=", borrow.gameId)
-      .executeTakeFirstOrThrow();
-
-    return createdBorrow;
-  });
-};
-
-// TODO: Not implemented this is only test code for the types
-const updateBorrow = async (id: number, borrowUpdate: BorrowUpdate) => {
-  return await db
-    .updateTable("borrows")
-    .set(borrowUpdate)
-    .where("id", "=", id)
-    .executeTakeFirstOrThrow();
-};
-
-const getBorrowByIdWithGame = async (borrowerId: string) => {
+export const getBorrowByIdWithGame = async (borrowerId: string) => {
   return await db
     .selectFrom("borrows")
     .innerJoin("games", "games.id", "borrows.gameId")
@@ -103,15 +53,50 @@ const getBorrowByIdWithGame = async (borrowerId: string) => {
     .execute();
 };
 
-const borrowRepository = {
-  getAllBorrows,
-  getBorrowById,
-  getBorrowByUserId,
-  getBorrowByGameId,
-  getActiveBorrows,
-  createBorrow,
-  updateBorrow,
-  getBorrowByIdWithGame,
-};
+// const getBorrowByUserId = async (id: string) => {
+//   return await db
+//     .selectFrom("borrows")
+//     .where("borrowerId", "=", id)
+//     .selectAll()
+//     .execute();
+// };
 
-export default borrowRepository;
+// const getActiveBorrows = async (id: string) => {
+//   return await db
+//     .selectFrom("borrows")
+//     .where("borrowerId", "=", id)
+//     .where("returnDate", "<", new Date())
+//     .selectAll()
+//     .execute();
+// };
+
+// const createBorrow = async (borrow: NewBorrow): Promise<Borrow> => {
+//   return await db.transaction().execute(async (trx) => {
+//     const createdBorrow = await trx
+//       .insertInto("borrows")
+//       .values(borrow)
+//       .returningAll()
+//       .executeTakeFirstOrThrow();
+
+//     const gameUpdate: GameUpdate = {
+//       availableDate: createdBorrow.returnDate,
+//       borrowStatus: "borrowed",
+//     };
+
+//     await trx
+//       .updateTable("games")
+//       .set(gameUpdate)
+//       .where("id", "=", borrow.gameId)
+//       .executeTakeFirstOrThrow();
+
+//     return createdBorrow;
+//   });
+// };
+
+// const updateBorrow = async (id: number, borrowUpdate: BorrowUpdate) => {
+//   return await db
+//     .updateTable("borrows")
+//     .set(borrowUpdate)
+//     .where("id", "=", id)
+//     .executeTakeFirstOrThrow();
+// };

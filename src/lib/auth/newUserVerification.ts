@@ -1,5 +1,5 @@
 import EmailVerificationTemplate from "@/components/EmailVerificationTemplate";
-import verificationRepository from "@/database/repositories/verificationRepository";
+import { addVerificationRecord } from "@/database/repositories/verificationRepository";
 import { User } from "@/types";
 import { randomUUID } from "crypto";
 import { Resend } from "resend";
@@ -11,7 +11,7 @@ export const newUserVerification = async (user: User) => {
   try {
     const verification_key = randomUUID();
 
-    verificationRepository.addVerificationRecord({
+    addVerificationRecord({
       verification_key,
       user_id: user.id,
     });

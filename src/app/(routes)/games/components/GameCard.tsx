@@ -16,7 +16,7 @@ const GameCard = ({
 }) => {
   return (
     <div className="flex flex-col h-[400px]">
-      <ImageBasic src={game.image} size="300px" />
+      <ImageBasic src={game.imageUrl} size="300px" />
       <span className="font-bold text-2xl my-2">{game.name}</span>
 
       {game.borrowStatus === "free" ? (

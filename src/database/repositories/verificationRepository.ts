@@ -1,12 +1,8 @@
 import { NewVerification, RolesEnum } from "@/types";
 import db from "..";
-import userRepository from "./userRepository";
+import { updateUser } from "./userRepository";
 
-const getAllVerifications = async () => {
-  return await db.selectFrom("verifications").selectAll().execute();
-};
-
-const getVerificationByKey = async (key: string) => {
+export const getVerificationByKey = async (key: string) => {
   return await db
     .selectFrom("verifications")
     .where("verification_key", "=", key)
@@ -14,15 +10,9 @@ const getVerificationByKey = async (key: string) => {
     .executeTakeFirstOrThrow();
 };
 
-const getVerificationByUser = async (userId: string) => {
-  return await db
-    .selectFrom("verifications")
-    .where("user_id", "=", userId)
-    .selectAll()
-    .executeTakeFirstOrThrow();
-};
-
-const addVerificationRecord = async (newVerification: NewVerification) => {
+export const addVerificationRecord = async (
+  newVerification: NewVerification
+) => {
   return await db
     .insertInto("verifications")
     .values(newVerification)
@@ -30,7 +20,9 @@ const addVerificationRecord = async (newVerification: NewVerification) => {
     .executeTakeFirstOrThrow();
 };
 
-const updateVerificationStatusAndRole = async (verificationKey: string) => {
+export const updateVerificationStatusAndRole = async (
+  verificationKey: string
+) => {
   console.log(verificationKey);
   const userWithId = await db
     .updateTable("verifications")
@@ -39,22 +31,23 @@ const updateVerificationStatusAndRole = async (verificationKey: string) => {
     .returning("user_id")
     .executeTakeFirstOrThrow();
 
-  await userRepository.updateUser(userWithId.user_id, {
+  await updateUser(userWithId.user_id, {
     role: RolesEnum.Enum.user,
   });
 };
 
-const deleteVerificationByUserId = async (id: string) => {
-  await db.deleteFrom("verifications").where("user_id", "=", id).execute();
-};
+// const getAllVerifications = async () => {
+//   return await db.selectFrom("verifications").selectAll().execute();
+// };
 
-const verificationRepository = {
-  getAllVerifications,
-  getVerificationByKey,
-  getVerificationByUser,
-  addVerificationRecord,
-  updateVerificationStatusAndRole,
-  deleteVerificationByUserId,
-};
+// const getVerificationByUser = async (userId: string) => {
+//   return await db
+//     .selectFrom("verifications")
+//     .where("user_id", "=", userId)
+//     .selectAll()
+//     .executeTakeFirstOrThrow();
+// };
 
-export default verificationRepository;
+// const deleteVerificationByUserId = async (id: string) => {
+//   await db.deleteFrom("verifications").where("user_id", "=", id).execute();
+// };

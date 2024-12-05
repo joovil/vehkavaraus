@@ -1,5 +1,5 @@
-import borrowRepository from "@/database/repositories/borrowRepository";
-import gameRepository from "@/database/repositories/gameRepository";
+import { getBorrowById } from "@/database/repositories/borrowRepository";
+import { returnGame } from "@/database/repositories/gameRepository";
 import { auth } from "@/lib/utils/auth";
 
 // TODO: Handle games returned late
@@ -13,15 +13,15 @@ export const POST = async (
     if (!session)
       return Response.json({ error: "Not authenticated" }, { status: 401 });
 
-    const borrow = await borrowRepository.getBorrowById(params.id);
+    const borrow = await getBorrowById(params.id);
 
-    if (borrow.borrower !== session.user.id)
+    if (borrow.borrowerId !== session.user.id)
       return Response.json(
         { error: "You are not authorized to return this game" },
         { status: 403 }
       );
 
-    await gameRepository.returnGame(params.id);
+    await returnGame(params.id);
 
     return Response.json({ message: "Game returned" });
   } catch (error) {
