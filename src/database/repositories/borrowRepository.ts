@@ -1,3 +1,4 @@
+import { Borrow } from "@/types";
 import db from "..";
 
 export const getAllBorrows = async () => {
@@ -53,6 +54,40 @@ export const getBorrowByIdWithGame = async (borrowerId: string) => {
     .execute();
 };
 
+export const createBorrow = async (
+  borrowerId: string,
+  gameId: number
+): Promise<Borrow> => {
+  return await db.transaction().execute(async (trx) => {
+    const game = await trx
+      .selectFrom("games")
+      .where("id", "=", gameId)
+      .select(["borrowStatus"])
+      .executeTakeFirstOrThrow();
+
+    if (game.borrowStatus !== "free") {
+      throw new Error("Game is not available for borrowing");
+    }
+
+    const createdBorrow = await trx
+      .insertInto("borrows")
+      .values({ borrowerId, gameId })
+      .returningAll()
+      .executeTakeFirstOrThrow();
+
+    await trx
+      .updateTable("games")
+      .set({
+        borrowStatus: "borrowed",
+        availableDate: createdBorrow.returnDate,
+      })
+      .where("id", "=", gameId)
+      .executeTakeFirstOrThrow();
+
+    return createdBorrow;
+  });
+};
+
 // const getBorrowByUserId = async (id: string) => {
 //   return await db
 //     .selectFrom("borrows")
@@ -68,29 +103,6 @@ export const getBorrowByIdWithGame = async (borrowerId: string) => {
 //     .where("returnDate", "<", new Date())
 //     .selectAll()
 //     .execute();
-// };
-
-// const createBorrow = async (borrow: NewBorrow): Promise<Borrow> => {
-//   return await db.transaction().execute(async (trx) => {
-//     const createdBorrow = await trx
-//       .insertInto("borrows")
-//       .values(borrow)
-//       .returningAll()
-//       .executeTakeFirstOrThrow();
-
-//     const gameUpdate: GameUpdate = {
-//       availableDate: createdBorrow.returnDate,
-//       borrowStatus: "borrowed",
-//     };
-
-//     await trx
-//       .updateTable("games")
-//       .set(gameUpdate)
-//       .where("id", "=", borrow.gameId)
-//       .executeTakeFirstOrThrow();
-
-//     return createdBorrow;
-//   });
 // };
 
 // const updateBorrow = async (id: number, borrowUpdate: BorrowUpdate) => {

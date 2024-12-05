@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 const ImageBasic = ({
-  src = "/fallbackGame.png",
+  src,
   size = "300px",
 }: {
   src?: string | undefined;
@@ -10,7 +10,7 @@ const ImageBasic = ({
   return (
     <div className={`relative`} style={{ width: size, height: size }}>
       <Image
-        src={src}
+        src={src || "/fallbackGame.png"}
         alt="Picture of a board game"
         fill
         className="object-cover"

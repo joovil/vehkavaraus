@@ -1,31 +1,38 @@
-import { getAllBorrows } from "@/database/repositories/borrowRepository";
-import { createBorrow } from "@/lib/actions/borrows/createBorrow";
-import { NewBorrowSchema } from "@/types";
+import {
+  createBorrow,
+  getAllBorrows,
+} from "@/database/repositories/borrowRepository";
+import { auth } from "@/lib/utils/auth";
 
 export const GET = async () => {
   try {
     const res = await getAllBorrows();
     return Response.json(res);
   } catch (error) {
-    console.log(error);
-    const message = "Unknown error";
-
     if (error instanceof Error) {
-      return Response.json({ message }, { status: 404 });
+      return Response.json(error.message, { status: 400 });
     }
-
-    return Response.json({ message }, { status: 404 });
   }
 };
+
 export const POST = async (req: Request) => {
   try {
-    const body = await req.json();
+    const session = await auth();
 
-    const borrow = NewBorrowSchema.parse(body);
-    const res = await createBorrow(borrow);
+    if (!session)
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
 
-    return Response.json(res);
+    const { gameId } = await req.json();
+
+    if (!gameId)
+      return Response.json({ error: "Missing gameId" }, { status: 400 });
+
+    const res = await createBorrow(session.user.id, gameId);
+
+    return Response.json(res, { status: 201 });
   } catch (error) {
-    return Response.json({ error }, { status: 400 });
+    if (error instanceof Error) {
+      return Response.json({ error: error.message }, { status: 400 });
+    }
   }
 };
