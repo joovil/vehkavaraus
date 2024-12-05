@@ -1,12 +1,14 @@
 "use client";
 
 import { createBorrowService } from "@/lib/services/borrows/createBorrowService";
+import { formatDate } from "@/lib/utils/formatDate";
 import { Game } from "@/types";
 import { useState } from "react";
 
-const GameCard = ({ game }: { game: Game }) => {
+const BorrowGameButtons = ({ game: g }: { game: Game }) => {
   const [visible, setVisible] = useState<boolean>(true);
   const [disabled, setDisabled] = useState<boolean>(false);
+  const [game, setGame] = useState<Game>(g);
 
   const handleBorrow = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -19,8 +21,15 @@ const GameCard = ({ game }: { game: Game }) => {
       setDisabled(false);
       return;
     }
+
+    setGame((g) => ({
+      ...g,
+      borrowStatus: "borrowed",
+      availableDate: res.dueDate,
+    }));
   };
 
+  // Show buttons when game is free to borrow
   if (game.borrowStatus === "free") {
     return (
       <div className="flex gap-3">
@@ -53,6 +62,16 @@ const GameCard = ({ game }: { game: Game }) => {
       </div>
     );
   }
+
+  // Show available date when game is not free to borrow
+  return (
+    <div className="font-bold text-2xl my-2 flex flex-col">
+      <div className="font-normal">
+        <span>Available: </span>
+        <span>{formatDate(game.availableDate)}</span>
+      </div>
+    </div>
+  );
 };
 
-export default GameCard;
+export default BorrowGameButtons;

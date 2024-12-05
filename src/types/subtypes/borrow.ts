@@ -10,7 +10,7 @@ export const BorrowSchema = z.object({
   gameId: z.coerce.number(),
   borrowDate: z.coerce.date(),
   returnDate: z.coerce.date().nullable(),
-  dueDate: z.date(),
+  dueDate: z.coerce.date(),
 });
 
 export const NewBorrowSchema = BorrowSchema.omit({

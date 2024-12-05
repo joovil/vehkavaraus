@@ -79,7 +79,7 @@ export const createBorrow = async (
       .updateTable("games")
       .set({
         borrowStatus: "borrowed",
-        availableDate: createdBorrow.returnDate,
+        availableDate: createdBorrow.dueDate,
       })
       .where("id", "=", gameId)
       .executeTakeFirstOrThrow();
