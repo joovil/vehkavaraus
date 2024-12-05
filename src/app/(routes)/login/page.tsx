@@ -1,6 +1,5 @@
 "use client";
 
-import { BasicButton } from "@/components/BasicButton";
 import { signIn } from "next-auth/react";
 
 export default function Home() {
@@ -38,7 +37,7 @@ export default function Home() {
           ></input>
 
           <div className="flex w-full justify-center mt-3">
-            <BasicButton text="Log in" />
+            <button className="btn-primary">Log in</button>
           </div>
         </form>
       </div>

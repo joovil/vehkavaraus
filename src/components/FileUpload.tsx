@@ -2,7 +2,6 @@
 
 import apiFetch from "@/lib/utils/apiFetch";
 import { useState } from "react";
-import { BasicButton } from "./BasicButton";
 
 export default function FileUpload() {
   const [file, setFile] = useState<File>();
@@ -34,7 +33,9 @@ export default function FileUpload() {
           name="file"
           onChange={(e) => setFile(e.target.files?.[0])}
         />
-        <BasicButton text="Upload" />
+        <button className="btn-primary" type="submit">
+          Upload
+        </button>
       </form>
     </div>
   );
