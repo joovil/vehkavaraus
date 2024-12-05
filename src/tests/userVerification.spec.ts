@@ -7,7 +7,7 @@ import { beforeAll, describe, expect, it } from "vitest";
 describe("User verification works", () => {
   const newUser: NewUser = {
     username: "John",
-    password_hash: " hash",
+    passwordHash: " hash",
     apartment: "A1",
     email: "mail@site.com",
   };

@@ -7,6 +7,7 @@ export const GET = async () => {
     const res = await borrowRepository.getAllBorrows();
     return Response.json(res);
   } catch (error) {
+    console.log(error);
     const message = "Unknown error";
 
     if (error instanceof Error) {

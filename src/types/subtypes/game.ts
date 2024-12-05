@@ -4,14 +4,14 @@ import { TableType } from "./types";
 
 export const GameSchema = z.object({
   id: z.number(),
-  name: z.string(),
-  borrow_status: BorrowStatuses,
+  name: z.string().min(1),
+  borrowStatus: BorrowStatuses,
   available_date: z.date().optional().nullable(),
-  image: z.string().optional(),
+  imageUrl: z.string().optional(),
   current_borrow: z.number().nullable(),
 });
 
-export const NewGameSchema = GameSchema.pick({ name: true, image: true });
+export const NewGameSchema = GameSchema.pick({ name: true, imageUrl: true });
 export const GameUpdateSchema = GameSchema.partial().omit({ id: true });
 
 export type Game = z.TypeOf<typeof GameSchema>;

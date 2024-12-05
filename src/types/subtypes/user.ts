@@ -7,11 +7,12 @@ export type RolesType = z.infer<typeof RolesEnum>;
 const UserSchema = z.object({
   id: z.string().uuid(),
   username: z.string().min(1),
-  password_hash: z.string(),
+  passwordHash: z.string(),
   email: z.string().email(),
   apartment: z
     .string()
-    .regex(/^[ab]\d{1,3}$/, { message: "Invalid apartment" }),
+    .regex(/^[ab]\d{1,3}$/, { message: "Invalid apartment" })
+    .min(1, { message: "Apartment required" }),
   role: RolesEnum,
 });
 
@@ -31,7 +32,7 @@ export type UserUpdate = z.TypeOf<typeof UserUpdateSchema>;
 export type UserTable = TableType<User, NewUser, UserUpdate>;
 
 export const UserClientSchema = UserSchema.omit({
-  password_hash: true,
+  passwordHash: true,
   id: true,
 });
 

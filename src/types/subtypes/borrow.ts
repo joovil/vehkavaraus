@@ -6,20 +6,22 @@ export type BorrowStatusesType = z.infer<typeof BorrowStatuses>;
 
 export const BorrowSchema = z.object({
   id: z.number(),
-  borrower: z.string(),
-  game: z.coerce.number(),
-  borrow_date: z.coerce.date(),
-  return_date: z.coerce.date(),
+  borrowerId: z.string().uuid(),
+  gameId: z.coerce.number(),
+  borrowDate: z.coerce.date(),
+  returnDate: z.coerce.date().nullable(),
+  dueDate: z.date(),
 });
 
 export const NewBorrowSchema = BorrowSchema.omit({
   id: true,
-  borrow_date: true,
-  return_date: true,
+  borrowDate: true,
+  returnDate: true,
+  dueDate: true,
 });
 
 export const BorrowUpdateSchema = BorrowSchema.pick({
-  return_date: true,
+  returnDate: true,
 });
 
 export type Borrow = z.infer<typeof BorrowSchema>;

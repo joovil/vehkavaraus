@@ -4,14 +4,15 @@ import db from "..";
 const getAllBorrows = async () => {
   return await db
     .selectFrom("borrows")
-    .innerJoin("games", "games.id", "borrows.game")
-    .select([
-      "borrows.id",
-      "games.name as game",
-      "games.borrow_status",
-      "borrows.borrow_date",
-      "borrows.return_date",
-    ])
+    .innerJoin("games", "games.id", "borrows.gameId")
+    .selectAll()
+    // .select([
+    //   "borrows.id",
+    //   "games.name as game",
+    //   "games.borrow_status",
+    //   "borrows.borrow_date",
+    //   "borrows.return_date",
+    // ])
     .execute();
 };
 
@@ -64,7 +65,7 @@ const createBorrow = async (borrow: NewBorrow): Promise<Borrow> => {
 
     const gameUpdate: GameUpdate = {
       available_date: createdBorrow.return_date,
-      borrow_status: "borrowed",
+      borrowStatus: "borrowed",
       current_borrow: createdBorrow.id,
     };
 

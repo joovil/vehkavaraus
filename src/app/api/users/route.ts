@@ -20,7 +20,7 @@ export const PUT = async (req: Request) => {
     }
 
     const userUpdate: UserUpdate = {
-      password_hash,
+      passwordHash: password_hash,
       apartment,
     };
 

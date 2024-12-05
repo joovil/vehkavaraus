@@ -19,7 +19,7 @@ const GameCard = ({
       <ImageBasic src={game.image} size="300px" />
       <span className="font-bold text-2xl my-2">{game.name}</span>
 
-      {game.borrow_status === "free" ? (
+      {game.borrowStatus === "free" ? (
         <Buttons game={game} updateGames={updateGames} />
       ) : (
         <div className="font-bold text-2xl my-2 flex flex-col">

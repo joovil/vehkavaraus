@@ -9,13 +9,13 @@ describe("User repository", () => {
   const users: NewUser[] = [
     {
       username: "John",
-      password_hash: "hash",
+      passwordHash: "hash",
       email: "john@site.com",
       apartment: "a1",
     },
     {
       username: "Jane",
-      password_hash: "hash2",
+      passwordHash: "hash2",
       email: "jane@site.com",
       apartment: "b2",
     },
@@ -56,7 +56,7 @@ describe("User repository", () => {
     it("Should create user correctly", async () => {
       const newUser: NewUser = {
         username: "Bob",
-        password_hash: "hash3",
+        passwordHash: "hash3",
         email: "bob@site.com",
         apartment: "a3",
       };

@@ -11,7 +11,7 @@ describe("Game addition", () => {
 
   const newUser: NewUser = {
     username: "John",
-    password_hash: "hash",
+    passwordHash: "hash",
     email: "john@site.com",
     apartment: "a1",
   };
@@ -33,6 +33,6 @@ describe("Game addition", () => {
     const borrow = await createBorrow(newBorrow);
     const gameAfterBorrow = await gameRepository.getGameById(borrow.game);
 
-    expect(gameAfterBorrow.available_date).toEqual(borrow.return_date);
+    expect(gameAfterBorrow.available_date).toEqual(borrow.returnDate);
   });
 });

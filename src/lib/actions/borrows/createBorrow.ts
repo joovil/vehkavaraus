@@ -5,8 +5,8 @@ import { Borrow, BorrowStatuses, GameUpdate, NewBorrow } from "@/types";
 export const createBorrow = async (borrow: NewBorrow): Promise<Borrow> => {
   const createdBorrow = await borrowRepository.createBorrow(borrow);
   const gameUpdate: GameUpdate = {
-    available_date: createdBorrow.return_date,
-    borrow_status: BorrowStatuses.enum.borrowed,
+    available_date: createdBorrow.returnDate,
+    borrowStatus: BorrowStatuses.enum.borrowed,
   };
   gameRepository.updateGame(borrow.game, gameUpdate);
 

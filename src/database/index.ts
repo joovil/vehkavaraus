@@ -6,7 +6,7 @@ import {
   DB_USER,
 } from "@/lib/utils/envVariables";
 import { Database } from "@/types";
-import { Kysely, PostgresDialect } from "kysely";
+import { CamelCasePlugin, Kysely, PostgresDialect } from "kysely";
 import { Pool } from "pg";
 
 const dialect = new PostgresDialect({
@@ -22,6 +22,7 @@ const dialect = new PostgresDialect({
 
 export const db = new Kysely<Database>({
   dialect,
+  plugins: [new CamelCasePlugin()],
 });
 
 export default db;

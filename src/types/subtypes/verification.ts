@@ -2,8 +2,8 @@ import { z } from "zod";
 import { TableType } from "./types";
 
 export const VerificationSchema = z.object({
-  verification_key: z.string(),
-  user_id: z.string(),
+  verification_key: z.string().uuid(),
+  user_id: z.string().uuid(),
   used: z.boolean(),
 });
 
