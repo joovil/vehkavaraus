@@ -1,49 +1,34 @@
-import { getBorrowByIdWithGameAction } from "@/lib/actions/borrows/getBorrowByIdWithGameAction";
+import { getBorrowByIdWithGame } from "@/database/repositories/borrowRepository";
 import { auth } from "@/lib/utils/auth";
-import DisplayBorrows from "./components/DisplayBorrows";
-import SettingsForms from "./components/SettingsForms";
+import { redirect } from "next/navigation";
+import BorrowRow from "./components/BorrowRow";
 
-const Home = async () => {
-  return (
-    <div className="w-1/2 m-auto flex flex-col gap-y-6">
-      <BorrowsBox />
-      <SettingsBox />
-    </div>
-  );
-};
+export const dynamic = "force-dynamic";
+export const fetchCache = "default-no-store";
 
 const cols = ["Games borrowed", "Return date", "Return"];
 
-const BorrowsBox = async () => {
+const UserPage = async () => {
   const session = await auth();
+  if (!session) redirect("/login");
 
-  // NOTE: Loads the borrows before page is loaded for the first time.
-  // Subsequent loads happen in client component
-  const borrows = await getBorrowByIdWithGameAction();
+  const { user } = session;
+  const borrows = await getBorrowByIdWithGame(user.id);
 
   return (
-    <div className="box-basic">
-      <h2>{session?.user.username}</h2>
+    <main className="box-basic w-1/2 m-auto">
+      <h2>{user.username}</h2>
 
       <div className="grid grid-cols-3 text-xl gap-y-3">
         {cols.map((col) => (
           <h3 key={col}>{col}</h3>
         ))}
       </div>
-      <DisplayBorrows borrows={borrows} />
-    </div>
+      {borrows.map((b) => (
+        <BorrowRow key={b.borrowId} borrow={b} />
+      ))}
+    </main>
   );
 };
 
-const SettingsBox = async () => {
-  return (
-    <div className="box-basic">
-      <div className="flex">
-        <h2 className="mb-3">Settings</h2>
-      </div>
-      <SettingsForms />
-    </div>
-  );
-};
-
-export default Home;
+export default UserPage;

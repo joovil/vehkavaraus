@@ -1,3 +1,4 @@
+import logger from "@/lib/utils/logger";
 import { Borrow } from "@/types";
 import db from "..";
 
@@ -37,18 +38,19 @@ export const getBorrowByGameId = async (id: number) => {
     .execute();
 };
 
-export const getBorrowByIdWithGame = async (borrowerId: string) => {
+export const getBorrowByIdWithGame = async (userId: string) => {
+  logger.database("getBorrowByIdWithGame");
   return await db
     .selectFrom("borrows")
     .innerJoin("games", "games.id", "borrows.gameId")
-    .where("borrowerId", "=", borrowerId)
-    .where("borrows.returnDate", ">", new Date())
+    .where("borrowerId", "=", userId)
+    .where("borrows.returnDate", "is", null)
     .select([
       "games.name",
       "borrowStatus",
       "borrowDate",
-      "returnDate",
-      "borrows.id",
+      "dueDate",
+      "borrows.id as borrowId",
       "borrows.gameId",
     ])
     .execute();
