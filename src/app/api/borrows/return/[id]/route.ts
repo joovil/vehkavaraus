@@ -5,8 +5,9 @@ import { auth } from "@/lib/utils/auth";
 // TODO: Handle games returned late
 export const POST = async (
   _req: Request,
-  { params }: { params: { id: number } }
+  props: { params: Promise<{ id: number }> }
 ) => {
+  const params = await props.params;
   try {
     const session = await auth();
 

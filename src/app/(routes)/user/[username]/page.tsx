@@ -3,9 +3,6 @@ import { auth } from "@/lib/utils/auth";
 import { redirect } from "next/navigation";
 import BorrowRow from "./components/BorrowRow";
 
-export const dynamic = "force-dynamic";
-export const fetchCache = "default-no-store";
-
 const cols = ["Games borrowed", "Return date", "Return"];
 
 const UserPage = async () => {
