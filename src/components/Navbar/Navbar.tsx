@@ -2,6 +2,7 @@ import { auth } from "@/lib/utils/auth";
 import { UserClient } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
+import { ThemeSwitch } from "../ThemeProvider";
 import { LogoutButton } from "./LogoutButton";
 
 export default async function Navbar() {
@@ -21,6 +22,7 @@ export default async function Navbar() {
           <span className="font-bold text-2xl">
             Vehkapolku&apos;s <span className="italic">Rent-A-Game</span>
           </span>
+          <ThemeSwitch>Switch theme</ThemeSwitch>
         </div>
       </Link>
       <div className="flex flex-col ml-auto text-right text-lg">

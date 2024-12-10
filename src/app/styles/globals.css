@@ -4,7 +4,26 @@
 
 :root {
   --background: theme("colors.lightGreenV");
-  --foreground: darkGreenV;
+  --foreground: #222222;
+
+  --lightGreenV: #e6f5f0;
+  --inputGreenV: #b2d8d2;
+  --darkGreenV: #078571;
+  --offWhiteV: #fbfbfb;
+  --lightGrayV: #535353;
+  --bodyText: #222222;
+  --orangeV: #f38b11;
+  --greenDisabledV: #609c92;
+}
+
+/* .light {
+  --background: theme("colors.lightGreenV");
+  --foreground: #222222;
+} */
+
+.dark {
+  --background: #182c25;
+  --foreground: #f9fafb;
 }
 
 /* @media (prefers-color-scheme: dark) {
