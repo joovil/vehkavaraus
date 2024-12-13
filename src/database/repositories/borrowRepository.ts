@@ -24,7 +24,26 @@ export const getBorrowById = async (id: number) => {
     .executeTakeFirstOrThrow();
 };
 
+export const getGamesWithCurrentBorrow = async () => {
+  return await db
+    .selectFrom("games as g")
+    .leftJoin("borrows as b", "b.id", "g.currentBorrow")
+    .leftJoin("users as u", "u.id", "b.borrowerId")
+    .select([
+      "g.id as gameId",
+      "g.name",
+      "g.borrowStatus",
+      "g.imageUrl",
+      "b.borrowDate",
+      "b.dueDate",
+      "u.apartment",
+    ])
+    .orderBy("g.id", "asc")
+    .execute();
+};
+
 export const getBorrowByGameId = async (id: number) => {
+  logger.database("getBorrowByGameId");
   return await db
     .selectFrom("borrows")
     .innerJoin("users", "users.id", "borrows.borrowerId")
@@ -82,6 +101,7 @@ export const createBorrow = async (
       .set({
         borrowStatus: "borrowed",
         availableDate: createdBorrow.dueDate,
+        currentBorrow: createdBorrow.id,
       })
       .where("id", "=", gameId)
       .executeTakeFirstOrThrow();

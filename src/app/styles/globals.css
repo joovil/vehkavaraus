@@ -5,6 +5,7 @@
 :root {
   --background: theme("colors.lightGreenV");
   --foreground: #222222;
+  --primary: theme("colors.darkGreenV");
 
   --lightGreenV: #e6f5f0;
   --inputGreenV: #b2d8d2;
@@ -25,7 +26,6 @@
 
 .dark {
   --background: rgba(27, 42, 32);
-  /* --background: #163020; */
   --foreground: #f9fafb;
   --primary: #385f38;
 }
@@ -38,6 +38,8 @@
 } */
 
 body {
+  width: 100vw;
+  overflow-x: hidden;
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-circular), Arial, Helvetica, sans-serif;

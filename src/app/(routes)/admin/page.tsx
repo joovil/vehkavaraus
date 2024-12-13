@@ -1,15 +1,25 @@
 import { getGamesWithCurrentBorrowAction } from "@/lib/actions/games/getGamesWithCurrentBorrowAction";
-import DisplayAdminPanel from "./DisplayAdminPanel";
+import GameInfo from "./GameInfo";
 
-const Home = async () => {
-  // NOTE: Games are loaded on the server on the first load
+export interface GameWithCurrentBorrow {
+  name: string;
+  borrowStatus: "free" | "borrowed" | "late";
+  borrowDate: Date | null;
+  dueDate: Date | null;
+  imageUrl: string | undefined;
+
+  apartment: string | null;
+  gameId: number;
+}
+
+const AdminPage = async () => {
   const games = await getGamesWithCurrentBorrowAction();
 
   return (
-    <main className="w-1/2 m-auto grid gap-y-6">
-      <DisplayAdminPanel initialGames={games} />
+    <main className="grid gap-y-6">
+      <GameInfo games={games} />
     </main>
   );
 };
 
-export default Home;
+export default AdminPage;

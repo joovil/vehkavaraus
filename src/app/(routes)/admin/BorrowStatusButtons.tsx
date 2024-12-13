@@ -1,9 +1,9 @@
 import { BorrowStatuses } from "@/types";
-import { GameProp } from "../DisplayAdminPanel";
+import { GameWithCurrentBorrow } from "./page";
 
 const borrowStatusList = Object.keys(BorrowStatuses.Enum);
 
-const BorrowStatusButtons = ({ game }: { game: GameProp }) => {
+const BorrowStatusButtons = ({ game }: { game: GameWithCurrentBorrow }) => {
   const handlerJunction = (s: string) => {
     const handlers: { [key: string]: () => void } = {
       free: handleFreeButton,
@@ -28,7 +28,7 @@ const BorrowStatusButtons = ({ game }: { game: GameProp }) => {
   return (
     <div>
       {borrowStatusList
-        .filter((status) => status !== game.borrow_status)
+        .filter((status) => status !== game.borrowStatus)
         .map((s) => (
           // TODO: Add functionality to buttons
           <button
@@ -36,7 +36,7 @@ const BorrowStatusButtons = ({ game }: { game: GameProp }) => {
             key={s}
             onClick={() => handlerJunction(s)}
           >
-            {s}
+            {s.charAt(0).toUpperCase() + s.slice(1)}
           </button>
         ))}
       <></>

@@ -1,6 +1,7 @@
 "use server";
 
+import { getGamesWithCurrentBorrow } from "@/database/repositories/borrowRepository";
+
 export const getGamesWithCurrentBorrowAction = async () => {
-  // FIXME: Query used previous database column
-  // return getGamesWithCurrentBorrow();
+  return getGamesWithCurrentBorrow();
 };
