@@ -18,6 +18,7 @@ const config: Config = {
         circular: ["var(--font-circular)"],
       },
       colors: {
+        primary: "var(--primary)",
         background: "var(--background)",
         foreground: "var(--foreground)",
         pinkV: "#E83C6A",
@@ -29,6 +30,7 @@ const config: Config = {
         lightGrayV: "#535353",
         orangeV: "#F38B11",
         greenDisabledV: "#609c92",
+        boxShadowV: "rgba(0, 0, 0, 0.3)",
       },
     },
   },
