@@ -4,17 +4,20 @@ import { GameWithCurrentBorrow } from "./page";
 
 const GameRow = ({
   game,
+  visible,
   setVisible,
   currentGame,
   setCurrentGame,
 }: {
   game: GameWithCurrentBorrow;
+  visible: boolean;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
   currentGame: GameWithCurrentBorrow;
   setCurrentGame: React.Dispatch<React.SetStateAction<GameWithCurrentBorrow>>;
 }) => {
   const handler = () => {
-    if (currentGame.gameId && currentGame.gameId === game.gameId) {
+    console.log(currentGame.gameId, game.gameId);
+    if (visible && currentGame.gameId === game.gameId) {
       setVisible(false);
       return;
     }

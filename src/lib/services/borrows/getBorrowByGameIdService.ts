@@ -10,6 +10,6 @@ export const getBorrowByGameIdService = async (
     returnDate: Date | null;
   }[]
 > => {
-  const res = await apiFetch(`/borrows/${id}`);
+  const res = await apiFetch(`/borrows/${id}`, { cache: "no-cache" });
   return await res.json();
 };

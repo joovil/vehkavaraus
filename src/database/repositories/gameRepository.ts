@@ -31,7 +31,7 @@ export const updateGame = async (id: number, game: GameUpdate) => {
     .executeTakeFirstOrThrow();
 };
 
-export const returnGame = async (borrowId: number) => {
+export const completeBorrow = async (borrowId: number) => {
   return await db.transaction().execute(async (trx) => {
     const borrow = await trx
       .updateTable("borrows")
@@ -47,6 +47,29 @@ export const returnGame = async (borrowId: number) => {
         borrowStatus: "free",
       })
       .where("id", "=", borrow.gameId)
+      .executeTakeFirstOrThrow();
+  });
+};
+
+export const updateGameReturned = async (gameId: number) => {
+  return await db.transaction().execute(async (trx) => {
+    const borrow = await trx
+      .selectFrom("borrows")
+      .where("gameId", "=", gameId)
+      .orderBy("id", "desc")
+      .select(["borrows.id"])
+      .executeTakeFirstOrThrow();
+
+    await trx
+      .updateTable("games")
+      .set({ borrowStatus: "free", availableDate: null, currentBorrow: null })
+      .where("games.id", "=", gameId)
+      .executeTakeFirstOrThrow();
+
+    return await trx
+      .updateTable("borrows")
+      .where("borrows.id", "=", borrow.id)
+      .set({ returnDate: new Date() })
       .executeTakeFirstOrThrow();
   });
 };

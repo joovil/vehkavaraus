@@ -1,6 +1,6 @@
 "use client";
 
-import returnBorrowService from "@/lib/services/borrows/returnBorrowService";
+import completeBorrowService from "@/lib/services/borrows/returnBorrowService";
 import { showError } from "@/lib/utils/showError";
 import { useState } from "react";
 import { BorrowProp } from "./BorrowRow";
@@ -22,7 +22,7 @@ const ClientButton = ({
     console.log("hello");
     setDisabled(true);
 
-    const res = await returnBorrowService(borrow.borrowId);
+    const res = await completeBorrowService(borrow.borrowId);
 
     if (res.status === 200) {
       console.log("returned \n", await res.json());

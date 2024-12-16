@@ -1,5 +1,5 @@
 import { getBorrowById } from "@/database/repositories/borrowRepository";
-import { returnGame } from "@/database/repositories/gameRepository";
+import { completeBorrow } from "@/database/repositories/gameRepository";
 import { auth } from "@/lib/utils/auth";
 
 // TODO: Handle games returned late
@@ -22,7 +22,7 @@ export const POST = async (
         { status: 403 }
       );
 
-    await returnGame(params.id);
+    await completeBorrow(params.id);
 
     return Response.json({ message: "Game returned" });
   } catch (error) {

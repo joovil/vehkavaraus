@@ -18,10 +18,17 @@ const GameInfo = ({ games }: { games: GameWithCurrentBorrow[] }) => {
   const [currentGame, setCurrentGame] = useState<GameWithCurrentBorrow>(
     {} as GameWithCurrentBorrow
   );
-  const [borrowHistory, setBorrowHistory] = useState<{
-    [key: number]: HistoryItem[];
-  }>({});
   const [isVisible, setVisible] = useState<boolean>(false);
+  const [gameList, setGameList] = useState<GameWithCurrentBorrow[]>(games);
+
+  const updateGame = (updatedGame: GameWithCurrentBorrow) => {
+    setGameList((prevGames) =>
+      prevGames.map((game) =>
+        game.gameId === updatedGame.gameId ? updatedGame : game
+      )
+    );
+    setCurrentGame(updatedGame);
+  };
 
   return (
     <div className="m-auto w-1/2 flex flex-col gap-y-6">
@@ -31,10 +38,11 @@ const GameInfo = ({ games }: { games: GameWithCurrentBorrow[] }) => {
             {col}
           </span>
         ))}
-        {games.map((g) => (
+        {gameList.map((g) => (
           <GameRow
             key={g.name}
             game={g}
+            visible={isVisible}
             setVisible={setVisible}
             currentGame={currentGame}
             setCurrentGame={setCurrentGame}
@@ -45,8 +53,7 @@ const GameInfo = ({ games }: { games: GameWithCurrentBorrow[] }) => {
       <MoreInfo
         isVisible={isVisible}
         game={currentGame}
-        borrowHistory={borrowHistory}
-        setBorrowHistory={setBorrowHistory}
+        updateGame={updateGame}
       />
     </div>
   );

@@ -3,7 +3,7 @@
 import ImageBasic from "@/components/ImageBasic";
 import { getBorrowByGameIdService } from "@/lib/services/borrows/getBorrowByGameIdService";
 import { formatDate } from "@/lib/utils/formatDate";
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import BorrowStatusButtons from "./BorrowStatusButtons";
 import { HistoryItem } from "./GameInfo";
 import { GameWithCurrentBorrow } from "./page";
@@ -13,30 +13,21 @@ const cols = ["Borrower", "Date borrowed", "Date returned"];
 const MoreInfo = ({
   isVisible,
   game,
-  borrowHistory,
-  setBorrowHistory,
+  updateGame,
 }: {
   isVisible: boolean;
   game: GameWithCurrentBorrow;
-  borrowHistory: { [key: number]: HistoryItem[] };
-  setBorrowHistory: React.Dispatch<
-    React.SetStateAction<{ [key: number]: HistoryItem[] }>
-  >;
+  updateGame: (game: GameWithCurrentBorrow) => void;
 }) => {
+  const [history, setHistory] = useState<HistoryItem[]>();
+
   useEffect(() => {
     const getHistory = async () => {
-      if (!borrowHistory[game.gameId]) {
-        const history = await getBorrowByGameIdService(game.gameId);
-        setBorrowHistory((prev) => ({ ...prev, [game.gameId]: history }));
-      }
+      setHistory(await getBorrowByGameIdService(game.gameId));
     };
 
-    if (isVisible) {
-      getHistory();
-    }
-  }, [game.gameId, isVisible, borrowHistory, setBorrowHistory]);
-
-  const history = borrowHistory[game.gameId] || [];
+    if (isVisible) getHistory();
+  }, [game.gameId, isVisible]);
 
   return (
     <div className="box-basic" hidden={!isVisible}>
@@ -48,7 +39,7 @@ const MoreInfo = ({
 
         <div className="flex gap-3 text-xl items-center">
           <span>Mark as: </span>
-          <BorrowStatusButtons game={game} />
+          <BorrowStatusButtons game={game} updateGame={updateGame} />
         </div>
       </div>
 
@@ -58,14 +49,15 @@ const MoreInfo = ({
           {cols.map((c) => (
             <li key={c}>{c}</li>
           ))}
-          {history.map((b) => (
-            <Fragment key={b.id}>
-              <li>{b.username}</li>
-              <li>{formatDate(b.borrowDate)}</li>
-              <li>{formatDate(b.returnDate)}</li>
-            </Fragment>
-            // TODO: Add loading indicator
-          ))}
+          {history &&
+            history.map((b) => (
+              <Fragment key={b.id}>
+                <li>{b.username}</li>
+                <li>{formatDate(b.borrowDate)}</li>
+                <li>{formatDate(b.returnDate)}</li>
+              </Fragment>
+              // TODO: Add loading indicator
+            ))}
         </ul>
       </div>
     </div>

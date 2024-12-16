@@ -3,7 +3,13 @@ import { GameWithCurrentBorrow } from "./page";
 
 const borrowStatusList = Object.keys(BorrowStatuses.Enum);
 
-const BorrowStatusButtons = ({ game }: { game: GameWithCurrentBorrow }) => {
+const BorrowStatusButtons = ({
+  game,
+  updateGame,
+}: {
+  game: GameWithCurrentBorrow;
+  updateGame: (game: GameWithCurrentBorrow) => void;
+}) => {
   const handlerJunction = (s: string) => {
     const handlers: { [key: string]: () => void } = {
       free: handleFreeButton,
@@ -14,8 +20,14 @@ const BorrowStatusButtons = ({ game }: { game: GameWithCurrentBorrow }) => {
     handlers[s]();
   };
 
-  const handleFreeButton = () => {
-    console.log("Free button clicked");
+  const handleFreeButton = async () => {
+    updateGame({
+      ...game,
+      borrowStatus: "free",
+      apartment: null,
+      borrowDate: null,
+      dueDate: null,
+    });
   };
 
   const handleBorrowedButton = () => {
