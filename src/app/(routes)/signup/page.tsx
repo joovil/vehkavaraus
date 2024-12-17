@@ -1,11 +1,14 @@
 "use client";
 
+import { useDisplayMessage } from "@/components/useDisplayMessage";
 import { createUserService } from "@/lib/services/users/createUserService";
+import { redirect } from "next/navigation";
 import { useState } from "react";
+import { z } from "zod";
 
 const SignUpPage = () => {
-  const [error, setError] = useState<string | null>(null);
-  const [showError, setShowError] = useState(false);
+  const { displayMessage, errorMessage } = useDisplayMessage();
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -13,6 +16,13 @@ const SignUpPage = () => {
     email: "",
     apartment: "",
   });
+
+  const isValidEmail =
+    !z.string().email().safeParse(formData.email).success &&
+    formData.email.length > 0;
+
+  const isValidApartment =
+    !/^[ab]\d{1,3}$/.test(formData.apartment) && formData.apartment.length > 0;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -25,20 +35,43 @@ const SignUpPage = () => {
     e.preventDefault();
     const { username, password, confirmPassword, email, apartment } = formData;
 
+    if (!username) {
+      displayMessage("Username required");
+      return;
+    }
+
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      displayMessage("Passwords do not match");
+      return;
+    }
+
+    if (!email) {
+      displayMessage("Email required");
+      return;
+    }
+
+    if (!apartment) {
+      displayMessage("Apartment required");
       return;
     }
 
     const res = await createUserService(username, password, email, apartment);
+    const data = await res.json();
+    console.log(res);
+    console.log(data);
 
-    console.log(await res.json());
-    // await newUserVerification(newUser);
+    if (res.status === 200) {
+      redirect("/login");
+    }
+
+    if (data.error) {
+      displayMessage(data.error);
+    }
   };
 
   return (
-    <div className="absolute left-1/2 top-1/2 w-fit -translate-x-1/2 -translate-y-1/2 text-2xl">
-      <div className="box-basic">
+    <div className="flex h-full w-screen items-center justify-center">
+      <div className="box-basic w-fit text-2xl">
         <h1 className="btn- mb-3 text-center text-3xl font-bold">Sign up</h1>
 
         <form
@@ -80,8 +113,9 @@ const SignUpPage = () => {
           <label>
             Email
             <input
+              className={`${isValidEmail ? "bg-red-200" : ""}`}
               name="email"
-              type="email"
+              type="text"
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
@@ -91,6 +125,7 @@ const SignUpPage = () => {
           <label>
             Apartment
             <input
+              className={`${isValidApartment ? "bg-red-200" : ""}`}
               name="apartment"
               type="text"
               placeholder="Apartment"
@@ -105,7 +140,7 @@ const SignUpPage = () => {
             </button>
           </div>
         </form>
-        <span className="text-red-300">Err</span>
+        <span className="text-red-500">{errorMessage}</span>
       </div>
     </div>
   );

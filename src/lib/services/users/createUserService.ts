@@ -6,7 +6,7 @@ export const createUserService = async (
   email: string,
   apartment: string,
 ) => {
-  const res = apiFetch("/signup", {
+  const res = await apiFetch("/signup", {
     method: "POST",
     body: JSON.stringify({
       username,

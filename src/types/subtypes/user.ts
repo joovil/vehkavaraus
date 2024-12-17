@@ -21,12 +21,19 @@ export const NewUserSchema = UserSchema.omit({
   role: true,
 });
 
+export const UserToCreateSchema = NewUserSchema.omit({
+  passwordHash: true,
+}).extend({
+  password: z.string().min(1),
+});
+
 export const UserUpdateSchema = UserSchema.partial().omit({
   id: true,
 });
 
 export type User = z.TypeOf<typeof UserSchema>;
 export type NewUser = z.TypeOf<typeof NewUserSchema>;
+export type userToCreate = z.TypeOf<typeof UserToCreateSchema>;
 export type UserUpdate = z.TypeOf<typeof UserUpdateSchema>;
 
 export type UserTable = TableType<User, NewUser, UserUpdate>;

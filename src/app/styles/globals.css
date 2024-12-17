@@ -43,6 +43,7 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-circular), Arial, Helvetica, sans-serif;
+  height: calc(100vh - 6rem);
 }
 
 @layer utilities {
