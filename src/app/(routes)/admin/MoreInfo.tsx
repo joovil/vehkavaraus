@@ -30,17 +30,16 @@ const MoreInfo = ({
   }, [game.gameId, isVisible]);
 
   return (
-    <div className="box-basic" hidden={!isVisible}>
+    <div className="box-basic flex flex-col gap-y-3" hidden={!isVisible}>
       <div>
         <h2>More Info</h2>
         <h3>{game.name}</h3>
+      </div>
 
-        <ImageBasic src={game.imageUrl} />
+      <ImageBasic src={game.imageUrl} />
 
-        <div className="flex gap-3 text-xl items-center">
-          <span>Mark as: </span>
-          <BorrowStatusButtons game={game} updateGame={updateGame} />
-        </div>
+      <div className="flex gap-3 text-xl items-center">
+        <BorrowStatusButtons game={game} updateGame={updateGame} />
       </div>
 
       <div>

@@ -1,7 +1,8 @@
-import { BorrowStatuses } from "@/types";
 import { GameWithCurrentBorrow } from "./page";
 
-const borrowStatusList = Object.keys(BorrowStatuses.Enum);
+// TODO: More admin controls for borrowStatuses
+// const borrowStatusList = Object.keys(BorrowStatuses.Enum);
+const borrowStatusList = ["free"];
 
 const BorrowStatusButtons = ({
   game,
@@ -34,6 +35,7 @@ const BorrowStatusButtons = ({
     console.log("Borrowed button clicked");
   };
 
+  // FIXME: Add an option to mark game as lost
   const handleLateButton = () => {
     console.log("Late button clicked");
   };
@@ -43,13 +45,16 @@ const BorrowStatusButtons = ({
         .filter((status) => status !== game.borrowStatus)
         .map((s) => (
           // TODO: Add functionality to buttons
-          <button
-            className="btn-primary"
-            key={s}
-            onClick={() => handlerJunction(s)}
-          >
-            {s.charAt(0).toUpperCase() + s.slice(1)}
-          </button>
+          <>
+            <span>Mark as: </span>
+            <button
+              className="btn-primary"
+              key={s}
+              onClick={() => handlerJunction(s)}
+            >
+              {s.charAt(0).toUpperCase() + s.slice(1)}
+            </button>
+          </>
         ))}
       <></>
     </div>
