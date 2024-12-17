@@ -53,25 +53,30 @@ body {
 
 @layer components {
   .btn-primary {
-    @apply bg-primary font-black text-offWhiteV rounded py-2 px-5 w-fit;
+    @apply w-fit rounded bg-primary px-5 py-2 font-black text-offWhiteV;
   }
 
   .box-basic {
-    @apply bg-offWhiteV shadow-primary shadow-boxShadowV p-4;
+    @apply bg-offWhiteV p-4 shadow-basic;
   }
 
   .settings-form {
-    @apply flex flex-col gap-y-3 w-1/2;
+    @apply flex w-1/2 flex-col gap-y-3;
 
     div {
       @apply flex flex-col gap-y-1 text-lg;
+    }
+  }
+  .signup-form-labels {
+    label {
+      @apply flex flex-col;
     }
   }
 }
 
 @layer base {
   input {
-    @apply bg-inputGreenV text-black p-1;
+    @apply bg-inputGreenV p-1 text-black;
     &:focus {
       @apply outline-none;
     }
@@ -81,11 +86,11 @@ body {
   }
 
   h2 {
-    @apply font-bold text-2xl;
+    @apply text-2xl font-bold;
   }
 
   h3 {
-    @apply m-auto ml-0 font-bold text-xl;
+    @apply m-auto ml-0 text-xl font-bold;
   }
 
   input:-webkit-autofill {
