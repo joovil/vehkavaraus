@@ -13,12 +13,14 @@ import { User } from "next-auth";
 
 const EmailVerificationTemplate = ({
   user,
-  verification_key,
+  verificationKey,
 }: {
   user: User;
-  verification_key: string;
+  verificationKey: string;
 }) => {
-  const emailLink = `${NEXT_PUBLIC_API_URL}/api/auth/verification/${verification_key}`;
+  const emailLink = `${NEXT_PUBLIC_API_URL}/api/auth/verification/${verificationKey}`;
+  console.log("Email");
+  console.log("VerificationKey: ", verificationKey);
 
   return (
     <Tailwind
@@ -41,8 +43,8 @@ const EmailVerificationTemplate = ({
       }}
     >
       <Html lang="en" dir="ltr">
-        <Body className="bg-lightGreenV w-full h-full">
-          <Section className="px-12 py-20 w-full">
+        <Body className="h-full w-full bg-lightGreenV">
+          <Section className="w-full px-12 py-20">
             <Img
               src="https://www.vehkavaraus.fi/_next/image?url=%2Fvehka-pink.png&w=384&q=75"
               alt="Vehka logo"
@@ -50,22 +52,22 @@ const EmailVerificationTemplate = ({
             />
             <Heading
               as="h1"
-              className="font-verdana text-5xl text-bodyText text-center"
+              className="font-verdana text-center text-5xl text-bodyText"
             >
               Welcome {user.username}
             </Heading>
             <div className="text-center">
               <Button
-                className="py-6 px-12 mb-6 bg-darkGreenV font-verdana font-semibold rounded-md text-3xl text-white"
+                className="font-verdana mb-6 rounded-md bg-darkGreenV px-12 py-6 text-3xl font-semibold text-white"
                 href={emailLink}
               >
                 Verify your email
               </Button>
             </div>
-            <Text className="m-0 font-verdana font-semibold text-xl text-bodyText text-center">
+            <Text className="font-verdana m-0 text-center text-xl font-semibold text-bodyText">
               Vehkavaraus.fi
             </Text>
-            <Text className="m-0 font-verdana font-medium text-lg text-lightGrayV text-center">
+            <Text className="font-verdana m-0 text-center text-lg font-medium text-lightGrayV">
               Vehkavaraus is not associated with HOAS
             </Text>
           </Section>

@@ -12,7 +12,7 @@ const config: Config = {
         fullMinusNav: "calc(100vh - 6rem)",
       },
       boxShadow: {
-        primary: "5px 5px 10px 0px rgba(0, 0, 0, 0.3)",
+        basic: "5px 5px 10px 0px rgba(0, 0, 0, 0.3)",
       },
       fontFamily: {
         circular: ["var(--font-circular)"],

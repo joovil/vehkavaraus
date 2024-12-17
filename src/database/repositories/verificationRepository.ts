@@ -1,39 +1,44 @@
-import { NewVerification, RolesEnum } from "@/types";
 import db from "..";
-import { updateUser } from "./userRepository";
 
 export const getVerificationByKey = async (key: string) => {
   return await db
     .selectFrom("verifications")
-    .where("verification_key", "=", key)
+    .where("verificationKey", "=", key)
     .selectAll()
     .executeTakeFirstOrThrow();
 };
 
 export const addVerificationRecord = async (
-  newVerification: NewVerification
+  verificationKey: string,
+  userId: string,
 ) => {
   return await db
     .insertInto("verifications")
-    .values(newVerification)
+    .values({ verificationKey, userId })
     .returningAll()
     .executeTakeFirstOrThrow();
 };
 
 export const updateVerificationStatusAndRole = async (
-  verificationKey: string
+  verificationKey: string,
 ) => {
-  console.log(verificationKey);
-  const userWithId = await db
-    .updateTable("verifications")
-    .set("used", true)
-    .where("verification_key", "=", verificationKey)
-    .returning("user_id")
-    .executeTakeFirstOrThrow();
+  return db.transaction().execute(async (trx) => {
+    const { userId } = await trx
+      .updateTable("verifications")
+      .set("used", true)
+      .where("verificationKey", "=", verificationKey)
+      .returning("userId")
+      .executeTakeFirstOrThrow();
 
-  await updateUser(userWithId.user_id, {
-    role: RolesEnum.Enum.user,
+    return await trx
+      .updateTable("users")
+      .set({ role: "user" })
+      .where("id", "=", userId)
+      .returningAll()
+      .executeTakeFirstOrThrow();
   });
+
+  // console.log(verificationKey);
 };
 
 // const getAllVerifications = async () => {

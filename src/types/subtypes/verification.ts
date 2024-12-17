@@ -2,14 +2,14 @@ import { z } from "zod";
 import { TableType } from "./types";
 
 export const VerificationSchema = z.object({
-  verification_key: z.string().uuid(),
-  user_id: z.string().uuid(),
+  verificationKey: z.string().uuid(),
+  userId: z.string().uuid(),
   used: z.boolean(),
 });
 
 export const NewVerificationSchema = VerificationSchema.pick({
-  user_id: true,
-  verification_key: true,
+  userId: true,
+  verificationKey: true,
 });
 export const VerificationUpdateSchema = VerificationSchema.pick({ used: true });
 
