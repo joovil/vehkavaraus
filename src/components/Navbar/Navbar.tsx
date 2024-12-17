@@ -8,7 +8,7 @@ export default async function Navbar() {
   const session = await auth();
 
   return (
-    <nav className="w-1/2 h-24 m-auto flex items-center">
+    <nav className="m-auto flex h-24 w-1/2 items-center">
       <Link href={"/games"}>
         <div className="flex items-center">
           <Image
@@ -18,13 +18,13 @@ export default async function Navbar() {
             alt="Pink vehka logo"
             className="mr-3 h-auto w-32"
           />
-          <span className="font-bold text-2xl">
+          <span className="text-2xl font-bold">
             Vehkapolku&apos;s <span className="italic">Rent-A-Game</span>
           </span>
           {/* <ThemeSwitch>Switch theme</ThemeSwitch> */}
         </div>
       </Link>
-      <div className="flex flex-col ml-auto text-right text-lg">
+      <div className="ml-auto flex flex-col text-right text-lg">
         <LoginLogout user={session?.user} />
       </div>
     </nav>
@@ -41,8 +41,8 @@ export const LoginLogout = ({ user }: { user: UserClient | undefined }) => {
   }
 
   return (
-    <div className="flex flex-col ml-auto text-right text-lg">
-      <Link href={`/user/${user.username}`} className="font-semibold text-xl">
+    <div className="ml-auto flex flex-col text-right text-lg">
+      <Link href={`/user/${user.username}`} className="text-xl font-semibold">
         {user.username}
       </Link>
       <LogoutButton />

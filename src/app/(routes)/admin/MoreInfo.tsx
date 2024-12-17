@@ -38,7 +38,7 @@ const MoreInfo = ({
 
       <ImageBasic src={game.imageUrl} />
 
-      <div className="flex gap-3 text-xl items-center">
+      <div className="flex items-center gap-3 text-xl">
         <BorrowStatusButtons game={game} updateGame={updateGame} />
       </div>
 

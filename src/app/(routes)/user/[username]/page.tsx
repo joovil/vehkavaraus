@@ -13,11 +13,11 @@ const UserPage = async () => {
   const borrows = await getBorrowByIdWithGame(user.id);
 
   return (
-    <main className="w-1/2 m-auto flex flex-col gap-y-6">
+    <main className="m-auto flex w-1/2 flex-col gap-y-6">
       <div className="box-basic">
         <h2>{user.username}</h2>
 
-        <div className="grid grid-cols-3 text-xl gap-y-3">
+        <div className="grid grid-cols-3 gap-y-3 text-xl">
           {cols.map((col) => (
             <h3 key={col}>{col}</h3>
           ))}

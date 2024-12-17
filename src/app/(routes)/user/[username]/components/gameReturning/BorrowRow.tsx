@@ -19,7 +19,7 @@ const BorrowRow = ({ borrow }: { borrow: BorrowProp }) => {
   return (
     <>
       <div
-        className="grid grid-cols-3 text-xl gap-y-3"
+        className="grid grid-cols-3 gap-y-3 text-xl"
         style={{ display: hidden ? "none" : "" }}
       >
         <span className="flex items-center">{borrow.name}</span>

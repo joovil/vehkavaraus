@@ -6,11 +6,11 @@ const Games = async () => {
   const games = await getGamesService();
 
   return (
-    <div className="w-1/2 gap-y-8 m-auto flex flex-col grid-cols-[repeat(auto-fit,minmax(300px,auto))] items-center min-[1250px]:justify-between min-[1250px]:grid">
+    <div className="m-auto flex w-1/2 grid-cols-[repeat(auto-fit,minmax(300px,auto))] flex-col items-center gap-y-8 min-[1250px]:grid min-[1250px]:justify-between">
       {games.map((g) => (
         <div key={g.id} className="h-[400px]">
           <ImageBasic src={g.imageUrl} />
-          <span className="font-bold text-2xl my-2">{g.name}</span>
+          <span className="my-2 text-2xl font-bold">{g.name}</span>
           <BorrowGameButtons game={g} />
         </div>
       ))}

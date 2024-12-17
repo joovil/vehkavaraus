@@ -77,7 +77,7 @@ export const getBorrowByIdWithGame = async (userId: string) => {
 
 export const createBorrow = async (
   borrowerId: string,
-  gameId: number
+  gameId: number,
 ): Promise<Borrow> => {
   return await db.transaction().execute(async (trx) => {
     const game = await trx

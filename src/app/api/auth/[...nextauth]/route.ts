@@ -35,7 +35,7 @@ export const authOptions: NextAuthOptions = {
 
         const loginSuccess = await bcryptjs.compare(
           password,
-          userToCompare.passwordHash
+          userToCompare.passwordHash,
         );
 
         if (!loginSuccess) throw Error("Invalid credentials");

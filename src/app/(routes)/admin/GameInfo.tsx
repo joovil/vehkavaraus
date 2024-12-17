@@ -16,7 +16,7 @@ export interface HistoryItem {
 
 const GameInfo = ({ games }: { games: GameWithCurrentBorrow[] }) => {
   const [currentGame, setCurrentGame] = useState<GameWithCurrentBorrow>(
-    {} as GameWithCurrentBorrow
+    {} as GameWithCurrentBorrow,
   );
   const [isVisible, setVisible] = useState<boolean>(false);
   const [gameList, setGameList] = useState<GameWithCurrentBorrow[]>(games);
@@ -24,15 +24,15 @@ const GameInfo = ({ games }: { games: GameWithCurrentBorrow[] }) => {
   const updateGame = (updatedGame: GameWithCurrentBorrow) => {
     setGameList((prevGames) =>
       prevGames.map((game) =>
-        game.gameId === updatedGame.gameId ? updatedGame : game
-      )
+        game.gameId === updatedGame.gameId ? updatedGame : game,
+      ),
     );
     setCurrentGame(updatedGame);
   };
 
   return (
-    <div className="m-auto w-1/2 flex flex-col gap-y-6">
-      <div className="box-basic grid grid-cols-5 text-xl gap-y-3">
+    <div className="m-auto flex w-1/2 flex-col gap-y-6">
+      <div className="box-basic grid grid-cols-5 gap-y-3 text-xl">
         {colNames.map((col) => (
           <span key={col} className="font-black">
             {col}

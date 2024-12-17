@@ -5,7 +5,7 @@ import {
 
 export const GET = async (
   _req: Request,
-  props: { params: Promise<{ id: string }> }
+  props: { params: Promise<{ id: string }> },
 ) => {
   const params = await props.params;
   const verification = await getVerificationByKey(params.id);

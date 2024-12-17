@@ -1,7 +1,7 @@
 import apiFetch from "@/lib/utils/apiFetch";
 
 export const getBorrowByGameIdService = async (
-  id: number
+  id: number,
 ): Promise<
   {
     username: string;

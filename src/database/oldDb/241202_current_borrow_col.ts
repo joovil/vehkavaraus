@@ -5,7 +5,7 @@ export const up = async (db: Kysely<Database>): Promise<void> => {
   db.schema
     .alterTable("games")
     .addColumn("current_borrow", "integer", (col) =>
-      col.references("borrows.id")
+      col.references("borrows.id"),
     )
     .execute();
 };

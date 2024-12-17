@@ -65,7 +65,7 @@ const BorrowGameButtons = ({ game: g }: { game: Game }) => {
 
   // Show available date when game is not free to borrow
   return (
-    <div className="font-bold text-2xl my-2 flex flex-col">
+    <div className="my-2 flex flex-col text-2xl font-bold">
       <div className="font-normal">
         <span>Available: </span>
         <span>{formatDate(game.availableDate)}</span>

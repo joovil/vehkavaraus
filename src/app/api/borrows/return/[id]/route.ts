@@ -5,7 +5,7 @@ import { auth } from "@/lib/utils/auth";
 // TODO: Handle games returned late
 export const POST = async (
   _req: Request,
-  props: { params: Promise<{ id: number }> }
+  props: { params: Promise<{ id: number }> },
 ) => {
   const params = await props.params;
   try {
@@ -19,7 +19,7 @@ export const POST = async (
     if (borrow.borrowerId !== session.user.id)
       return Response.json(
         { error: "You are not authorized to return this game" },
-        { status: 403 }
+        { status: 403 },
       );
 
     await completeBorrow(params.id);

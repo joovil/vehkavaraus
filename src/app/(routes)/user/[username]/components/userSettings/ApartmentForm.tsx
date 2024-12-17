@@ -9,7 +9,7 @@ const ApartmentForm = () => {
   const [apartmentError, setApartmentError] = useState<string>("");
 
   const handleApartmentChange = async (
-    e: React.FormEvent<SettingsFormElements>
+    e: React.FormEvent<SettingsFormElements>,
   ) => {
     e.preventDefault();
 

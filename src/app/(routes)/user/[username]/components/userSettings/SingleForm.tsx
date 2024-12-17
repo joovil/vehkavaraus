@@ -28,8 +28,8 @@ const SingleForm = ({
   }, [errorMessage, errorSetter]);
 
   return (
-    <div className="basis-0 flex-grow">
-      <form className="flex flex-col w-3/4" onSubmit={handler}>
+    <div className="flex-grow basis-0">
+      <form className="flex w-3/4 flex-col" onSubmit={handler}>
         <h3>Change password</h3>
         <label>New {setting}</label>
         <input

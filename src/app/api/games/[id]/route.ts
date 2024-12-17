@@ -6,7 +6,7 @@ import { NoResultError } from "kysely";
 
 export const GET = async (
   _req: Request,
-  props: { params: Promise<{ id: number }> }
+  props: { params: Promise<{ id: number }> },
 ) => {
   const params = await props.params;
   try {
@@ -27,7 +27,7 @@ export const GET = async (
 // Return game
 export const POST = async (
   _req: Request,
-  props: { params: Promise<{ id: number }> }
+  props: { params: Promise<{ id: number }> },
 ) => {
   try {
     const { id } = await props.params;

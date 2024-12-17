@@ -9,7 +9,7 @@ const PasswordForm = () => {
   const [passwordError, setPasswordError] = useState<string>("");
 
   const handlePasswordChange = async (
-    e: React.FormEvent<SettingsFormElements>
+    e: React.FormEvent<SettingsFormElements>,
   ) => {
     e.preventDefault();
     const newPassword = e.currentTarget.elements.val1.value;
