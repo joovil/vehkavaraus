@@ -3,9 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const middleware = async (req: NextRequest) => {
   // Main page doesn't currently have content so users are redirected to games page
-  // if (req.nextUrl.pathname === "/") {
-  //   return NextResponse.redirect(new URL("/games", req.url));
-  // }
+  if (req.nextUrl.pathname === "/") {
+    return NextResponse.redirect(new URL("/games", req.url));
+  }
 
   const token = await getToken({ req });
 

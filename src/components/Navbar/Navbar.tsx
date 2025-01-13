@@ -31,12 +31,19 @@ export default async function Navbar() {
   );
 }
 
-export const LoginLogout = ({ user }: { user: UserClient | undefined }) => {
+export const LoginLogout = async ({
+  user,
+}: {
+  user: UserClient | undefined;
+}) => {
   if (!user || user === undefined) {
     return (
-      <Link href="/login" className="font-semibold">
-        Log in
-      </Link>
+      <>
+        <Link href="/login" className="font-semibold">
+          Log in
+        </Link>
+        <SignUp />
+      </>
     );
   }
 
@@ -48,4 +55,8 @@ export const LoginLogout = ({ user }: { user: UserClient | undefined }) => {
       <LogoutButton />
     </div>
   );
+};
+
+const SignUp = async () => {
+  return <Link href={`/signup`}>Sign up</Link>;
 };

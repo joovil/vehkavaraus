@@ -2,6 +2,7 @@ import {
   getVerificationByKey,
   updateVerificationStatusAndRole,
 } from "@/database/repositories/verificationRepository";
+import { NEXTAUTH_URL } from "@/lib/utils/envVariables";
 
 export const GET = async (
   _req: Request,
@@ -15,5 +16,10 @@ export const GET = async (
   }
 
   updateVerificationStatusAndRole(params.id);
-  return Response.json({ message: "Email verified" });
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: `${NEXTAUTH_URL}/games`,
+    },
+  });
 };

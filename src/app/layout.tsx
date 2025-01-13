@@ -1,7 +1,8 @@
 import Navbar from "@/components/Navbar/Navbar";
+import ResendVerification from "@/components/Navbar/ResendVerification";
 import SessionProviderClient from "@/components/SessionProviderClient";
+import { auth } from "@/lib/utils/auth";
 import type { Metadata } from "next";
-import { getServerSession } from "next-auth";
 import localFont from "next/font/local";
 import { cookies } from "next/headers";
 import "./styles/globals.css";
@@ -50,9 +51,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession();
   const cookieStore = await cookies();
   const theme = cookieStore.get("theme");
+  const session = await auth();
 
   return (
     <html
@@ -65,6 +66,7 @@ export default async function RootLayout({
       >
         <SessionProviderClient session={session}>
           <Navbar />
+          {session?.user.role === "unverified" && <ResendVerification />}
           {/* <Debug /> */}
           {children}
         </SessionProviderClient>

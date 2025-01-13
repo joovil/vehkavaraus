@@ -52,17 +52,19 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ user, token }) {
+    async jwt({ user, token, session, trigger }) {
       if (user) {
         token.user = user;
+      }
+
+      if (trigger === "update" && session.role) {
+        token.user.role = session.role;
       }
       return token;
     },
 
     async session({ session, token }) {
-      if (token.user) {
-        session.user = token.user;
-      }
+      session.user = token.user;
       return session;
     },
   },

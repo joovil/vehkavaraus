@@ -14,8 +14,15 @@ const logRed = (message: string) => {
   console.log(`${colors.red}%s${colors.reset}`, message);
 };
 
-const logYellow = (message: string) => {
-  console.log(`${colors.yellow}%s${colors.reset}`, message);
+const logYellow = (...messages: unknown[]) => {
+  console.log(
+    `${colors.yellow}%s${colors.reset}`,
+    messages
+      .map((msg) =>
+        typeof msg === "object" ? JSON.stringify(msg, null, 2) : msg,
+      )
+      .join(" "),
+  );
 };
 
 const database = (message: string) => {
