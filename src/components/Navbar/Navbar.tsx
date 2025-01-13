@@ -1,12 +1,8 @@
-import { auth } from "@/lib/utils/auth";
-import { UserClient } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import { LogoutButton } from "./LogoutButton";
+import ShowUsername from "./ShowUsername";
 
 export default async function Navbar() {
-  const session = await auth();
-
   return (
     <nav className="m-auto flex h-24 w-1/2 items-center">
       <Link href={"/games"}>
@@ -25,38 +21,8 @@ export default async function Navbar() {
         </div>
       </Link>
       <div className="ml-auto flex flex-col text-right text-lg">
-        <LoginLogout user={session?.user} />
+        <ShowUsername />
       </div>
     </nav>
   );
 }
-
-export const LoginLogout = async ({
-  user,
-}: {
-  user: UserClient | undefined;
-}) => {
-  if (!user || user === undefined) {
-    return (
-      <>
-        <Link href="/login" className="font-semibold">
-          Log in
-        </Link>
-        <SignUp />
-      </>
-    );
-  }
-
-  return (
-    <div className="ml-auto flex flex-col text-right text-lg">
-      <Link href={`/user/${user.username}`} className="text-xl font-semibold">
-        {user.username}
-      </Link>
-      <LogoutButton />
-    </div>
-  );
-};
-
-const SignUp = async () => {
-  return <Link href={`/signup`}>Sign up</Link>;
-};

@@ -1,15 +1,28 @@
 "use client";
 
+import { showError } from "@/lib/utils/showError";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Home() {
-  const handleLogin = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
+
+  const handleLogin = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signIn("credentials", {
+
+    const res = await signIn("credentials", {
       username: e.target.username.value,
       password: e.target.password.value,
-      callbackUrl: "/games",
+      redirect: false,
     });
+
+    if (res?.status === 200) {
+      router.push("/");
+    } else {
+      showError(setErrorMessage, "Invalid credentials");
+    }
   };
 
   return (
@@ -40,6 +53,7 @@ export default function Home() {
             <button className="btn-primary">Log in</button>
           </div>
         </form>
+        <div className="mt-2 text-center text-red-800">{errorMessage}</div>
       </div>
     </div>
   );
