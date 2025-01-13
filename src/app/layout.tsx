@@ -3,6 +3,7 @@ import SessionProviderClient from "@/components/SessionProviderClient";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import localFont from "next/font/local";
+import { cookies } from "next/headers";
 import "./styles/globals.css";
 
 const geistSans = localFont({
@@ -50,13 +51,18 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getServerSession();
+  const cookieStore = await cookies();
+  const theme = cookieStore.get("theme");
 
   return (
-    <html lang="en" className="h-full">
+    <html
+      lang="en"
+      className="h-full"
+      data-theme={theme?.value as "light" | "dark"}
+    >
       <body
         className={`${circular.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* <ThemeProvider /> */}
         <SessionProviderClient session={session}>
           <Navbar />
           {/* <Debug /> */}

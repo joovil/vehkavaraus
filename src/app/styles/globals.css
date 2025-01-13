@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --background: theme("colors.lightGreenV");
+  /* --background: theme("colors.lightGreenV"); */
   --foreground: #222222;
   --primary: theme("colors.darkGreenV");
 
@@ -16,6 +16,12 @@
   --orangeV: #f38b11;
   --greenDisabledV: #609c92;
   --boxShadowV: rgba(0, 0, 0, 0.3);
+
+  /* @media (prefers-color-scheme: dark) {
+    --background: rgba(27, 42, 32);
+    --foreground: #f9fafb;
+    --primary: #385f38;
+  } */
 }
 
 .light {
@@ -24,12 +30,11 @@
   --primary: theme("colors.darkGreenV");
 }
 
-.dark {
+[data-theme="dark"] {
   --background: rgba(27, 42, 32);
   --foreground: #f9fafb;
   --primary: #385f38;
 }
-
 /* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
