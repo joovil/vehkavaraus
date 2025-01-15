@@ -16,10 +16,11 @@ export const GET = async (
   }
 
   updateVerificationStatusAndRole(params.id);
+
   return new Response(null, {
     status: 302,
     headers: {
-      Location: `${NEXTAUTH_URL}/games`,
+      Location: `${NEXTAUTH_URL}/signup/verification`,
     },
   });
 };

@@ -66,7 +66,7 @@ export default async function RootLayout({
       >
         <SessionProviderClient session={session}>
           <Navbar />
-          {session?.user.role === "unverified" && <ResendVerification />}
+          <ResendVerification />
           {/* <Debug /> */}
           {children}
         </SessionProviderClient>

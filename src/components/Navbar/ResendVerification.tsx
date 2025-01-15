@@ -2,32 +2,23 @@
 
 import apiFetch from "@/lib/utils/apiFetch";
 import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 const ResendVerification = () => {
-  const { data: session, update } = useSession();
+  const { data: session } = useSession();
+  const pathname = usePathname();
 
   const handleResend = async () => {
-    // Add your resend verification logic here
-    const res = await apiFetch("/auth/verification/newVerification", {
+    await apiFetch("/auth/verification/newVerification", {
       method: "POST",
     });
-    const data = await res.json();
-
-    if (!data.error) update({ role: "user" });
   };
 
-  const testUpdate = async () => {
-    if (!session) return;
-    console.log(session.user.role);
-
-    const res = await update({ role: "user" });
-    console.log("res", res);
-    console.log(session);
-  };
+  if (session?.user.role !== "unverified" || pathname == "/signup/verification")
+    return;
 
   return (
     <div className="flex w-full justify-center">
-      <button onClick={testUpdate}>test</button>
       <button onClick={handleResend}>Resend verification</button>
     </div>
   );
