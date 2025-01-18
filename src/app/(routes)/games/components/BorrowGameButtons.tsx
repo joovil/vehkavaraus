@@ -2,7 +2,6 @@
 
 import { createBorrowService } from "@/lib/services/borrows/createBorrowService";
 import { formatDate } from "@/lib/utils/formatDate";
-// import { showError } from "@/lib/utils/showError";
 import { Game } from "@/types";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -11,7 +10,6 @@ const BorrowGameButtons = ({ game: g }: { game: Game }) => {
   const [visible, setVisible] = useState<boolean>(true);
   const [disabled, setDisabled] = useState<boolean>(false);
   const [game, setGame] = useState<Game>(g);
-  // const [errorMessage, setErrorMessage] = useState("err");
   const { data: session } = useSession();
 
   const handleBorrow = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -53,6 +51,7 @@ const BorrowGameButtons = ({ game: g }: { game: Game }) => {
     );
   };
 
+  console.log("GAME: ", game);
   if (game.borrowStatus === "free") {
     return (
       <div className="flex gap-3">

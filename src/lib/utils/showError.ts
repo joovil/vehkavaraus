@@ -1,3 +1,5 @@
+// TODO: refactor as showMessage
+
 export const showError = (
   setError: React.Dispatch<React.SetStateAction<string>>,
   errorMessage: string,

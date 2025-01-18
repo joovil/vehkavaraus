@@ -5,7 +5,11 @@ import { useState } from "react";
 import { SettingsFormElements, validValues } from "./SettingsForms";
 import SingleForm from "./SingleForm";
 
-const ApartmentForm = () => {
+const ApartmentForm = ({
+  setMessage,
+}: {
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   const [apartmentError, setApartmentError] = useState<string>("");
 
   const handleApartmentChange = async (
@@ -16,7 +20,10 @@ const ApartmentForm = () => {
     const newApartment = e.currentTarget.elements.val1.value;
     const newApartment2 = e.currentTarget.elements.val2.value;
 
-    if (!validValues(newApartment, newApartment2)) return;
+    if (!validValues(newApartment, newApartment2)) {
+      setApartmentError("Fields must match");
+      return;
+    }
 
     const res = await updateApartmentService(newApartment);
 
@@ -24,6 +31,8 @@ const ApartmentForm = () => {
       const data = await res.json();
       setApartmentError(data.error);
     }
+
+    setMessage("Apartment updated");
   };
 
   return (

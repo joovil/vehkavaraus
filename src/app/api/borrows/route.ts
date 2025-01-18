@@ -1,8 +1,8 @@
+import { auth } from "@/app/api/auth/[...nextauth]/auth";
 import {
   createBorrow,
   getAllBorrows,
 } from "@/database/repositories/borrowRepository";
-import { auth } from "@/lib/utils/auth";
 
 export const GET = async () => {
   try {

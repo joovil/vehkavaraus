@@ -7,6 +7,7 @@ import {
 } from "@/lib/utils/envVariables";
 import { Database } from "@/types";
 import { CamelCasePlugin, Kysely, PostgresDialect } from "kysely";
+import { NeonDialect } from "kysely-neon";
 import { Pool } from "pg";
 
 const dialect = new PostgresDialect({
@@ -20,9 +21,20 @@ const dialect = new PostgresDialect({
   }),
 });
 
-export const db = new Kysely<Database>({
-  dialect,
-  plugins: [new CamelCasePlugin()],
-});
+let db: Kysely<Database>;
+
+if (process.env.NODE_ENV == "development") {
+  db = new Kysely<Database>({
+    dialect: new NeonDialect({
+      connectionString: process.env.DATABASE_URL,
+    }),
+    plugins: [new CamelCasePlugin()],
+  });
+} else {
+  db = new Kysely<Database>({
+    dialect,
+    plugins: [new CamelCasePlugin()],
+  });
+}
 
 export default db;

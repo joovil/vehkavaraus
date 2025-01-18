@@ -28,6 +28,7 @@ export const POST = async (req: Request) => {
 
     return Response.json({ message: "Email sent" });
   } catch (error) {
+    console.log(error);
     if (error instanceof DatabaseError) {
       if (error.code === "23514") {
         return Response.json({ error: "Username too short" }, { status: 400 });
@@ -38,17 +39,13 @@ export const POST = async (req: Request) => {
           { status: 409 },
         );
       }
+    }
+    if (error instanceof ZodError) {
+      return Response.json({ error: error.issues[0].message }, { status: 400 });
+    }
 
-      if (error instanceof ZodError) {
-        return Response.json(
-          { error: error.issues[0].message },
-          { status: 400 },
-        );
-      }
-
-      if (error instanceof Error) {
-        return Response.json({ error: error.message }, { status: 400 });
-      }
+    if (error instanceof Error) {
+      return Response.json({ error: error.message }, { status: 400 });
     }
   }
 };

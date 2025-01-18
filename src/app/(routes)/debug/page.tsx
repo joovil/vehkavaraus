@@ -1,4 +1,4 @@
-import { auth } from "@/lib/utils/auth";
+import { auth } from "@/app/api/auth/[...nextauth]/auth";
 
 export default async function Home() {
   const session = await auth();

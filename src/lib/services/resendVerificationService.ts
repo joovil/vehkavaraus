@@ -1,4 +1,4 @@
-import { auth } from "../utils/auth";
+import { auth } from "../../app/api/auth/[...nextauth]/auth";
 
 export const resendVerificationService = async () => {
   const session = await auth();

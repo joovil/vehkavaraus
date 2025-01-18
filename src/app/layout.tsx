@@ -1,7 +1,7 @@
+import { auth } from "@/app/api/auth/[...nextauth]/auth";
 import Navbar from "@/components/Navbar/Navbar";
 import ResendVerification from "@/components/Navbar/ResendVerification";
 import SessionProviderClient from "@/components/SessionProviderClient";
-import { auth } from "@/lib/utils/auth";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { cookies } from "next/headers";

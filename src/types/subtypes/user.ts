@@ -11,7 +11,7 @@ const UserSchema = z.object({
   email: z.string().email(),
   apartment: z
     .string()
-    .regex(/^[ab]\d{1,3}$/, { message: "Invalid apartment" })
+    .regex(/^[abAB]\d{1,3}$/, { message: "Invalid apartment" })
     .min(1, { message: "Apartment required" }),
   role: RolesEnum,
 });

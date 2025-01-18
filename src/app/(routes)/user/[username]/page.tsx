@@ -1,5 +1,5 @@
+import { auth } from "@/app/api/auth/[...nextauth]/auth";
 import { getBorrowByIdWithGame } from "@/database/repositories/borrowRepository";
-import { auth } from "@/lib/utils/auth";
 import { redirect } from "next/navigation";
 import BorrowRow from "./components/gameReturning/BorrowRow";
 import SettingsForms from "./components/userSettings/SettingsForms";

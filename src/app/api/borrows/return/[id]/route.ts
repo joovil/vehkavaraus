@@ -1,6 +1,6 @@
+import { auth } from "@/app/api/auth/[...nextauth]/auth";
 import { getBorrowById } from "@/database/repositories/borrowRepository";
 import { completeBorrow } from "@/database/repositories/gameRepository";
-import { auth } from "@/lib/utils/auth";
 
 // TODO: Handle games returned late
 export const POST = async (

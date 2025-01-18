@@ -17,12 +17,13 @@ const SignUpPage = () => {
     apartment: "",
   });
 
-  const isValidEmail =
-    !z.string().email().safeParse(formData.email).success &&
-    formData.email.length > 0;
+  const isValidEmail = (email: string) => {
+    return !z.string().email().safeParse(email).success && email.length > 0;
+  };
 
-  const isValidApartment =
-    !/^[ab]\d{1,3}$/.test(formData.apartment) && formData.apartment.length > 0;
+  const isValidApartment = (app: string) => {
+    return !/^[abAB]\d{1,3}$/.test(app) && app.length > 0;
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -50,7 +51,7 @@ const SignUpPage = () => {
       return;
     }
 
-    if (!apartment) {
+    if (!apartment || isValidApartment(apartment)) {
       displayMessage("Apartment required");
       return;
     }
@@ -113,7 +114,7 @@ const SignUpPage = () => {
           <label>
             Email
             <input
-              className={`${isValidEmail ? "bg-red-200" : ""}`}
+              className={`${isValidEmail(formData.email) ? "bg-red-200" : ""}`}
               name="email"
               type="text"
               placeholder="Email"
@@ -125,7 +126,7 @@ const SignUpPage = () => {
           <label>
             Apartment
             <input
-              className={`${isValidApartment ? "bg-red-200" : ""}`}
+              className={`${isValidApartment(formData.apartment) ? "bg-red-200" : ""}`}
               name="apartment"
               type="text"
               placeholder="Apartment"
@@ -140,7 +141,7 @@ const SignUpPage = () => {
             </button>
           </div>
         </form>
-        <span className="text-red-500">{errorMessage}</span>
+        <span className="text-red-800">{errorMessage}</span>
       </div>
     </div>
   );
