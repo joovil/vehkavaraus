@@ -1,6 +1,6 @@
 import { auth } from "@/app/api/auth/[...nextauth]/auth";
+import ResendVerification from "@/components/Navbar/components/ResendVerification";
 import Navbar from "@/components/Navbar/Navbar";
-import ResendVerification from "@/components/Navbar/ResendVerification";
 import SessionProviderClient from "@/components/SessionProviderClient";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
@@ -62,7 +62,7 @@ export default async function RootLayout({
       data-theme={theme?.value as "light" | "dark"}
     >
       <body
-        className={`${circular.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${circular.variable} ${geistSans.variable} ${geistMono.variable} mx-auto w-3/4 antialiased min-[1600px]:w-1/2`}
       >
         <SessionProviderClient session={session}>
           <Navbar />

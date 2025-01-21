@@ -71,7 +71,7 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="flex h-full w-screen items-center justify-center">
+    <div className="flex h-full items-center justify-center">
       <div className="box-basic w-fit text-2xl">
         <h1 className="btn- mb-3 text-center text-3xl font-bold">Sign up</h1>
 

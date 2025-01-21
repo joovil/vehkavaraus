@@ -51,7 +51,6 @@ const BorrowGameButtons = ({ game: g }: { game: Game }) => {
     );
   };
 
-  console.log("GAME: ", game);
   if (game.borrowStatus === "free") {
     return (
       <div className="flex gap-3">
@@ -63,7 +62,7 @@ const BorrowGameButtons = ({ game: g }: { game: Game }) => {
           Borrow
         </button>
 
-        {session?.user.role === "unverified"
+        {session?.user.role !== "user" && session?.user.role !== "admin"
           ? // Show message to non verified users
             !visible && (
               <>
