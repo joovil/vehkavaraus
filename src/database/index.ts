@@ -23,7 +23,7 @@ const dialect = new PostgresDialect({
 
 let db: Kysely<Database>;
 
-if (process.env.NODE_ENV == "development") {
+if (process.env.NODE_ENV == "production") {
   db = new Kysely<Database>({
     dialect: new NeonDialect({
       connectionString: process.env.DATABASE_URL,

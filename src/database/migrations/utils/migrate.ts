@@ -1,8 +1,15 @@
 import "@/lib/utils/envConfig";
+import { Client, neonConfig } from "@neondatabase/serverless";
 import { promises as fs } from "fs";
 import { FileMigrationProvider, Migrator } from "kysely";
 import * as path from "path";
+import ws from "ws";
 import db from "../..";
+
+neonConfig.webSocketConstructor = ws;
+
+const client = new Client(process.env.DATABASE_URL);
+client.neonConfig.webSocketConstructor = ws;
 
 export async function migrateToLatest() {
   const migrator = new Migrator({

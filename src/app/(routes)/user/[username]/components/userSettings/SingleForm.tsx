@@ -32,29 +32,25 @@ const SingleForm = ({
     <div className="flex-grow basis-0">
       <form className="flex w-3/4 flex-col gap-2" onSubmit={handler}>
         <h3>Change password</h3>
-        <div>
-          <label>New {setting}</label>
-          <input
-            name="val1"
-            type={inputType || "text"}
-            value={value1}
-            onChange={(e) => setValue1(e.target.value)}
-            placeholder={`New ${setting}`}
-            className={inputClass}
-          />
-        </div>
+        <label>New {setting}</label>
+        <input
+          name="val1"
+          type={inputType || "text"}
+          value={value1}
+          onChange={(e) => setValue1(e.target.value)}
+          placeholder={`New ${setting}`}
+          className={inputClass}
+        />
 
-        <div>
-          <label>New {setting} again</label>
-          <input
-            name="val2"
-            type={inputType || "text"}
-            value={value2}
-            onChange={(e) => setValue2(e.target.value)}
-            placeholder={`New ${setting}`}
-            className={inputClass}
-          />
-        </div>
+        <label>New {setting} again</label>
+        <input
+          name="val2"
+          type={inputType || "text"}
+          value={value2}
+          onChange={(e) => setValue2(e.target.value)}
+          placeholder={`New ${setting}`}
+          className={inputClass}
+        />
         <button
           className="btn-primary disabled:bg-greenDisabledV"
           disabled={!fieldsMatch}

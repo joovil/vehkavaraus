@@ -45,10 +45,10 @@ export async function up(db: Kysely<Database>): Promise<void> {
     .createTable("borrows")
     .addColumn("id", "serial", (col) => col.primaryKey())
     .addColumn("borrower_id", "uuid", (col) =>
-      col.references("users.id").onDelete("no action").notNull(),
+      col.references("users.id").onDelete("set null").notNull(),
     )
     .addColumn("game_id", "integer", (col) =>
-      col.references("games.id").onDelete("no action").notNull(),
+      col.references("games.id").onDelete("set null").notNull(),
     )
     .addColumn("borrow_date", "timestamp", (col) =>
       col.defaultTo(sql`current_date`).notNull(),

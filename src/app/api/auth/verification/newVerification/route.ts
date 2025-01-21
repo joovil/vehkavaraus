@@ -4,7 +4,6 @@ import { deleteVerificationByUserId } from "@/database/repositories/verification
 import { sendVerificationEmail } from "@/lib/utils/sendVerificationEmail";
 
 export const POST = async () => {
-  // TODO: Fix
   try {
     const session = await auth();
 
