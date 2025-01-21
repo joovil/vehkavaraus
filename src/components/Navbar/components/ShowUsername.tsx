@@ -20,12 +20,12 @@ export const ShowUsername = () => {
   }
 
   return (
-    <div className="ml-auto flex flex-col text-right text-lg">
+    <>
       <Link href={`/user/${user.username}`} className="text-xl font-semibold">
         {user.username}
       </Link>
       <LogoutButton />
-    </div>
+    </>
   );
 };
 

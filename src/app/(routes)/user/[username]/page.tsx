@@ -13,7 +13,7 @@ const UserPage = async () => {
   const borrows = await getBorrowByIdWithGame(user.id);
 
   return (
-    <main className="m-auto flex w-1/2 flex-col gap-y-6">
+    <main className="m-auto flex flex-col gap-y-6">
       <div className="box-basic">
         <h2>{user.username}</h2>
 
