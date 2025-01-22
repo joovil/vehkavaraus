@@ -7,7 +7,7 @@ import { useState } from "react";
 import { z } from "zod";
 
 const SignUpPage = () => {
-  const { displayMessage, errorMessage } = useDisplayMessage();
+  const [displayMessage, errorMessage] = useDisplayMessage();
 
   const [formData, setFormData] = useState({
     username: "",

@@ -16,5 +16,5 @@ export const useDisplayMessage = () => {
     }, 3000);
   };
 
-  return { displayMessage, errorMessage };
+  return [displayMessage, errorMessage] as const;
 };

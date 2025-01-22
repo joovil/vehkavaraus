@@ -62,7 +62,7 @@ export default async function RootLayout({
       data-theme={theme?.value as "light" | "dark"}
     >
       <body
-        className={`${circular.variable} ${geistSans.variable} ${geistMono.variable} mx-auto w-3/4 antialiased min-[1600px]:w-1/2`}
+        className={`${circular.variable} ${geistSans.variable} ${geistMono.variable} mx-auto w-3/4 antialiased min-[1500px]:w-1/2`}
       >
         <SessionProviderClient session={session}>
           <Navbar />

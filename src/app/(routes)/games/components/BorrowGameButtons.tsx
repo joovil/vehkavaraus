@@ -37,7 +37,7 @@ const BorrowGameButtons = ({ game: g }: { game: Game }) => {
     return (
       <>
         <button
-          className="btn-primary disabled:bg-greenDisabledV"
+          className="btn-primary"
           onClick={handleBorrow}
           disabled={disabled}
         >

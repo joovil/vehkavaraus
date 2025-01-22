@@ -1,7 +1,6 @@
 "use client";
 
-import { showError } from "@/lib/utils/showError";
-import { useEffect, useState } from "react";
+import { useDisplayMessage } from "@/components/useDisplayMessage";
 import ApartmentForm from "./ApartmentForm";
 import PasswordForm from "./PasswordForm";
 
@@ -23,19 +22,19 @@ export const validValues = (val1: string, val2: string): boolean => {
 };
 
 const SettingsForms = () => {
-  const [message, setMessage] = useState<string>("");
-
-  useEffect(() => {
-    showError(setMessage, message);
-  }, [setMessage, message]);
+  const [showMessage, message] = useDisplayMessage();
 
   return (
-    <div>
-      <div className="flex justify-evenly">
-        <PasswordForm setMessage={setMessage} />
-        <ApartmentForm setMessage={setMessage} />
+    <div className="box-basic mb-8">
+      <h2>Settings</h2>
+      <div className="flex flex-col gap-y-4 sm:flex-row sm:gap-x-2">
+        <PasswordForm setMessage={showMessage} />
+        <ApartmentForm setMessage={showMessage} />
       </div>
-      <span>{message}</span>
+
+      <span className="hidden text-xl empty:hidden sm:block sm:pt-4">
+        {message}
+      </span>
     </div>
   );
 };
