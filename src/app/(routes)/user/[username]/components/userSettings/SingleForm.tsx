@@ -51,10 +51,7 @@ const SingleForm = ({
           placeholder={`New ${setting}`}
           className={inputClass}
         />
-        <button
-          className="btn-primary disabled:bg-greenDisabledV"
-          disabled={!fieldsMatch}
-        >
+        <button className="btn-primary" disabled={!fieldsMatch}>
           Submit
         </button>
       </form>

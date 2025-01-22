@@ -59,7 +59,7 @@ body {
 
 @layer components {
   .btn-primary {
-    @apply w-fit rounded bg-primary px-5 py-2 font-black text-offWhiteV;
+    @apply w-fit rounded bg-primary px-5 py-2 font-black text-offWhiteV disabled:bg-greenDisabledV;
   }
 
   .box-basic {
