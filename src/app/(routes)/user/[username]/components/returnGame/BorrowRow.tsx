@@ -1,7 +1,7 @@
 "use client";
+import { useDisplayMessage } from "@/components/useDisplayMessage";
 import completeBorrowService from "@/lib/services/borrows/returnBorrowService";
 import { formatDate } from "@/lib/utils/formatDate";
-import { showError } from "@/lib/utils/showError";
 import { useState } from "react";
 
 export interface BorrowProp {
@@ -15,8 +15,10 @@ export interface BorrowProp {
 
 const BorrowRow = ({ borrow }: { borrow: BorrowProp }) => {
   const [hidden, setHidden] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  // const [errorMessage, setErrorMessage] = useState<string>("");
   const [disabled, setDisabled] = useState<boolean>(false);
+
+  const [displayMessage, errorMessage] = useDisplayMessage();
 
   const handleClick = async () => {
     setDisabled(true);
@@ -30,9 +32,9 @@ const BorrowRow = ({ borrow }: { borrow: BorrowProp }) => {
     }
     const data = await res.json();
 
-    console.log(data);
     if (data.error) {
-      showError(setErrorMessage, data.error, () => setDisabled(false));
+      displayMessage(data.error);
+      setDisabled(false);
     }
   };
 
@@ -61,7 +63,8 @@ const BorrowRow = ({ borrow }: { borrow: BorrowProp }) => {
           </button>
         </div>
       </div>
-      <span className="text-red-500">{errorMessage}</span>
+
+      <span className="text-red-800">{errorMessage}</span>
     </>
   );
 };

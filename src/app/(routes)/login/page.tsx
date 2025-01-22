@@ -1,12 +1,12 @@
 "use client";
 
-import { showError } from "@/lib/utils/showError";
+import { useDisplayMessage } from "@/components/useDisplayMessage";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 export default function Home() {
-  const [errorMessage, setErrorMessage] = useState("");
+  const [displayMessage, errorMessage] = useDisplayMessage();
+
   const router = useRouter();
 
   const handleLogin = async (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -21,7 +21,7 @@ export default function Home() {
     if (res?.status === 200) {
       router.push("/");
     } else {
-      showError(setErrorMessage, "Invalid credentials");
+      displayMessage("Invalid credentials");
     }
   };
 
@@ -53,7 +53,10 @@ export default function Home() {
             <button className="btn-primary">Log in</button>
           </div>
         </form>
-        <div className="mt-2 text-center text-red-800">{errorMessage}</div>
+
+        <div className="mt-2 text-center text-red-800 empty:hidden">
+          {errorMessage}
+        </div>
       </div>
     </div>
   );

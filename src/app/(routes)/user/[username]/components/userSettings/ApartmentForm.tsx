@@ -1,47 +1,85 @@
 "use client";
 
+import { useDisplayMessage } from "@/components/useDisplayMessage";
 import updateApartmentService from "@/lib/services/users/updateApartmentService";
 import { useState } from "react";
 import { SettingsFormElements, validValues } from "./SettingsForms";
-import SingleForm from "./SingleForm";
 
 const ApartmentForm = ({
   setMessage,
 }: {
-  setMessage: React.Dispatch<React.SetStateAction<string>>;
+  setMessage: (message: string) => void;
 }) => {
-  const [apartmentError, setApartmentError] = useState<string>("");
+  const [apartment, setApartment] = useState<string>("");
+  const [apartment2, setApartment2] = useState<string>("");
+
+  const [showMobile, mobileMessage] = useDisplayMessage();
+  const [showError, errorMessage] = useDisplayMessage();
 
   const handleApartmentChange = async (
     e: React.FormEvent<SettingsFormElements>,
   ) => {
     e.preventDefault();
 
-    const newApartment = e.currentTarget.elements.val1.value;
-    const newApartment2 = e.currentTarget.elements.val2.value;
-
-    if (!validValues(newApartment, newApartment2)) {
-      setApartmentError("Fields must match");
+    if (!validValues(apartment, apartment2)) {
+      showError("Fields must match");
       return;
     }
 
-    const res = await updateApartmentService(newApartment);
+    const res = await updateApartmentService(apartment);
 
     if (res.status !== 200) {
       const data = await res.json();
-      setApartmentError(data.error);
+      showError(data.error);
     }
 
+    setApartment("");
+    setApartment2("");
+
+    showMobile("Apartment updated");
     setMessage("Apartment updated");
   };
 
+  const validInput =
+    (apartment === apartment2 && apartment.match(/^[abAB]\d{1,3}$/)) ||
+    (apartment.length === 0 && apartment2.length === 0);
+
   return (
-    <SingleForm
-      setting="apartment"
-      handler={handleApartmentChange}
-      errorMessage={apartmentError}
-      errorSetter={setApartmentError}
-    />
+    <div className="flex flex-col text-lg sm:flex-grow">
+      <span className="text-xl sm:hidden">{mobileMessage}</span>
+
+      <form
+        className="flex w-full flex-col text-lg [&>input]:max-w-80"
+        onSubmit={handleApartmentChange}
+      >
+        <h3>Update apartment</h3>
+        <label>Apartment</label>
+        <input
+          name="val1"
+          type="text"
+          value={apartment}
+          onChange={(e) => setApartment(e.target.value)}
+          placeholder="New apartment"
+          className={`${!validInput ? "bg-red-200" : ""}`}
+        />
+
+        <label>Apartment again</label>
+        <input
+          name="val2"
+          type="text"
+          value={apartment2}
+          onChange={(e) => setApartment2(e.target.value)}
+          placeholder="New apartment"
+          className={`${!validInput ? "bg-red-200" : ""}`}
+        />
+
+        <button className="btn-primary mt-2" disabled={!validInput}>
+          Submit
+        </button>
+      </form>
+
+      <span className="mt-2 text-red-800">{errorMessage}</span>
+    </div>
   );
 };
 
