@@ -10,14 +10,14 @@ const lateGameCheck = async () => {
     .set("borrowStatus", "late")
     .where("availableDate", "<", () => sql`NOW()::TIMESTAMP`)
     .execute();
-
-  console.log("Late games updated");
 };
 
 export const lateGameJob = new CronJob(
   "0 8 * * * *",
   lateGameCheck,
-  null,
+  () => {
+    console.log("Late games updated");
+  },
   true,
   "UTC+2",
 );

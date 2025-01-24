@@ -33,7 +33,7 @@ const prodDb = new Kysely<Database>({
   plugins: [new CamelCasePlugin()],
 });
 
-if (process.env.NODE_ENV == "production") {
+if (process.env.NODE_ENV == "development") {
   db = devDb;
 } else {
   db = prodDb;
