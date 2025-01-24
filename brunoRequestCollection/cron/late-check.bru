@@ -1,0 +1,15 @@
+meta {
+  name: late-check
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:3000/api/cron/late-check
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer secret
+}
