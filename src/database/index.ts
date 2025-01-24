@@ -1,46 +1,30 @@
-import {
-  DB_HOST,
-  DB_NAME,
-  DB_PASSWORD,
-  DB_PORT,
-  DB_USER,
-} from "@/lib/utils/envVariables";
 import { Database } from "@/types";
 import { CamelCasePlugin, Kysely, PostgresDialect } from "kysely";
 import { NeonDialect } from "kysely-neon";
 import { Pool } from "pg";
-import { lateGameJob } from "./cron/updateLateStatus";
 
 let db: Kysely<Database>;
 
-const devDb = new Kysely<Database>({
-  dialect: new NeonDialect({
-    connectionString: process.env.DATABASE_URL,
-  }),
-  plugins: [new CamelCasePlugin()],
-});
-
-const prodDb = new Kysely<Database>({
-  dialect: new PostgresDialect({
-    pool: new Pool({
-      database: DB_NAME,
-      host: DB_HOST,
-      user: DB_USER,
-      password: DB_PASSWORD,
-      port: DB_PORT,
+if (process.env.NODE_ENV == "production") {
+  db = new Kysely<Database>({
+    dialect: new NeonDialect({
+      connectionString: process.env.DATABASE_URL,
     }),
-  }),
-  plugins: [new CamelCasePlugin()],
-});
-
-if (process.env.NODE_ENV == "development") {
-  db = devDb;
+    plugins: [new CamelCasePlugin()],
+  });
 } else {
-  db = prodDb;
+  db = new Kysely<Database>({
+    dialect: new PostgresDialect({
+      pool: new Pool({
+        database: process.env.DB_NAME,
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        port: parseInt(process.env.DB_PORT!),
+      }),
+    }),
+    plugins: [new CamelCasePlugin()],
+  });
 }
-
-// Cron jobs
-lateGameJob.start();
-console.log("Jobs started");
 
 export default db;

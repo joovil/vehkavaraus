@@ -1,11 +1,4 @@
 import "@/lib/utils/envConfig";
-import {
-  DB_HOST,
-  DB_NAME,
-  DB_PASSWORD,
-  DB_PORT,
-  DB_USER,
-} from "@/lib/utils/envVariables";
 import { Database } from "@/types";
 import { Client, neonConfig, Pool } from "@neondatabase/serverless";
 import { promises as fs } from "fs";
@@ -27,11 +20,11 @@ client.neonConfig.webSocketConstructor = ws;
 const db = new Kysely<Database>({
   dialect: new PostgresDialect({
     pool: new Pool({
-      database: DB_NAME,
-      host: DB_HOST,
-      user: DB_USER,
-      password: DB_PASSWORD,
-      port: DB_PORT,
+      database: process.env.DB_NAME,
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      port: parseInt(process.env.DB_PORT!),
     }),
   }),
   plugins: [new CamelCasePlugin()],

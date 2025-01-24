@@ -1,4 +1,3 @@
-import { NEXT_PUBLIC_API_URL } from "@/lib/utils/envVariables";
 import {
   Body,
   Button,
@@ -18,7 +17,7 @@ const EmailVerificationTemplate = ({
   user: User;
   verificationKey: string;
 }) => {
-  const emailLink = `${NEXT_PUBLIC_API_URL}/api/auth/verification/${verificationKey}`;
+  const emailLink = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/verification/${verificationKey}`;
   console.log("Email");
   console.log("VerificationKey: ", verificationKey);
 
