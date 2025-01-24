@@ -1,5 +1,6 @@
 import logger from "@/lib/utils/logger";
 import { GameUpdate, NewGame } from "@/types";
+import { sql } from "kysely";
 import db from "..";
 
 export const getAllGames = async () => {
@@ -72,4 +73,12 @@ export const updateGameReturned = async (gameId: number) => {
       .set({ returnDate: new Date() })
       .executeTakeFirstOrThrow();
   });
+};
+
+export const lateGameCheck = async () => {
+  await db
+    .updateTable("games")
+    .set("borrowStatus", "late")
+    .where("availableDate", "<", () => sql`NOW()::TIMESTAMP`)
+    .execute();
 };
