@@ -9,6 +9,7 @@ import { Database } from "@/types";
 import { CamelCasePlugin, Kysely, PostgresDialect } from "kysely";
 import { NeonDialect } from "kysely-neon";
 import { Pool } from "pg";
+import { lateGameJob } from "./cron/updateLateStatus";
 
 let db: Kysely<Database>;
 
@@ -33,5 +34,8 @@ if (process.env.NODE_ENV == "production") {
     plugins: [new CamelCasePlugin()],
   });
 }
+
+lateGameJob.start();
+console.log("Jobs started");
 
 export default db;
