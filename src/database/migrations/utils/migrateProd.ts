@@ -1,16 +1,28 @@
 import "@/lib/utils/envConfig";
+import { Database } from "@/types";
 import { Client, neonConfig } from "@neondatabase/serverless";
 import { promises as fs } from "fs";
-import { FileMigrationProvider, Migrator } from "kysely";
+import {
+  CamelCasePlugin,
+  FileMigrationProvider,
+  Kysely,
+  Migrator,
+} from "kysely";
+import { NeonDialect } from "kysely-neon";
 import * as path from "path";
 import ws from "ws";
-import db from "../..";
 
 neonConfig.webSocketConstructor = ws;
 
 const client = new Client(process.env.DATABASE_URL);
 client.neonConfig.webSocketConstructor = ws;
 
+const db = new Kysely<Database>({
+  dialect: new NeonDialect({
+    connectionString: process.env.DATABASE_URL,
+  }),
+  plugins: [new CamelCasePlugin()],
+});
 export async function migrateToLatest() {
   const migrator = new Migrator({
     db,
