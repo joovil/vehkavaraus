@@ -1,6 +1,3 @@
-import { getGamesWithCurrentBorrowAction } from "@/lib/actions/games/getGamesWithCurrentBorrowAction";
-import GameInfo from "./GameInfo";
-
 export interface GameWithCurrentBorrow {
   name: string;
   borrowStatus: "free" | "borrowed" | "late";
@@ -13,12 +10,10 @@ export interface GameWithCurrentBorrow {
 }
 
 const AdminPage = async () => {
-  const games = await getGamesWithCurrentBorrowAction();
+  // const games = await getGamesWithCurrentBorrowAction();
 
   return (
-    <main className="grid gap-y-6">
-      <GameInfo games={games} />
-    </main>
+    <main className="grid gap-y-6">{/* <GameInfo games={games} /> */}</main>
   );
 };
 

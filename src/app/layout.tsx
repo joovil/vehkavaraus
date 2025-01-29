@@ -58,7 +58,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className="h-full"
+      className="h-full w-screen"
       data-theme={theme?.value as "light" | "dark"}
     >
       <body

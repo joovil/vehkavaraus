@@ -4,7 +4,7 @@ import { TableType } from "./types";
 export const RolesEnum = z.enum(["unverified", "user", "admin"]);
 export type RolesType = z.infer<typeof RolesEnum>;
 
-const UserSchema = z.object({
+export const UserSchema = z.object({
   id: z.string().uuid(),
   username: z.string().min(1),
   passwordHash: z.string(),

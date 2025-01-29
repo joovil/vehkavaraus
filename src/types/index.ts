@@ -1,3 +1,4 @@
+export * from "./subtypes/admin";
 export * from "./subtypes/borrow";
 export * from "./subtypes/game";
 export * from "./subtypes/types";
