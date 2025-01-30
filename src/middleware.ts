@@ -31,6 +31,11 @@ export const middleware = async (req: NextRequest) => {
   ) {
     return NextResponse.redirect(new URL(`${token.user.username}`, req.url));
   }
+
+  // Protect admin pages
+  if (token && pathname.startsWith("/admin") && token.user.role !== "admin") {
+    return NextResponse.redirect(new URL("/games", req.url));
+  }
 };
 
 export const config = {
