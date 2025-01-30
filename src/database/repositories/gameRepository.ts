@@ -46,34 +46,38 @@ export const completeBorrow = async (borrowId: number) => {
       .set({
         availableDate: null,
         borrowStatus: "free",
+        currentBorrow: null,
       })
       .where("id", "=", borrow.gameId)
       .executeTakeFirstOrThrow();
   });
 };
 
-export const updateGameReturned = async (gameId: number) => {
-  return await db.transaction().execute(async (trx) => {
-    const borrow = await trx
-      .selectFrom("borrows")
-      .where("gameId", "=", gameId)
-      .orderBy("id", "desc")
-      .select(["borrows.id"])
-      .executeTakeFirstOrThrow();
+// export const updateGameReturned = async (gameId: number) => {
+//   logger.logGreen("Updating games");
+//   return await db.transaction().execute(async (trx) => {
+//     const borrow = await trx
+//       .selectFrom("borrows")
+//       .where("gameId", "=", gameId)
+//       .orderBy("id", "desc")
+//       .select(["borrows.id"])
+//       .executeTakeFirstOrThrow();
 
-    await trx
-      .updateTable("games")
-      .set({ borrowStatus: "free", availableDate: null, currentBorrow: null })
-      .where("games.id", "=", gameId)
-      .executeTakeFirstOrThrow();
+//     logger.logGreen("updating games");
 
-    return await trx
-      .updateTable("borrows")
-      .where("borrows.id", "=", borrow.id)
-      .set({ returnDate: new Date() })
-      .executeTakeFirstOrThrow();
-  });
-};
+//     await trx
+//       .updateTable("games")
+//       .set({ borrowStatus: "free", availableDate: null, currentBorrow: null })
+//       .where("games.id", "=", gameId)
+//       .executeTakeFirstOrThrow();
+
+//     return await trx
+//       .updateTable("borrows")
+//       .where("borrows.id", "=", borrow.id)
+//       .set({ returnDate: new Date() })
+//       .executeTakeFirstOrThrow();
+//   });
+// };
 
 export const lateGameCheck = async () => {
   await db

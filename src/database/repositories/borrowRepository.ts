@@ -34,8 +34,10 @@ export const getBorrowByGameId = async (id: number) => {
       "users.username",
       "borrows.id",
       "borrows.borrowDate",
+      "borrows.dueDate",
       "borrows.returnDate",
     ])
+    .orderBy("borrows.id", "desc")
     .execute();
 };
 

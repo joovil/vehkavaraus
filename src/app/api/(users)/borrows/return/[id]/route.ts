@@ -1,6 +1,7 @@
 import { auth } from "@/app/api/auth/[...nextauth]/auth";
 import { getBorrowById } from "@/database/repositories/borrowRepository";
 import { completeBorrow } from "@/database/repositories/gameRepository";
+import logger from "@/lib/utils/logger";
 
 // TODO: Handle games returned late
 export const POST = async (
@@ -8,6 +9,7 @@ export const POST = async (
   props: { params: Promise<{ id: number }> },
 ) => {
   const params = await props.params;
+  logger.logGreen(params.id as unknown as string);
   try {
     const session = await auth();
 

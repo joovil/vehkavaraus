@@ -6,7 +6,7 @@ const GamePage = async () => {
 
   return (
     <main>
-      <Content games={games} />
+      <Content preloadedGames={games} />
     </main>
   );
 };
