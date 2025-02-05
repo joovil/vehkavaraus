@@ -1,3 +1,11 @@
 {
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "overrides": [
+    {
+      "files": "*.tsx",
+      "options": {
+        "singleAttributePerLine": true,
+        "plugins": ["prettier-plugin-tailwindcss"]
+      }
+    }
+  ]
 }
