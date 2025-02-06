@@ -56,15 +56,15 @@ const AddGame = () => {
     <div className="box-basic">
       <h2>{name || "New game"}</h2>
 
-      <div className="sm:grid sm:grid-cols-2 sm:gap-2 lg:grid-cols-[364px_auto] xl:flex xl:gap-4 xl:[&>*]:flex-1">
+      <div className="sm:grid sm:grid-cols-2 sm:gap-2 lg:flex lg:gap-4 lg:[&>*]:flex-1">
         <ImagePreview file={file} />
 
         <form
-          className="flex flex-col justify-between sm:order-last sm:col-span-2 xl:col-span-1 xl:row-span-2"
+          className="flex flex-col justify-between sm:order-last sm:col-span-2"
           onSubmit={handleSubmit}
         >
           {/* Name input and buttons */}
-          <div className="lg:grid lg:grid-cols-2 lg:gap-2 xl:flex xl:h-full xl:flex-col">
+          <div className="gap-2 lg:flex lg:h-full lg:flex-col">
             {/* Name input */}
             <div>
               <label className="text-xl font-bold">Name</label>
@@ -78,9 +78,9 @@ const AddGame = () => {
             </div>
 
             {/* Button div */}
-            <div className="my-2 sm:flex sm:gap-2 lg:order-2 xl:mb-0 [&>button]:w-full">
+            <div className="my-2 flex flex-col gap-2 sm:mb-0 lg:order-last lg:m-0 lg:flex-col [&>button]:w-full">
               <button
-                className="btn-primary mb-2 sm:m-0"
+                className="btn-primary"
                 onClick={handleClick}
                 type="button"
               >
@@ -95,9 +95,9 @@ const AddGame = () => {
             </div>
 
             {/* Image Drop */}
-            <div className="hidden lg:row-span-2 lg:block xl:h-full">
+            <div className="hidden lg:block lg:h-full">
               <div
-                className="flex flex-1 items-center justify-center border-2 border-dashed border-lightGrayV bg-inputGreenV sm:h-full"
+                className="flex h-full flex-1 items-center justify-center border-2 border-dashed border-lightGrayV bg-inputGreenV"
                 onDrop={onDropHandler}
                 onDragOver={onDropHandler}
               >
@@ -114,7 +114,7 @@ const AddGame = () => {
         </form>
 
         {/* Image info */}
-        <div className="flex-col xl:order-last">
+        <div className="flex-col lg:order-last">
           <h3 className="m-0">File info</h3>
           {file && (
             <div className="flex flex-col">

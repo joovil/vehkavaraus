@@ -11,7 +11,7 @@ export const ImagePreview = ({ file }: { file: File | null }) => {
   }, [file]);
 
   return (
-    <div className="relative aspect-square lg:h-[364px] xl:w-full">
+    <div className="relative aspect-square lg:h-full xl:w-full">
       {file && imgUrl ? (
         <Image
           src={imgUrl}
