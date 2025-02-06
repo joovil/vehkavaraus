@@ -23,7 +23,16 @@ const AddGame = () => {
   }, [file]);
 
   const handleClick = () => {
-    console.log(inputRef.current!.click());
+    if (!inputRef.current) return;
+    inputRef.current.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      setFile(file);
+      console.log(file);
+    }
   };
 
   const onDropHandler = (e: React.DragEvent<HTMLDivElement>) => {
@@ -47,43 +56,31 @@ const AddGame = () => {
     <div className="box-basic">
       <h2>{name || "New game"}</h2>
 
-      <div className="flex gap-4">
+      <div className="sm:grid sm:grid-cols-2 sm:gap-2 lg:grid-cols-[364px_auto] xl:flex xl:gap-4 xl:[&>*]:flex-1">
         <ImagePreview file={file} />
 
         <form
-          className="flex flex-col justify-between"
+          className="flex flex-col justify-between sm:order-last sm:col-span-2 xl:col-span-1 xl:row-span-2"
           onSubmit={handleSubmit}
         >
-          <div className="mb-2 flex flex-col">
+          {/* Name input and buttons */}
+          <div className="lg:grid lg:grid-cols-2 lg:gap-2 xl:flex xl:h-full xl:flex-col">
             {/* Name input */}
-            <label>Name</label>
-            <input
-              className=""
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-              placeholder="Name of game"
-              type="text"
-            />
-          </div>
-
-          {/* Image input */}
-          <div className="flex h-full flex-col">
-            <div
-              className="flex flex-1 items-center justify-center border-2 border-dashed border-lightGrayV bg-inputGreenV"
-              onDrop={onDropHandler}
-              onDragOver={onDropHandler}
-            >
+            <div>
+              <label className="text-xl font-bold">Name</label>
               <input
-                className="hidden"
-                type="file"
-                ref={inputRef}
+                className="w-full"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+                placeholder="Game name"
+                type="text"
               />
-              <span>Drop image here</span>
             </div>
 
-            <div>
+            {/* Button div */}
+            <div className="my-2 sm:flex sm:gap-2 lg:order-2 xl:mb-0 [&>button]:w-full">
               <button
-                className="btn-primary mr-2 mt-2"
+                className="btn-primary mb-2 sm:m-0"
                 onClick={handleClick}
                 type="button"
               >
@@ -96,11 +93,28 @@ const AddGame = () => {
                 Add game
               </button>
             </div>
+
+            {/* Image Drop */}
+            <div className="hidden lg:row-span-2 lg:block xl:h-full">
+              <div
+                className="flex flex-1 items-center justify-center border-2 border-dashed border-lightGrayV bg-inputGreenV sm:h-full"
+                onDrop={onDropHandler}
+                onDragOver={onDropHandler}
+              >
+                <input
+                  className="hidden"
+                  type="file"
+                  ref={inputRef}
+                  onChange={handleFileChange}
+                />
+                <span>Drop image here</span>
+              </div>
+            </div>
           </div>
         </form>
 
         {/* Image info */}
-        <div className="flex flex-col [&>span]:inline-block">
+        <div className="flex-col xl:order-last">
           <h3 className="m-0">File info</h3>
           {file && (
             <div className="flex flex-col">
@@ -116,8 +130,10 @@ const AddGame = () => {
               </span>
             </div>
           )}
-          <div className="mt-auto flex flex-col">
-            {!name && <span className="">Name missing</span>}
+
+          {/* Missing field errors */}
+          <div className="flex flex-col">
+            {!name && <span>Name missing</span>}
             {!file && <span>Image missing</span>}
           </div>
         </div>

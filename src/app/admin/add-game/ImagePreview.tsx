@@ -11,7 +11,7 @@ export const ImagePreview = ({ file }: { file: File | null }) => {
   }, [file]);
 
   return (
-    <div className="relative h-80 w-80">
+    <div className="relative aspect-square lg:h-[364px] xl:w-full">
       {file && imgUrl ? (
         <Image
           src={imgUrl}
@@ -20,7 +20,7 @@ export const ImagePreview = ({ file }: { file: File | null }) => {
           unoptimized
         />
       ) : (
-        <div className="mt-auto flex h-full w-full items-center justify-center bg-inputGreenV">
+        <div className="mt-auto flex aspect-square items-center justify-center bg-inputGreenV">
           <span className="text-2xl">Image preview</span>
         </div>
       )}
