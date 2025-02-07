@@ -4,7 +4,6 @@ import Navbar from "@/components/Navbar/Navbar";
 import SessionProviderClient from "@/components/SessionProviderClient";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { cookies } from "next/headers";
 import "./styles/globals.css";
 
 const geistSans = localFont({
@@ -51,23 +50,25 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const theme = cookieStore.get("theme");
+  // NOTE: Themes aren't implemented at this point due to time constraints
+  // const cookieStore = await cookies();
+  // const theme = cookieStore.get("theme");
   const session = await auth();
 
   return (
     <html
       lang="en"
       className="h-full w-screen"
-      data-theme={theme?.value as "light" | "dark"}
+      // data-theme={theme?.value as "light" | "dark"}
     >
       <body
-        className={`${circular.variable} ${geistSans.variable} ${geistMono.variable} mx-auto w-3/4 antialiased min-[1500px]:w-1/2`}
+        className={`${circular.variable} ${geistSans.variable} ${geistMono.variable} mx-auto w-3/4 pb-8 antialiased min-[1500px]:w-1/2`}
       >
         <SessionProviderClient session={session}>
           <Navbar />
+
           <ResendVerification />
-          {/* <Debug /> */}
+
           {children}
         </SessionProviderClient>
       </body>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+// NOTE: Not implemented
 export const ThemeToggle = ({ initialTheme }: { initialTheme: string }) => {
   const [theme, setTheme] = useState(initialTheme);
 
