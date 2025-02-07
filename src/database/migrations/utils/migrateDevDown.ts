@@ -2,11 +2,11 @@ import "@/lib/utils/envConfig";
 import { promises as fs } from "fs";
 import { FileMigrationProvider, Migrator } from "kysely";
 import * as path from "path";
-import db from "../..";
+import { devDb } from "./migrateDev";
 
-export async function migrateToLatest() {
+export async function migrateDown() {
   const migrator = new Migrator({
-    db,
+    db: devDb,
     provider: new FileMigrationProvider({
       fs,
       path,
@@ -31,7 +31,7 @@ export async function migrateToLatest() {
     process.exit(1);
   }
 
-  await db.destroy();
+  await devDb.destroy();
 }
 
-migrateToLatest();
+migrateDown();
