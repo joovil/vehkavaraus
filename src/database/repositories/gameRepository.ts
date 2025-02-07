@@ -1,5 +1,5 @@
 import logger from "@/lib/utils/logger";
-import { GameUpdate, NewGame } from "@/types";
+import { GameUpdate } from "@/types";
 import { sql } from "kysely";
 import db from "..";
 
@@ -16,10 +16,18 @@ export const getGameById = async (id: number) => {
     .executeTakeFirstOrThrow();
 };
 
-export const createGame = async (game: NewGame) => {
+export const getGameByName = async (name: string) => {
+  return db
+    .selectFrom("games")
+    .where("name", "=", name)
+    .selectAll()
+    .executeTakeFirst();
+};
+
+export const createGame = async (name: string, imageUrl: string) => {
   return await db
     .insertInto("games")
-    .values(game)
+    .values({ name, imageUrl })
     .returningAll()
     .executeTakeFirstOrThrow();
 };
@@ -52,32 +60,6 @@ export const completeBorrow = async (borrowId: number) => {
       .executeTakeFirstOrThrow();
   });
 };
-
-// export const updateGameReturned = async (gameId: number) => {
-//   logger.logGreen("Updating games");
-//   return await db.transaction().execute(async (trx) => {
-//     const borrow = await trx
-//       .selectFrom("borrows")
-//       .where("gameId", "=", gameId)
-//       .orderBy("id", "desc")
-//       .select(["borrows.id"])
-//       .executeTakeFirstOrThrow();
-
-//     logger.logGreen("updating games");
-
-//     await trx
-//       .updateTable("games")
-//       .set({ borrowStatus: "free", availableDate: null, currentBorrow: null })
-//       .where("games.id", "=", gameId)
-//       .executeTakeFirstOrThrow();
-
-//     return await trx
-//       .updateTable("borrows")
-//       .where("borrows.id", "=", borrow.id)
-//       .set({ returnDate: new Date() })
-//       .executeTakeFirstOrThrow();
-//   });
-// };
 
 export const lateGameCheck = async () => {
   await db

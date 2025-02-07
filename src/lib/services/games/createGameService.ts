@@ -5,7 +5,7 @@ export const createGameService = async (name: string, image: File) => {
   formData.append("name", name);
   formData.append("file", image);
 
-  const res = await apiFetch("/games", {
+  const res = await apiFetch("/admin/games", {
     method: "POST",
     body: formData,
   });

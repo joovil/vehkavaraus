@@ -1,5 +1,7 @@
 "use client";
 
+import { useDisplayMessage } from "@/components/useDisplayMessage";
+import { createGameService } from "@/lib/services/games/createGameService";
 import Compressor from "compressorjs";
 import { useEffect, useRef, useState } from "react";
 import { ImagePreview } from "./ImagePreview";
@@ -8,6 +10,10 @@ const AddGame = () => {
   const [file, setFile] = useState<File | null>(null);
   const [compressed, setCompressed] = useState<File | null>(null);
   const [name, setName] = useState<string>("");
+  const [disabled, setDisabled] = useState<boolean>(false);
+
+  const [setMessage, message] = useDisplayMessage();
+  const [setErrorMessage, errorMessage] = useDisplayMessage();
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -31,7 +37,6 @@ const AddGame = () => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       setFile(file);
-      console.log(file);
     }
   };
 
@@ -46,10 +51,21 @@ const AddGame = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!file && !compressed) return;
+    setDisabled(true);
+    if (!file || !compressed) return;
 
-    console.log(name);
-    // const res = await createGameService();
+    const res = await createGameService(name, file);
+
+    if (res.status === 200) {
+      setName("");
+      setFile(null);
+      setMessage("Game added successfully");
+      setDisabled(false);
+    } else {
+      const data = await res.json();
+      console.log(data);
+      setErrorMessage(data.error);
+    }
   };
 
   return (
@@ -88,7 +104,7 @@ const AddGame = () => {
               </button>
               <button
                 className="btn-primary"
-                disabled={!(file && name)}
+                disabled={!(file && name) || disabled}
               >
                 Add game
               </button>
@@ -113,9 +129,12 @@ const AddGame = () => {
           </div>
         </form>
 
-        {/* Image info */}
+        {/* File info */}
         <div className="flex-col lg:order-last">
           <h3 className="m-0">File info</h3>
+
+          <span className="text-xl text-green-800">{message}</span>
+          <span className="text-xl text-red-800">{errorMessage}</span>
           {file && (
             <div className="flex flex-col">
               <span>Size</span>
@@ -133,6 +152,7 @@ const AddGame = () => {
 
           {/* Missing field errors */}
           <div className="flex flex-col">
+            <span className="text-lg sm:text-xl">Image should be square</span>
             {!name && <span>Name missing</span>}
             {!file && <span>Image missing</span>}
           </div>

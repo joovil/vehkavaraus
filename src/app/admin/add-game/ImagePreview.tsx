@@ -17,7 +17,7 @@ export const ImagePreview = ({ file }: { file: File | null }) => {
           src={imgUrl}
           alt="Image of new game"
           fill
-          unoptimized
+          className="object-contain"
         />
       ) : (
         <div className="mt-auto flex aspect-square items-center justify-center bg-inputGreenV">
