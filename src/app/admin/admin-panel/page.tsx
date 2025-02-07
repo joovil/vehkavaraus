@@ -4,11 +4,7 @@ import Content from "./Content";
 const GamePage = async () => {
   const games = await adminGamesService();
 
-  return (
-    <main>
-      <Content preloadedGames={games} />
-    </main>
-  );
+  return <Content preloadedGames={games} />;
 };
 
 export default GamePage;

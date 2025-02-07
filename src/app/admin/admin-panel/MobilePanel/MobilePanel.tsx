@@ -2,6 +2,7 @@
 
 import { AdminGame, BorrowStatusesType, HistoryItem } from "@/types";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 import {
   BorrowerInfo,
@@ -29,16 +30,27 @@ const Mobile = ({
   ) => "bg-darkGreenV text-offWhiteV" | "bg-orangeV" | "bg-pinkV";
   capitalize: (word: string) => string;
 }) => {
+  const router = useRouter();
+
   return (
     <div className="flex flex-col gap-8">
+      <button
+        className="btn-primary ml-auto"
+        onClick={() => router.push("/admin/add-game")}
+      >
+        Add game
+      </button>
       {games.map((game) => {
         const currentGame = gameDetails === game;
 
         return (
-          <div key={game.gameId} className="box-basic">
-            <div className="">
-              <div className="">
-                <div className="">
+          <div
+            key={game.gameId}
+            className="box-basic"
+          >
+            <div>
+              <div>
+                <div>
                   <div className="flex justify-between">
                     <h2
                       className="text-long-name w-full"

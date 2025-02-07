@@ -4,9 +4,11 @@ import { adminGamesService } from "@/lib/services/admin/adminGamesService";
 import { getBorrowByGameIdService } from "@/lib/services/borrows/getBorrowByGameIdService";
 import { AdminGame, BorrowStatusesType, HistoryItem } from "@/types";
 import { useEffect, useState } from "react";
-import DesktopPanel from "./DesktopPanel/DesktopPanel";
-import MobilePanel from "./MobilePanel/MobilePanel";
+import AddGame from "../add-game/page";
+import DesktopPanel from "./desktopPanel/DesktopPanel";
+import MobilePanel from "./mobilePanel/MobilePanel";
 
+// NOTE: Yes, this component is a mess and no it won't be refactored at this point
 const Content = ({ preloadedGames }: { preloadedGames: AdminGame[] }) => {
   const [gameDetails, setGameDetails] = useState<AdminGame | null>(null);
   const [games, setGames] = useState<AdminGame[]>(preloadedGames);
@@ -25,7 +27,7 @@ const Content = ({ preloadedGames }: { preloadedGames: AdminGame[] }) => {
       setHistory(await getBorrowByGameIdService(gameDetails.gameId));
     };
     getHistory();
-  }, [gameDetails?.gameId]);
+  }, [gameDetails, gameDetails?.gameId]);
 
   const handleGameSet = (newGame: AdminGame) => {
     if (gameDetails === newGame) {
@@ -37,7 +39,7 @@ const Content = ({ preloadedGames }: { preloadedGames: AdminGame[] }) => {
   };
 
   return (
-    <>
+    <div>
       <div className="min-[925px]:hidden">
         <MobilePanel
           games={games}
@@ -60,7 +62,9 @@ const Content = ({ preloadedGames }: { preloadedGames: AdminGame[] }) => {
           getCellColor={getCellColor}
         />
       </div>
-    </>
+
+      {!gameDetails && <AddGame />}
+    </div>
   );
 };
 

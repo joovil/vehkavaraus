@@ -27,7 +27,10 @@ const DesktopPanel = ({
         <Titles />
 
         {games.map((game) => (
-          <div key={game.gameId} className="grid grid-cols-5">
+          <div
+            key={game.gameId}
+            className="grid grid-cols-5"
+          >
             <button
               onClick={() => handleGameSet(game)}
               className="text-long-name text-left"
