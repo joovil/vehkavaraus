@@ -6,12 +6,15 @@ meta {
 
 post {
   url: http://localhost:3000/api/games/
-  body: json
+  body: multipartForm
   auth: none
 }
 
-body:json {
-  {
-    "name": "board game2"
-  }
+headers {
+  Content-Type: multipart/form-data
+  Cookie: next-auth.csrf-token=0ef7cb6e693ee5d8f4860fd9bb092adb917540808ed41476c05cd2d5595ac278%7C607391bb7d0c68504c9c0ac46408f4776c36be9a6c58f37ef306ffbd0ca92375; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000; next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..zNqLPBeo31II4JOC.guuvXM759T6OSL1889sClPJqPU6Vvqn-WeaU0ReUXwQ8Img9tPWs1qPlYDRiMwI9hWC3A0JsKPtvFvs2wwcXb4eDl4KP6K7aXdGfcJZWJicBhbaij_0-4Kz0t4JIie64ORAZSvzC2M0SirRPAm9nK-67RdjhSPr6gm3_ItIowmQVOtmP3T7QG2h5-8cJyQEuqOyALLXMxnC_XFHCXMGMYkGYhXz7Hutwsml_3b-OTiuZfI2qFnhJmDWoPeSM-SxPU03H51AdmyfWgyHK_1uKVJaRa9ff6xXM73gpCBoL5w9QYVmVYH4lauPjXqJNZGt90qVY5oUiVh8N-9sZQAUqGUmFXPmrpSlsRg_ACJp6Mvk.OVbatQ32RlJFcQEXICgIHQ
+}
+
+body:multipart-form {
+  file: @file(C:\Users\Joonas\Documents\Lautapelit\alias.jpg)
 }

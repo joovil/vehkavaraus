@@ -19,7 +19,7 @@ export default function Home() {
     });
 
     if (res?.status === 200) {
-      router.push("/");
+      router.push("/games");
     } else {
       displayMessage("Invalid credentials");
     }
@@ -30,7 +30,10 @@ export default function Home() {
       <div className="box-basic">
         <h1 className="mb-3 text-center text-3xl font-bold">Log in</h1>
 
-        <form className="flex flex-col" onSubmit={handleLogin}>
+        <form
+          className="flex flex-col"
+          onSubmit={handleLogin}
+        >
           <label>Username</label>
           <input
             className="p-1"

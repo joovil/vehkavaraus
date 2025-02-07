@@ -9,13 +9,16 @@ const Games = async () => {
     <div className="m-auto flex flex-col items-center gap-y-8">
       <div className="grid w-full gap-8 min-[560px]:grid-cols-2 min-[900px]:grid-cols-3">
         {games.map((g) => (
-          <div key={g.id} className="w-full">
+          <div
+            key={g.id}
+            className="w-full"
+          >
             <div className="relative aspect-[1/1]">
               <Image
                 src={g.imageUrl || "/fallbackGame.png"}
                 alt="Picture of a board game"
                 fill
-                className="object-cover"
+                className="object-contain"
               />
             </div>
             <span className="my-2 text-2xl font-bold">{g.name}</span>

@@ -1,6 +1,5 @@
-import "@/lib/utils/envConfig";
 import { Database } from "@/types";
-import { Client, neonConfig, Pool } from "@neondatabase/serverless";
+import dotenv from "dotenv";
 import { promises as fs } from "fs";
 import {
   CamelCasePlugin,
@@ -10,14 +9,13 @@ import {
   PostgresDialect,
 } from "kysely";
 import * as path from "path";
-import ws from "ws";
+import { Pool } from "pg";
 
-neonConfig.webSocketConstructor = ws;
+const projectDir = process.cwd();
+const devEnvFile = `${projectDir}\\.env.development`;
+dotenv.config({ path: devEnvFile });
 
-const client = new Client(process.env.DATABASE_URL);
-client.neonConfig.webSocketConstructor = ws;
-
-const db = new Kysely<Database>({
+export const devDb = new Kysely<Database>({
   dialect: new PostgresDialect({
     pool: new Pool({
       database: process.env.DB_NAME,
@@ -32,7 +30,7 @@ const db = new Kysely<Database>({
 
 export async function migrateToLatest() {
   const migrator = new Migrator({
-    db,
+    db: devDb,
     provider: new FileMigrationProvider({
       fs,
       path,
@@ -57,7 +55,7 @@ export async function migrateToLatest() {
     process.exit(1);
   }
 
-  await db.destroy();
+  await devDb.destroy();
 }
 
 migrateToLatest();
