@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const middleware = async (req: NextRequest) => {
   const pathname = req.nextUrl.pathname;
+  console.log(pathname);
   // Main page doesn't currently have content so users are redirected to games page
   if (pathname === "/") {
     return NextResponse.redirect(new URL("/games", req.url));
@@ -32,13 +33,25 @@ export const middleware = async (req: NextRequest) => {
     return NextResponse.redirect(new URL(`${token.user.username}`, req.url));
   }
 
-  // Protect admin pages
-  if (token && pathname.startsWith("/admin") && token.user.role !== "admin") {
+  // Protect admin pages and api
+  if (
+    pathname.startsWith("/admin") &&
+    (!token || token.user.role !== "admin")
+  ) {
     return NextResponse.redirect(new URL("/games", req.url));
+  }
+
+  if (
+    pathname.startsWith("/api/admin") &&
+    (!token || token.user.role !== "admin")
+  ) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 };
 
 export const config = {
-  // Subfolders of public need to be added here to be shown to users who have not logged in
-  matcher: ["/((?!api|_next/static|_next/image|icons|favicon.ico|games).*)"],
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|admin/:path|api/admin:path).*)",
+    "/",
+  ],
 };
