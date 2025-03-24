@@ -13,15 +13,13 @@
 
 ## About the project
 
-Vehkavaraus is a website created for the tenants of Vehkapolku to borrow common items which at this moment consists of a variety of board games.
+Vehkavaraus is a website created for the tenants of Vehkapolku to mark and track the borrows of communal board games. Users are required to verify their emails before any borrows can be made.
 
-## Future planned features
+Admin tools are included to add new games or to make changes to the status of borrowed games if needed. 
 
-<ul>
-  <li>Tools for the tenant commitee to create minutes and other documents</li>
-  <li>Forms for upcoming events</li>
-  <li>Messaging to communicate with the tenant commitee</li>
-</ul>
+Images are stored on a Vercel blob and new images are comporessed on the client side before being to sent to the blob. The PostgreSQL database is hosted on Neon and Kysely is used to query the data.
+
+The site is hosted on Vercel
 
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
