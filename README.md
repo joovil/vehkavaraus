@@ -20,6 +20,8 @@ Admin tools are included to add new games or to make changes to the status of bo
 Images are stored on a Vercel blob and new images are comporessed on the client side before being to sent to the blob. The PostgreSQL database is hosted on Neon and Kysely is used to query the data.
 
 The site is hosted on Vercel
+ 
+[vehkavaraus.fi](https://www.vehkavaraus.fi)
 
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
