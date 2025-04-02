@@ -10,7 +10,7 @@ export const sendVerificationEmail = async (user: User) => {
   const verificationKey = randomUUID();
   await addVerificationRecord(verificationKey, user.id);
 
-  if (process.env.NODE_ENV === "development") return;
+  // if (process.env.NODE_ENV === "development") return;
   // Send email
   await resend.emails.send({
     from: "noreply@vehkavaraus.fi",

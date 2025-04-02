@@ -41,11 +41,14 @@ const EmailVerificationTemplate = ({
         },
       }}
     >
-      <Html lang="en" dir="ltr">
+      <Html
+        lang="en"
+        dir="ltr"
+      >
         <Body className="h-full w-full bg-lightGreenV">
           <Section className="w-full px-12 py-20">
             <Img
-              src="https://www.vehkavaraus.fi/_next/image?url=%2Fvehka-pink.png&w=384&q=75"
+              src="https://uqcnfgb6afellrqu.public.blob.vercel-storage.com/vehka/vehka_horizontal-VP4y2bieXOXqwBgntt2Tn8O4XsOB1i.png"
               alt="Vehka logo"
               className="mx-auto"
             />
