@@ -1,0 +1,36 @@
+@startuml User_creation
+
+title User creation
+
+actor User
+participant Client
+participant Server
+database Database
+
+User -> Client : Attempt user creation
+Client -> Client : Check data validity
+
+group Validation error
+  Client -> Client : Data is incorrect or malformatted
+  Client -> User : Inform which field is invalid
+end
+
+Client -> Server : Check username availability
+Server -> Database : Check if username in database
+
+group Username error
+  Database -> Server : Username taken
+  Server -> Client : <b>[409]
+  Client -> User : Inform that username is taken
+end
+
+group Success
+  Database -> Server : Username not taken
+  Server -> Database : Create and save user
+  Server -> Database : Create entry for authentication
+  Server -> Client : <b>[200]
+  Client -> User : Redirect to log in page
+  Server -> User : Send validation email
+end
+
+@enduml

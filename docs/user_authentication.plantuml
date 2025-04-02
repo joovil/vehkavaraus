@@ -1,0 +1,24 @@
+@startuml User_creation
+
+title User validation
+
+actor User
+participant Server
+database Database
+
+User -> Server : Validate email
+Server -> Database : Check if authentication has been used
+
+group Validation : [Success]
+  Database -> Server : Authentacion key unused
+  Server -> Database : Update authentication entry as used
+  Server -> Database : Change user role to "user" from "unverified"
+  Server -> User : Direct to homepage
+
+else Failure
+  Database -> Server : Authentication key has been used
+  Server -> User : Direct to failure page
+
+end
+
+@enduml

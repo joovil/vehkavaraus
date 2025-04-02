@@ -1,0 +1,17 @@
+@startuml project
+package "Project Structure" {
+    package "Components" {
+        class ComponentA
+        class ComponentB
+        class ComponentC
+    }
+    package "Utilities" {
+        class UtilityA
+        class UtilityB
+    }
+    ComponentA --> ComponentB : depends on
+    ComponentB --> ComponentC : interacts with
+    ComponentC --> UtilityA : uses
+    UtilityA --> UtilityB : extends
+}
+@enduml

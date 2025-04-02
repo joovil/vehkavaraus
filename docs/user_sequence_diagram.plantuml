@@ -6,19 +6,17 @@ actor User
 participant Server
 database Database
 
-User -> Server : Request game borrow
-
-Server -> Database : Request game status
-Database --> Server : Return game status
+User -> Server : Request to borrow game [Game ID]
+Server -> Database : Request status of game [Game ID]
+Database --> Server : Return status of game [Game ID]
 Server -> Server : Check game status
 
 group Game status [Success]
-  Server -> Database : Set game status to borrowed
-  Server -> Database : Log borrow
-  Server --> User : Inform user of success
-
+  Server -> Database : Set game [Game ID] status to borrowed
+  Server -> Database : Log borrow for game [Game ID]
+  Server --> User : Inform user of success\nGame [Game ID] is now borrowed
 else Game is already borrowed
-  Server --> User : Inform user that the game is not available\nInform when game should be available again
+  Server --> User : Inform user that game [Game ID] is not available\nExpected availability: [Date]
 end
 
 @enduml

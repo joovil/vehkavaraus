@@ -1,0 +1,33 @@
+@startuml User_creation
+
+title Game returning
+
+actor User
+participant Server
+database Database
+
+User -> Server : Return game
+' Server -> Server : Check that user is correct
+
+group Return game : [Success]
+  Server -> Server: User is authenticated
+  Server -> Database : Update game as returned\nUpdate borrow record
+  Server -> User : Inform user of success
+else Failure
+  group Authentication Failure
+    Server -> Server : User is not authenticated
+    Server -> User : <b>[401]
+  end
+  group Borrower Mismatch
+    Server -> Database : Check borrow
+    Database -> Server : User is not same as borrower
+    Server -> User : <b>[401]
+  end
+  group Game Already Returned
+    Server -> Database : Check game status
+    Database -> Server : Game is already returned
+    Server -> User : <b>[400]
+  end
+end
+
+@enduml
