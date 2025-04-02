@@ -7,7 +7,7 @@ participant Client
 participant Server
 database Database
 
-Admin -> Client : Insert game data
+Admin -> Client : Inser game data
 Client -> Client : Compress image
 Client -> Server : Send data
 Server -> Server : Check user
