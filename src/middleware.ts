@@ -41,10 +41,7 @@ export const middleware = async (req: NextRequest) => {
     return NextResponse.redirect(new URL("/games", req.url));
   }
 
-  if (
-    pathname.startsWith("/api/admin") &&
-    (!token || token.user.role !== "admin")
-  ) {
+  if (pathname.startsWith("/api") && (!token || token.user.role !== "admin")) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 };
@@ -52,6 +49,7 @@ export const middleware = async (req: NextRequest) => {
 export const config = {
   matcher: [
     "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|admin/:path|api/admin:path).*)",
-    "/",
+    "/admin/:path*",
+    "/api/admin/:path*",
   ],
 };
