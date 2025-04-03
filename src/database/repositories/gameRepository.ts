@@ -40,6 +40,13 @@ export const updateGame = async (id: number, game: GameUpdate) => {
     .executeTakeFirstOrThrow();
 };
 
+export const deleteGame = async (id: number) => {
+  return await db
+    .deleteFrom("games")
+    .where("id", "=", id)
+    .executeTakeFirstOrThrow();
+};
+
 export const completeBorrow = async (borrowId: number) => {
   return await db.transaction().execute(async (trx) => {
     const borrow = await trx

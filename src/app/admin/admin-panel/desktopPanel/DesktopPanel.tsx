@@ -2,7 +2,7 @@
 
 import { formatDate } from "@/lib/utils/formatDate";
 import { AdminGame, BorrowStatusesType, HistoryItem } from "@/types";
-import { BorrowerInfo, Titles } from "./Components";
+import { BorrowerInfo, Titles } from "./BorrowerInfo";
 
 const DesktopPanel = ({
   games,
