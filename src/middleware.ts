@@ -52,6 +52,7 @@ export const middleware = async (req: NextRequest) => {
 export const config = {
   matcher: [
     "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|admin/:path|api/admin:path).*)",
-    "/",
+    "/admin/:path*",
+    "/api/admin/:path*",
   ],
 };
