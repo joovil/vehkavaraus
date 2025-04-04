@@ -1,0 +1,23 @@
+@startuml Sequence_diagram
+
+title Adding games
+
+actor Admin
+participant Client
+participant Server
+database Database
+
+Admin -> Client : Insert game data
+Client -> Client : Compress image
+Client -> Server : Send data
+Server -> Server : Check user
+
+Server -> Database : Save new game
+Server -> Client : Display success message
+
+group failure
+  Server -> Server : User is not admin
+  Server -> Client : Game is not added \n<b>[401]
+end
+
+@enduml

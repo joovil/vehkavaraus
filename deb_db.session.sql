@@ -35,3 +35,6 @@ VALUES (
 	);
 
 	
+UPDATE users
+set role = 'admin'
+WHERE username =  'Joonas' ;

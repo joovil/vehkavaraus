@@ -34,18 +34,20 @@ export const middleware = async (req: NextRequest) => {
   }
 
   // Protect admin pages and api
-  if (
-    pathname.startsWith("/admin") &&
-    (!token || token.user.role !== "admin")
-  ) {
-    return NextResponse.redirect(new URL("/games", req.url));
-  }
+  if (process.env.NODE_ENV !== "development") {
+    if (
+      pathname.startsWith("/admin") &&
+      (!token || token.user.role !== "admin")
+    ) {
+      return NextResponse.redirect(new URL("/games", req.url));
+    }
 
-  if (
-    pathname.startsWith("/api/admin") &&
-    (!token || token.user.role !== "admin")
-  ) {
-    return Response.json({ error: "Unauthorized" }, { status: 401 });
+    if (
+      pathname.startsWith("/api") &&
+      (!token || token.user.role !== "admin")
+    ) {
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
   }
 };
 

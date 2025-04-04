@@ -1,8 +1,10 @@
 "use client";
 
+import { deleteGameService } from "@/lib/services/games/deleteGameService";
 import { formatDate } from "@/lib/utils/formatDate";
 import { AdminGame, HistoryItem } from "@/types";
 import Image from "next/image";
+import { useState } from "react";
 
 const cols = ["Name", "Status", "User", "Borrow date", "Due date"];
 
@@ -10,7 +12,10 @@ export const Titles = () => {
   return (
     <div className="grid grid-cols-5">
       {cols.map((c) => (
-        <h2 className="text-xl font-bold" key={c}>
+        <h2
+          className="text-xl font-bold"
+          key={c}
+        >
           {c}
         </h2>
       ))}
@@ -27,6 +32,13 @@ export const BorrowerInfo = ({
   capitalize: (word: string) => string;
   history: HistoryItem[];
 }) => {
+  const [confirm, setConfirm] = useState<boolean>(false);
+
+  const deleteGame = async () => {
+    const res = await deleteGameService(gameDetails.gameId);
+    console.log(res);
+  };
+
   return (
     <div className="box-basic mb-8 flex h-[300px] gap-4">
       <div className="relative aspect-[1/1] w-fit">
@@ -39,15 +51,14 @@ export const BorrowerInfo = ({
       </div>
 
       <div className="grid w-full grid-cols-2">
-        <div className="text-xl">
+        <div className="flex flex-col bg-amber-300">
           <h2 className="font-bold">{gameDetails.gameName}</h2>
           <div>
             <h3 className="inline text-xl">Status:</h3>{" "}
             {capitalize(gameDetails.borrowStatus)}
           </div>
-
           {gameDetails.borrowStatus !== "free" && (
-            <div className="flex flex-col [&>div>h3]:inline [&>div>h3]:text-xl">
+            <div className="flex flex-1 flex-col [&>div>h3]:inline [&>div>h3]:text-xl">
               <div>
                 <h3>Borrower:</h3> {gameDetails.username}
               </div>
@@ -62,6 +73,18 @@ export const BorrowerInfo = ({
               </div>
             </div>
           )}
+
+          {/* Delete button */}
+          <div className="[&>button]:btn-primary [&>button]:bg-redV [&>button]:disabled:bg-redDisabledV mt-auto flex gap-3">
+            {!confirm ? (
+              <button onClick={() => setConfirm(true)}>Delete</button>
+            ) : (
+              <>
+                <button onClick={deleteGame}>Confirm</button>
+                <button onClick={() => setConfirm(false)}>Cancel</button>
+              </>
+            )}
+          </div>
         </div>
 
         <div className="overflow-y-scroll">
@@ -72,7 +95,10 @@ export const BorrowerInfo = ({
           </div>
 
           {history.map((h) => (
-            <div key={h.id} className="grid grid-cols-2">
+            <div
+              key={h.id}
+              className="grid grid-cols-2"
+            >
               <div>{h.username}</div>
               <div>{formatDate(h.returnDate) || "In borrow"}</div>
             </div>

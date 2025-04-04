@@ -23,6 +23,7 @@ entity "games" as games {
   column( borrow_status ): borrow_statuses
   column( available_date ): timestamp
   column( image_url ): text
+  column( current_borrow ): <<FK>> integer
 }
 
 entity "borrows" as borrows {
