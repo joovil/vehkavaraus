@@ -1,8 +1,8 @@
-import { adminGamesService } from "@/lib/services/admin/adminGamesService";
+import { fetchAllAdminGames } from "@/lib/services/admin";
 import Content from "./Content";
 
 const GamePage = async () => {
-  const games = await adminGamesService();
+  const games = await fetchAllAdminGames();
 
   return <Content preloadedGames={games} />;
 };

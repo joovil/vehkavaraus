@@ -1,6 +1,6 @@
 "use client";
 
-import { adminGamesService } from "@/lib/services/admin/adminGamesService";
+import { fetchAllAdminGames } from "@/lib/services/admin/getAllAdminGames";
 import { getBorrowByGameIdService } from "@/lib/services/borrows/getBorrowByGameIdService";
 import { AdminGame, BorrowStatusesType, HistoryItem } from "@/types";
 import { useEffect, useState } from "react";
@@ -16,7 +16,7 @@ const Content = ({ preloadedGames }: { preloadedGames: AdminGame[] }) => {
 
   useEffect(() => {
     const updateGames = async () => {
-      setGames(await adminGamesService());
+      setGames(await fetchAllAdminGames());
     };
     updateGames();
   }, []);

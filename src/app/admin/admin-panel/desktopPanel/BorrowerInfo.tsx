@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteGameService } from "@/lib/services/games/deleteGameService";
+import { deleteGameService } from "@/lib/services/admin";
 import { formatDate } from "@/lib/utils/formatDate";
 import { AdminGame, HistoryItem } from "@/types";
 import Image from "next/image";
@@ -34,7 +34,7 @@ export const BorrowerInfo = ({
 }) => {
   const [confirm, setConfirm] = useState<boolean>(false);
 
-  const deleteGame = async () => {
+  const handleGameDeletion = async () => {
     const res = await deleteGameService(gameDetails.gameId);
     console.log(res);
   };
@@ -80,7 +80,7 @@ export const BorrowerInfo = ({
               <button onClick={() => setConfirm(true)}>Delete</button>
             ) : (
               <>
-                <button onClick={deleteGame}>Confirm</button>
+                <button onClick={handleGameDeletion}>Confirm</button>
                 <button onClick={() => setConfirm(false)}>Cancel</button>
               </>
             )}
