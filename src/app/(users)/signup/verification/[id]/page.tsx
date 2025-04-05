@@ -1,6 +1,6 @@
 "use client";
 
-import apiFetch from "@/lib/utils/apiFetch";
+import { verifyUserService } from "@/lib/services/verification/verifyUserService";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -16,7 +16,7 @@ const VerificationId = ({ params }: { params: Promise<{ id: string }> }) => {
     const updateUser = async () => {
       const { id } = await params;
 
-      const res = await apiFetch(`/auth/verification/${id}`);
+      const res = await verifyUserService(id);
 
       if (res.status === 200) {
         setMessage("Account verified");

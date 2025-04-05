@@ -26,7 +26,7 @@ export const POST = async (req: Request) => {
 
     sendVerificationEmail(user);
 
-    return Response.json({ message: "Email sent" });
+    return Response.json({ message: "User created successfully" });
   } catch (error) {
     console.log(error);
     if (error instanceof DatabaseError) {

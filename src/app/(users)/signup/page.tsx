@@ -2,7 +2,6 @@
 
 import { useDisplayMessage } from "@/components/useDisplayMessage";
 import { createUserService } from "@/lib/services/users/createUserService";
-import { redirect } from "next/navigation";
 import { useState } from "react";
 import { z } from "zod";
 
@@ -56,17 +55,13 @@ const SignUpPage = () => {
       return;
     }
 
-    const res = await createUserService(username, password, email, apartment);
-    const data = await res.json();
-    console.log(res);
-    console.log(data);
-
-    if (res.status === 200) {
-      redirect("/login");
-    }
-
-    if (data.error) {
-      displayMessage(data.error);
+    try {
+      const res = await createUserService(username, password, email, apartment);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error);
+        displayMessage(error.message);
+      }
     }
   };
 
@@ -136,7 +131,10 @@ const SignUpPage = () => {
           </label>
 
           <div className="mt-3 flex w-full justify-center">
-            <button className="btn-primary" type="submit">
+            <button
+              className="btn-primary"
+              type="submit"
+            >
               Sign up
             </button>
           </div>
