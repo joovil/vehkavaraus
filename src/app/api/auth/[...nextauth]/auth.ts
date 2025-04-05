@@ -62,8 +62,9 @@ export const authOptions: NextAuthOptions = {
         token.user = user;
       }
 
-      if (trigger === "update" && session.role) {
-        token.user.role = session.role;
+      if (trigger === "update" && session?.user) {
+        console.log("Update triggered");
+        token.user = { ...token.user, ...session.user }; // Merge updated session data
       }
       return token;
     },
