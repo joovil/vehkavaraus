@@ -2,11 +2,16 @@
 
 import { useDisplayMessage } from "@/components/useDisplayMessage";
 import { createGameService } from "@/lib/services/games/createGameService";
+import { AdminGame } from "@/types";
 import Compressor from "compressorjs";
 import { useEffect, useRef, useState } from "react";
 import { ImagePreview } from "./ImagePreview";
 
-const AddGame = () => {
+const AddGame = ({
+  setGames,
+}: {
+  setGames: React.Dispatch<React.SetStateAction<AdminGame[]>>;
+}) => {
   const [file, setFile] = useState<File | null>(null);
   const [compressed, setCompressed] = useState<File | null>(null);
   const [name, setName] = useState<string>("");
@@ -54,18 +59,26 @@ const AddGame = () => {
     setDisabled(true);
     if (!file || !compressed) return;
 
-    const res = await createGameService(name, file);
+    try {
+      const createdGame = await createGameService(name, file);
+      const gameToList: AdminGame = {
+        borrowStatus: createdGame.borrowStatus,
+        gameId: createdGame.id,
+        gameName: createdGame.name,
+      };
 
-    if (res.status === 200) {
       setName("");
       setFile(null);
       setMessage("Game added successfully");
       setDisabled(false);
-    } else {
-      const data = await res.json();
-      console.log(data);
-      setErrorMessage(data.error);
+      setGames((prev) => [...prev, gameToList]);
+    } catch (error) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      }
+      console.error("Error creating game:", error);
     }
+    setDisabled(false);
   };
 
   return (

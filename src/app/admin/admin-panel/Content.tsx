@@ -4,7 +4,7 @@ import { fetchAllAdminGames } from "@/lib/services/admin/getAllAdminGames";
 import { getBorrowByGameIdService } from "@/lib/services/borrows/getBorrowByGameIdService";
 import { AdminGame, BorrowStatusesType, HistoryItem } from "@/types";
 import { useEffect, useState } from "react";
-import AddGame from "../add-game/page";
+import AddGame from "./addGame";
 import DesktopPanel from "./desktopPanel/DesktopPanel";
 import MobilePanel from "./mobilePanel/MobilePanel";
 
@@ -63,7 +63,7 @@ const Content = ({ preloadedGames }: { preloadedGames: AdminGame[] }) => {
         />
       </div>
 
-      {!gameDetails && <AddGame />}
+      {!gameDetails && <AddGame setGames={setGames} />}
     </div>
   );
 };
