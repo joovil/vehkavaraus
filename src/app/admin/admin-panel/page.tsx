@@ -11,7 +11,6 @@ const AdminPanel = async () => {
     const borrows = await getBorrowsByGameId(id);
     return borrows.map((borrow) => ({ ...borrow, gameId: id }));
   };
-  console.log(games);
 
   return (
     <div>
