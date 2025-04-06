@@ -11,14 +11,14 @@ const VerificationId = ({ params }: { params: Promise<{ id: string }> }) => {
   const isMounted = useRef(true);
 
   useEffect(() => {
+    console.log("hello");
     isMounted.current = true;
 
     const updateUser = async () => {
-      const { id } = await params;
+      try {
+        const { id } = await params;
 
-      const res = await verifyUserService(id);
-
-      if (res.status === 200) {
+        await verifyUserService(id);
         setMessage("Account verified");
         if (!session) {
           setTimeout(() => {
@@ -40,7 +40,8 @@ const VerificationId = ({ params }: { params: Promise<{ id: string }> }) => {
             }
           }, 5000);
         }
-      } else {
+      } catch (error) {
+        console.error(error);
         setMessage("Key expired or invalid");
         setTimeout(() => {
           if (isMounted.current) {
@@ -49,12 +50,12 @@ const VerificationId = ({ params }: { params: Promise<{ id: string }> }) => {
         }, 5000);
       }
     };
-
     updateUser();
 
     return () => {
       isMounted.current = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
