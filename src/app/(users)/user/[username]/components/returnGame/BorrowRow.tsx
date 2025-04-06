@@ -1,6 +1,6 @@
 "use client";
 import { useDisplayMessage } from "@/components/useDisplayMessage";
-import completeBorrowService from "@/lib/services/borrows/returnBorrowService";
+import { completeBorrowService } from "@/lib/services/borrows/returnBorrowService";
 import { formatDate } from "@/lib/utils/formatDate";
 import { useState } from "react";
 
@@ -23,18 +23,15 @@ const BorrowRow = ({ borrow }: { borrow: BorrowProp }) => {
   const handleClick = async () => {
     setDisabled(true);
 
-    const res = await completeBorrowService(borrow.borrowId);
-
-    if (res.status === 200) {
-      console.log("returned \n", await res.json());
+    try {
+      const res = await completeBorrowService(borrow.borrowId);
+      console.log("returned \n", res.message);
       setHidden(true);
-      return;
-    }
-    const data = await res.json();
-
-    if (data.error) {
-      displayMessage(data.error);
-      setDisabled(false);
+    } catch (error) {
+      if (error instanceof Error) {
+        displayMessage(error.message);
+        setDisabled(false);
+      }
     }
   };
 
