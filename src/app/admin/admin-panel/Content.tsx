@@ -7,9 +7,10 @@ import { AdminGame, HistoryItem } from "@/types";
 import { useState } from "react";
 import AddGame from "../add-game/page";
 import GameInfo from "./GameInfo";
+import MobileInfo from "./MobileInfo";
 import { capitalize, getCellColor } from "./utils";
 
-const cols = ["Name", "Status", "User", "Borrow date", "Due date"];
+const cols = ["Name", "Status", "Apartment", "Borrow date", "Due date"];
 
 const Content = ({
   games: preloadedGames,
@@ -76,7 +77,7 @@ const Content = ({
     <div className="flex flex-col gap-6">
       <div className="box-basic">
         {/* Col headers */}
-        <div className="grid grid-cols-5">
+        <div className="mb-2 hidden lg:grid lg:grid-cols-5">
           {cols.map((c) => (
             <h2
               className="text-2xl font-bold"
@@ -91,7 +92,7 @@ const Content = ({
           {games.map((game) => (
             <div
               key={game.gameId}
-              className="grid grid-cols-5 text-xl"
+              className="text-xl lg:grid lg:grid-cols-5"
             >
               <h2
                 className="text-long-name"
@@ -100,29 +101,45 @@ const Content = ({
                 {game.gameName}
               </h2>
               <div
-                className={`${getCellColor(game.borrowStatus)} w-3/4 text-center`}
+                className={`${getCellColor(game.borrowStatus)} font flex items-center justify-center lg:w-3/4`}
               >
                 {capitalize(game.borrowStatus)}
               </div>
-              <div>{game.apartment}</div>
-              <div>{formatDate(game.borrowDate) || "-"}</div>
-              <div>{formatDate(game.dueDate) || "-"}</div>
+              {/* Info for desktop */}
+              <div className="hidden lg:block">{game.apartment || "-"}</div>
+              <div className="hidden lg:block">
+                {formatDate(game.borrowDate) || "-"}
+              </div>
+              <div className="hidden lg:block">
+                {formatDate(game.dueDate) || "-"}
+              </div>
+
+              {/* Info for mobile */}
+              {gameDetails && gameDetails.gameId === game.gameId && (
+                <MobileInfo
+                  game={gameDetails}
+                  currentHistory={currentHistory}
+                  handleGameDeletion={handleGameDeletion}
+                />
+              )}
             </div>
           ))}
         </div>
       </div>
 
       {/* Details */}
-      {gameDetails && (
-        <GameInfo
-          gameDetails={gameDetails}
-          updateBorrow={updateBorrow}
-          confirmDeletion={confirmDeletion}
-          setConfirmDeletion={setConfirmDeletion}
-          handleGameDeletion={handleGameDeletion}
-          currentHistory={currentHistory}
-        />
-      )}
+      <div className="hidden lg:block">
+        {gameDetails && (
+          <GameInfo
+            gameDetails={gameDetails}
+            updateBorrow={updateBorrow}
+            confirmDeletion={confirmDeletion}
+            setConfirmDeletion={setConfirmDeletion}
+            handleGameDeletion={handleGameDeletion}
+            currentHistory={currentHistory}
+          />
+        )}
+      </div>
 
       {!gameDetails && <AddGame setGames={setGames} />}
     </div>

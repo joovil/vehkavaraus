@@ -14,7 +14,6 @@ const AdminPanel = async () => {
 
   return (
     <div>
-      <h1>Admin Panel</h1>
       <Content
         games={games}
         getBorrowHistory={getBorrowHistory}
