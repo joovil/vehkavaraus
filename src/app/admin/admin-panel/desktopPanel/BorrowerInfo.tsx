@@ -46,6 +46,7 @@ export const BorrowerInfo = ({
           src={gameDetails.imageUrl || "/fallbackGame.png"}
           alt={gameDetails.gameName}
           fill
+          sizes="300px"
           className="object-cover"
         />
       </div>
@@ -75,7 +76,7 @@ export const BorrowerInfo = ({
           )}
 
           {/* Delete button */}
-          <div className="[&>button]:btn-primary [&>button]:bg-redV [&>button]:disabled:bg-redDisabledV mt-auto flex gap-3">
+          <div className="[&>button]:btn-primary mt-auto flex gap-3 [&>button]:bg-redV [&>button]:disabled:bg-redDisabledV">
             {!confirm ? (
               <button onClick={() => setConfirm(true)}>Delete</button>
             ) : (

@@ -84,6 +84,7 @@ const Mobile = ({
                           src={game.imageUrl || "/fallbackGame.png"}
                           alt={game.gameName}
                           fill
+                          sizes="300px"
                           className="object-cover"
                         />
                       </div>
