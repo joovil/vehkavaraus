@@ -3,7 +3,6 @@ import { getBorrowById } from "@/database/repositories/borrowRepository";
 import { completeBorrow } from "@/database/repositories/gameRepository";
 import logger from "@/lib/utils/logger";
 
-// TODO: Handle games returned late
 export const POST = async (
   _req: Request,
   props: { params: Promise<{ id: number }> },
