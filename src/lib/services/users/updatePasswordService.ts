@@ -18,7 +18,7 @@ const updatePasswordService = async (newPassword: string) => {
 
     return await res.json();
   } catch (error) {
-    console.log("Error updating apartment", error);
+    console.error("Error updating apartment", error);
     throw error;
   }
 };
