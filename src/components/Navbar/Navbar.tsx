@@ -15,7 +15,7 @@ export default async function Navbar() {
         <span className="block italic md:inline-block">Rent-A-Game</span>
       </Link>
 
-      <div className="flex flex-col text-right text-lg sm:ml-auto">
+      <div className="text-right text-lg sm:ml-auto">
         <ShowUsername />
       </div>
     </nav>

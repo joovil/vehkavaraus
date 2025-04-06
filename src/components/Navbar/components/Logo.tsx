@@ -6,7 +6,6 @@ import Link from "next/link";
 
 const Logo = () => {
   const { data: session } = useSession();
-  console.log(session);
 
   const isAdmin = session?.user.role === "admin";
 
