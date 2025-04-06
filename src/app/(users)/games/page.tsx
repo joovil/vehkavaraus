@@ -18,6 +18,7 @@ const Games = async () => {
                 src={g.imageUrl || "/fallbackGame.png"}
                 alt="Picture of a board game"
                 fill
+                sizes="300px"
                 className="object-contain"
               />
             </div>

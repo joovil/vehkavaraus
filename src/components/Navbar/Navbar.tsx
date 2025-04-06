@@ -26,6 +26,7 @@ export default async function Navbar() {
         <div className="flex-center flex">
           <Image
             src={src}
+            priority={true}
             height={0}
             width={0}
             alt="Pink vehka logo"
