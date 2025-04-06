@@ -17,19 +17,20 @@ const BorrowGameButtons = ({ game: g }: { game: Game }) => {
 
     setDisabled(true);
 
-    const res = await createBorrowService(game.id);
-
-    if (res.error) {
-      console.error(res.error);
+    try {
+      const res = await createBorrowService(game.id);
       setDisabled(false);
-      return;
-    }
 
-    setGame((g) => ({
-      ...g,
-      borrowStatus: "borrowed",
-      availableDate: res.dueDate,
-    }));
+      setGame((g) => ({
+        ...g,
+        borrowStatus: "borrowed",
+        availableDate: res.dueDate,
+      }));
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error);
+      }
+    }
   };
 
   // Show buttons when game is free to borrow
@@ -44,7 +45,10 @@ const BorrowGameButtons = ({ game: g }: { game: Game }) => {
           Confirm
         </button>
 
-        <button className="btn-primary" onClick={() => setVisible((v) => !v)}>
+        <button
+          className="btn-primary"
+          onClick={() => setVisible((v) => !v)}
+        >
           Cancel
         </button>
       </>

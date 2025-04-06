@@ -23,8 +23,16 @@ const Content = ({ preloadedGames }: { preloadedGames: AdminGame[] }) => {
 
   useEffect(() => {
     const getHistory = async () => {
-      if (!gameDetails) return;
-      setHistory(await getBorrowByGameIdService(gameDetails.gameId));
+      try {
+        if (gameDetails) {
+          const gameHistory = await getBorrowByGameIdService(
+            gameDetails?.gameId,
+          );
+          setHistory(gameHistory);
+        }
+      } catch (error) {
+        if (error instanceof Error) console.error(error.message);
+      }
     };
     getHistory();
   }, [gameDetails, gameDetails?.gameId]);
