@@ -5,6 +5,7 @@ export const DELETE = async (
   { params }: { params: Promise<{ id: string }> },
 ) => {
   const { id } = await params;
+  console.log(id);
   try {
     const gameId = parseInt(id);
     const deletedGame = await deleteGame(gameId);

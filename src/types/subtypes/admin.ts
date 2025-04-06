@@ -11,6 +11,7 @@ export const AdminGameSchema = z.object({
   imageUrl: GameSchema.shape.imageUrl,
   borrowDate: BorrowSchema.shape.borrowDate.nullable().optional(),
   dueDate: BorrowSchema.shape.dueDate.nullable().optional(),
+  borrowId: BorrowSchema.shape.id.nullable().optional(),
   username: UserSchema.shape.username.nullable().optional(),
   apartment: UserSchema.shape.apartment.nullable().optional(),
 });

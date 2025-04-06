@@ -13,6 +13,7 @@ export const getAdminGames = async (): Promise<AdminGame[]> => {
       "g.imageUrl",
       "b.borrowDate",
       "b.dueDate",
+      "b.id as borrowId",
       "u.username",
       "u.apartment",
     ])

@@ -6,6 +6,7 @@ import { BorrowerInfo, Titles } from "./BorrowerInfo";
 
 const DesktopPanel = ({
   games,
+  handleGameDeletion,
   gameDetails,
   history,
   handleGameSet,
@@ -13,6 +14,7 @@ const DesktopPanel = ({
   capitalize,
 }: {
   games: AdminGame[];
+  handleGameDeletion: (id: number) => Promise<void>;
   gameDetails: AdminGame | null;
   history: HistoryItem[];
   handleGameSet: (newGame: AdminGame) => void;
@@ -53,6 +55,7 @@ const DesktopPanel = ({
       {gameDetails && (
         <BorrowerInfo
           gameDetails={gameDetails}
+          handleGameDeletion={handleGameDeletion}
           capitalize={capitalize}
           history={history}
         />

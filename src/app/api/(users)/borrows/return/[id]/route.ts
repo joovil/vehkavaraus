@@ -18,7 +18,7 @@ export const POST = async (
 
     const borrow = await getBorrowById(params.id);
 
-    if (borrow.borrowerId !== session.user.id)
+    if (borrow.borrowerId !== session.user.id && session.user.role !== "admin")
       return Response.json(
         { error: "You are not authorized to return this game" },
         { status: 403 },

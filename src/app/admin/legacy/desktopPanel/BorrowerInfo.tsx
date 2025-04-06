@@ -1,6 +1,5 @@
 "use client";
 
-import { deleteGameService } from "@/lib/services/admin";
 import { formatDate } from "@/lib/utils/formatDate";
 import { AdminGame, HistoryItem } from "@/types";
 import Image from "next/image";
@@ -25,19 +24,16 @@ export const Titles = () => {
 
 export const BorrowerInfo = ({
   gameDetails,
+  handleGameDeletion,
   capitalize,
   history,
 }: {
   gameDetails: AdminGame;
+  handleGameDeletion: (id: number) => Promise<void>;
   capitalize: (word: string) => string;
   history: HistoryItem[];
 }) => {
   const [confirm, setConfirm] = useState<boolean>(false);
-
-  const handleGameDeletion = async () => {
-    const res = await deleteGameService(gameDetails.gameId);
-    console.log(res);
-  };
 
   return (
     <div className="box-basic mb-8 flex h-[300px] gap-4">
@@ -60,6 +56,7 @@ export const BorrowerInfo = ({
           </div>
           {gameDetails.borrowStatus !== "free" && (
             <div className="flex flex-1 flex-col [&>div>h3]:inline [&>div>h3]:text-xl">
+              g
               <div>
                 <h3>Borrower:</h3> {gameDetails.username}
               </div>
@@ -81,7 +78,9 @@ export const BorrowerInfo = ({
               <button onClick={() => setConfirm(true)}>Delete</button>
             ) : (
               <>
-                <button onClick={handleGameDeletion}>Confirm</button>
+                <button onClick={() => handleGameDeletion(gameDetails.gameId)}>
+                  Confirm
+                </button>
                 <button onClick={() => setConfirm(false)}>Cancel</button>
               </>
             )}

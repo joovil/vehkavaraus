@@ -1,94 +1,182 @@
 "use client";
 
-import { fetchAllAdminGames } from "@/lib/services/admin/getAllAdminGames";
-import { getBorrowByGameIdService } from "@/lib/services/borrows/getBorrowByGameIdService";
-import { AdminGame, BorrowStatusesType, HistoryItem } from "@/types";
-import { useEffect, useState } from "react";
-import AddGame from "./addGame";
-import DesktopPanel from "./desktopPanel/DesktopPanel";
-import MobilePanel from "./mobilePanel/MobilePanel";
+import { completeBorrowService } from "@/lib/services/borrows/returnBorrowService";
+import { formatDate } from "@/lib/utils/formatDate";
+import { AdminGame, HistoryItem } from "@/types";
+import Image from "next/image";
+import { useState } from "react";
+import { capitalize, getCellColor } from "./utils";
 
-// NOTE: Yes, this component is a mess and no it won't be refactored at this point
-const Content = ({ preloadedGames }: { preloadedGames: AdminGame[] }) => {
-  const [gameDetails, setGameDetails] = useState<AdminGame | null>(null);
+const cols = ["Name", "Status", "User", "Borrow date", "Due date"];
+
+const Content = ({
+  games: preloadedGames,
+  getBorrowHistory,
+}: {
+  games: AdminGame[];
+  getBorrowHistory: (id: number) => Promise<HistoryItem[]>;
+}) => {
   const [games, setGames] = useState<AdminGame[]>(preloadedGames);
-  const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [gameDetails, setGameDetails] = useState<AdminGame | null>(null);
+  const [currentHistory, setCurrentHistory] = useState<HistoryItem[]>([]);
+  console.log(games);
 
-  useEffect(() => {
-    const updateGames = async () => {
-      setGames(await fetchAllAdminGames());
-    };
-    updateGames();
-  }, []);
-
-  useEffect(() => {
-    const getHistory = async () => {
-      try {
-        if (gameDetails) {
-          const gameHistory = await getBorrowByGameIdService(
-            gameDetails?.gameId,
-          );
-          setHistory(gameHistory);
-        }
-      } catch (error) {
-        if (error instanceof Error) console.error(error.message);
-      }
-    };
-    getHistory();
-  }, [gameDetails, gameDetails?.gameId]);
-
-  const handleGameSet = (newGame: AdminGame) => {
-    if (gameDetails === newGame) {
+  const handleClick = async (game: AdminGame) => {
+    if (gameDetails === game) {
       setGameDetails(null);
       return;
     }
+    setGameDetails(game);
+    try {
+      setCurrentHistory(await getBorrowHistory(game.gameId));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-    setGameDetails(newGame);
+  const updateBorrow = async (borrowId: number) => {
+    try {
+      const res = await completeBorrowService(borrowId);
+      console.log(res);
+      setGames((prevGames) =>
+        prevGames.map((game) =>
+          game.borrowId === borrowId
+            ? {
+                ...game,
+                borrowStatus: "free",
+                apartment: null,
+                borrowDate: null,
+                dueDate: null,
+              }
+            : game,
+        ),
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
-    <div>
-      <div className="min-[925px]:hidden">
-        <MobilePanel
-          games={games}
-          gameDetails={gameDetails}
-          history={history}
-          setGameDetails={setGameDetails}
-          handleGameSet={handleGameSet}
-          capitalize={capitalize}
-          getCellColor={getCellColor}
-        />
+    <div className="flex flex-col gap-6">
+      <div className="box-basic">
+        {/* Col headers */}
+        <div className="grid grid-cols-5">
+          {cols.map((c) => (
+            <h2
+              className="text-2xl font-bold"
+              key={c}
+            >
+              {c}
+            </h2>
+          ))}
+        </div>
+
+        <div className="flex flex-col gap-2">
+          {games.map((game) => (
+            <div
+              key={game.gameId}
+              className="grid grid-cols-5 text-xl"
+            >
+              <h2
+                className="text-long-name"
+                onClick={() => handleClick(game)}
+              >
+                {game.gameName}
+              </h2>
+              <div
+                className={`${getCellColor(game.borrowStatus)} w-3/4 text-center`}
+              >
+                {capitalize(game.borrowStatus)}
+              </div>
+              <div>{game.apartment || "-"}</div>
+              <div>{formatDate(game.borrowDate) || "-"}</div>
+              <div>{formatDate(game.dueDate) || "-"}</div>
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div className="hidden min-[925px]:block">
-        <DesktopPanel
-          games={games}
-          gameDetails={gameDetails}
-          history={history}
-          handleGameSet={handleGameSet}
-          capitalize={capitalize}
-          getCellColor={getCellColor}
-        />
-      </div>
+      {/* Details */}
+      {gameDetails && (
+        <div className="box-basic">
+          <h2>Alias</h2>
+          <div className="flex gap-3">
+            <div className="relative aspect-[1/1] h-[300px] w-[300px]">
+              <Image
+                src={gameDetails.imageUrl || "/fallbackGame.png"}
+                alt={gameDetails.gameName}
+                fill
+                sizes="300px"
+                className="object-cover"
+              />
+            </div>
 
-      {!gameDetails && <AddGame setGames={setGames} />}
+            <div className="grid w-full grid-cols-2">
+              {/* Game details */}
+              <div className="flex flex-col justify-between">
+                <div className="text-xl [&_h3]:inline-block">
+                  <div>
+                    <h3>Status:</h3> {gameDetails.borrowStatus}
+                  </div>
+                  {gameDetails.borrowStatus !== "free" && (
+                    <div>
+                      <div>
+                        <h3>Borrower:</h3> {gameDetails.apartment}
+                      </div>
+                      <div>
+                        <h3>Borrowed:</h3> {formatDate(gameDetails.borrowDate)}
+                      </div>
+                      <div>
+                        <h3>Due date:</h3> {formatDate(gameDetails.dueDate)}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <button
+                  className="btn-primary"
+                  onClick={() =>
+                    gameDetails.borrowId && updateBorrow(gameDetails.borrowId)
+                  }
+                >
+                  Mark as returned
+                </button>
+              </div>
+
+              <div className="max-h-[300px] w-full overflow-y-scroll">
+                {currentHistory && (
+                  <>
+                    <h3>History</h3>
+                    <div className="grid grid-cols-3">
+                      {["User", "Due", "Returned"].map((col) => (
+                        <div
+                          key={col}
+                          className="font-bold"
+                        >
+                          {col}
+                        </div>
+                      ))}
+                    </div>
+                    {currentHistory.map((history) => (
+                      <div
+                        key={history.id}
+                        className="grid grid-cols-3"
+                      >
+                        <div>{history.username}</div>
+                        <div>{formatDate(history.dueDate)}</div>
+                        <div>
+                          {formatDate(history.returnDate) || "In borrow"}
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
-};
-
-const capitalize = (word: string) => {
-  return word.charAt(0).toUpperCase() + word.slice(1);
-};
-
-const getCellColor = (status: BorrowStatusesType) => {
-  switch (status) {
-    case "free":
-      return "bg-darkGreenV text-offWhiteV";
-    case "borrowed":
-      return "bg-orangeV";
-    default:
-      return "bg-pinkV";
-  }
 };
 
 export default Content;

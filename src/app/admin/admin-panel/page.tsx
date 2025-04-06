@@ -1,10 +1,27 @@
-import { fetchAllAdminGames } from "@/lib/services/admin";
+import { getAdminGames } from "@/database/repositories/adminRepository";
+import { getBorrowsByGameId } from "@/database/repositories/borrowRepository";
+import { AdminGame, HistoryItem } from "@/types";
 import Content from "./Content";
 
-const GamePage = async () => {
-  const games = await fetchAllAdminGames();
+const AdminPanel = async () => {
+  const games: AdminGame[] = await getAdminGames();
 
-  return <Content preloadedGames={games} />;
+  const getBorrowHistory = async (id: number): Promise<HistoryItem[]> => {
+    "use server";
+    const borrows = await getBorrowsByGameId(id);
+    return borrows.map((borrow) => ({ ...borrow, gameId: id }));
+  };
+  console.log(games);
+
+  return (
+    <div>
+      <h1>Admin Panel</h1>
+      <Content
+        games={games}
+        getBorrowHistory={getBorrowHistory}
+      />
+    </div>
+  );
 };
 
-export default GamePage;
+export default AdminPanel;

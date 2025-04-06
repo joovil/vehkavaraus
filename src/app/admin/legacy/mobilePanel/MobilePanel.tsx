@@ -13,6 +13,7 @@ import {
 
 const Mobile = ({
   games,
+  handleGameDeletion,
   gameDetails,
   history,
   setGameDetails,
@@ -21,6 +22,7 @@ const Mobile = ({
   capitalize,
 }: {
   games: AdminGame[];
+  handleGameDeletion: (id: number) => Promise<void>;
   gameDetails: AdminGame | null;
   history: HistoryItem[];
   setGameDetails: React.Dispatch<React.SetStateAction<AdminGame | null>>;

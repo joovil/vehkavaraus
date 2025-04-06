@@ -35,6 +35,8 @@ export const BorrowHistory = ({ history }: { history: HistoryItem[] }) => {
         {showDetails ? "Hide history" : "Show history"}
       </button>
 
+      <button className="btn-primary w-36 sm:w-full"> Delete game</button>
+
       {showDetails && (
         <>
           <div className="grid grid-cols-2 [&>h3]:inline [&>h3]:text-lg">
@@ -44,7 +46,10 @@ export const BorrowHistory = ({ history }: { history: HistoryItem[] }) => {
 
           <div className="max-h-48 overflow-y-scroll">
             {history.map((h) => (
-              <div key={h.id} className="grid grid-cols-2">
+              <div
+                key={h.id}
+                className="grid grid-cols-2"
+              >
                 <div>{h.username}</div>
                 <div>{formatDate(h.returnDate) || "In borrow"}</div>
               </div>
