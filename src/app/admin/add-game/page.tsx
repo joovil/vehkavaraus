@@ -65,6 +65,7 @@ const AddGame = ({
         borrowStatus: createdGame.borrowStatus,
         gameId: createdGame.id,
         gameName: createdGame.name,
+        imageUrl: createdGame.imageUrl,
       };
 
       setName("");

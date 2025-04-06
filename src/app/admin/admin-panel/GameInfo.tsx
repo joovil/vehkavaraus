@@ -21,7 +21,7 @@ const GameInfo = ({
 }) => {
   return (
     <div className="box-basic">
-      <h2>Alias</h2>
+      <h2>{gameDetails.gameName}</h2>
       <div className="flex gap-3">
         <div className="relative aspect-[1/1] h-[300px] w-[300px]">
           <Image

@@ -29,12 +29,13 @@ export const POST = async (req: Request) => {
     }
 
     // Send image to blob
-    const blob = await put(name, file, {
+    const blob = await put(`vehka/games/${name}`, file, {
       access: "public",
     });
 
     // Add game to db
     const createdGame = await createGame(name, blob.url);
+    console.log(createdGame);
 
     return Response.json(createdGame);
   } catch (error) {
