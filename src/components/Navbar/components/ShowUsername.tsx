@@ -26,7 +26,7 @@ export const ShowUsername = () => {
     <div className="flex flex-col">
       <Link
         href={`/user/${user.username}`}
-        className="text-center text-xl font-semibold hover:underline"
+        className="text-xl font-semibold hover:underline"
       >
         {user.username}
       </Link>
