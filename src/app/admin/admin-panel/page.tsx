@@ -15,7 +15,7 @@ const AdminPanel = async () => {
   return (
     <div>
       <Content
-        games={games}
+        preloadedGames={games}
         getBorrowHistory={getBorrowHistory}
       />
     </div>

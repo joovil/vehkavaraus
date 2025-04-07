@@ -24,8 +24,7 @@ const BorrowRow = ({ borrow }: { borrow: BorrowProp }) => {
     setDisabled(true);
 
     try {
-      const res = await completeBorrowService(borrow.borrowId);
-      console.log("returned \n", res.message);
+      await completeBorrowService(borrow.borrowId);
       setHidden(true);
     } catch (error) {
       if (error instanceof Error) {

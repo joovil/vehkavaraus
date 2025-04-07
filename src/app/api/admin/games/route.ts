@@ -35,7 +35,6 @@ export const POST = async (req: Request) => {
 
     // Add game to db
     const createdGame = await createGame(name, blob.url);
-    console.log(createdGame);
 
     return Response.json(createdGame);
   } catch (error) {

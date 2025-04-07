@@ -5,7 +5,7 @@ import { completeBorrowService } from "@/lib/services/borrows/returnBorrowServic
 import { formatDate } from "@/lib/utils/formatDate";
 import { AdminGame, Game, HistoryItem } from "@/types";
 import { useState } from "react";
-import AddGame from "../add-game/page";
+import AddGame from "../add-game/";
 import GameInfo from "./GameInfo";
 import MobileInfo from "./MobileInfo";
 import { capitalize, getCellColor } from "./utils";
@@ -13,10 +13,10 @@ import { capitalize, getCellColor } from "./utils";
 const cols = ["Name", "Status", "Apartment", "Borrow date", "Due date"];
 
 const Content = ({
-  games: preloadedGames,
+  preloadedGames,
   getBorrowHistory,
 }: {
-  games: AdminGame[];
+  preloadedGames: AdminGame[];
   getBorrowHistory: (id: number) => Promise<HistoryItem[]>;
 }) => {
   const [games, setGames] = useState<AdminGame[]>(preloadedGames);

@@ -8,7 +8,7 @@ export const AdminGameSchema = z.object({
   gameId: GameSchema.shape.id,
   gameName: GameSchema.shape.name,
   borrowStatus: GameSchema.shape.borrowStatus,
-  imageUrl: GameSchema.shape.imageUrl,
+  imageUrl: GameSchema.shape.imageUrl.optional(),
   borrowDate: BorrowSchema.shape.borrowDate.nullable().optional(),
   dueDate: BorrowSchema.shape.dueDate.nullable().optional(),
   borrowId: BorrowSchema.shape.id.nullable().optional(),
