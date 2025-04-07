@@ -16,7 +16,7 @@ export const LogoutButton = () => {
   };
 
   return (
-    <div>
+    <div className="text-base">
       {!confirm ? (
         <button onClick={handleClick}>Log out</button>
       ) : (

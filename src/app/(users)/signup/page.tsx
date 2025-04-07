@@ -56,17 +56,14 @@ const SignUpPage = () => {
       return;
     }
 
-    const res = await createUserService(username, password, email, apartment);
-    const data = await res.json();
-    console.log(res);
-    console.log(data);
-
-    if (res.status === 200) {
+    try {
+      await createUserService(username, password, email, apartment);
       redirect("/login");
-    }
-
-    if (data.error) {
-      displayMessage(data.error);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error);
+        displayMessage(error.message);
+      }
     }
   };
 
@@ -136,7 +133,10 @@ const SignUpPage = () => {
           </label>
 
           <div className="mt-3 flex w-full justify-center">
-            <button className="btn-primary" type="submit">
+            <button
+              className="btn-primary"
+              type="submit"
+            >
               Sign up
             </button>
           </div>

@@ -20,19 +20,3 @@ export const GET = async (
     return Response.json({ message }, { status: 400 });
   }
 };
-
-// Return game
-// export const POST = async (
-//   _req: Request,
-//   props: { params: Promise<{ id: number }> },
-// ) => {
-//   try {
-//     const { id } = await props.params;
-//     await updateGameReturned(id);
-//     return Response.json({ message: "success" }, { status: 200 });
-//   } catch (error) {
-//     if (error instanceof Error) {
-//       return Response.json({ error: error.message }, { status: 400 });
-//     }
-//   }
-// };

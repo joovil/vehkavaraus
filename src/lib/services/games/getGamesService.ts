@@ -2,8 +2,17 @@ import apiFetch from "@/lib/utils/apiFetch";
 import { Game } from "@/types";
 
 export const getGamesService = async (): Promise<Game[]> => {
-  const res = await apiFetch("/games");
-  const data = await res.json();
+  try {
+    const res = await apiFetch("/games");
 
-  return data;
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.error || "Unable to fetch images");
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching games:", error);
+    throw error;
+  }
 };

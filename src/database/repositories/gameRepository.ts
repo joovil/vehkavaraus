@@ -1,5 +1,5 @@
 import logger from "@/lib/utils/logger";
-import { GameUpdate } from "@/types";
+import { Game, GameUpdate } from "@/types";
 import { sql } from "kysely";
 import db from "..";
 
@@ -24,7 +24,10 @@ export const getGameByName = async (name: string) => {
     .executeTakeFirst();
 };
 
-export const createGame = async (name: string, imageUrl: string) => {
+export const createGame = async (
+  name: string,
+  imageUrl: string,
+): Promise<Game> => {
   return await db
     .insertInto("games")
     .values({ name, imageUrl })

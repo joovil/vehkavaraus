@@ -24,7 +24,7 @@ export const getBorrowById = async (id: number) => {
     .executeTakeFirstOrThrow();
 };
 
-export const getBorrowByGameId = async (id: number) => {
+export const getBorrowsByGameId = async (id: number) => {
   logger.database("getBorrowByGameId");
   return await db
     .selectFrom("borrows")
@@ -32,6 +32,7 @@ export const getBorrowByGameId = async (id: number) => {
     .where("borrows.gameId", "=", id)
     .select([
       "users.username",
+      "users.apartment",
       "borrows.id",
       "borrows.borrowDate",
       "borrows.dueDate",

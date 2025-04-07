@@ -10,22 +10,28 @@ export const ShowUsername = () => {
 
   if (!user || user === undefined) {
     return (
-      <>
-        <Link href="/login" className="font-semibold">
+      <div className="flex flex-col">
+        <Link
+          href="/login"
+          className="font-semibold"
+        >
           Log in
         </Link>
         <Link href={`/signup`}>Sign up</Link>
-      </>
+      </div>
     );
   }
 
   return (
-    <>
-      <Link href={`/user/${user.username}`} className="text-xl font-semibold">
+    <div className="flex flex-col">
+      <Link
+        href={`/user/${user.username}`}
+        className="text-center text-xl font-semibold hover:underline"
+      >
         {user.username}
       </Link>
       <LogoutButton />
-    </>
+    </div>
   );
 };
 

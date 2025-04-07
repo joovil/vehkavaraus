@@ -1,6 +1,6 @@
 import { auth } from "@/app/api/auth/[...nextauth]/auth";
-import ResendVerification from "@/components/Navbar/components/ResendVerification";
 import Navbar from "@/components/Navbar/Navbar";
+import ResendVerification from "@/components/ResendVerification";
 import SessionProviderClient from "@/components/SessionProviderClient";
 import type { Metadata } from "next";
 import localFont from "next/font/local";

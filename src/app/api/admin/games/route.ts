@@ -29,7 +29,7 @@ export const POST = async (req: Request) => {
     }
 
     // Send image to blob
-    const blob = await put(name, file, {
+    const blob = await put(`vehka/games/${name}`, file, {
       access: "public",
     });
 

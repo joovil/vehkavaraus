@@ -1,19 +1,5 @@
 import { auth } from "@/app/api/auth/[...nextauth]/auth";
-import {
-  createBorrow,
-  getAllBorrows,
-} from "@/database/repositories/borrowRepository";
-
-export const GET = async () => {
-  try {
-    const res = await getAllBorrows();
-    return Response.json(res);
-  } catch (error) {
-    if (error instanceof Error) {
-      return Response.json(error.message, { status: 400 });
-    }
-  }
-};
+import { createBorrow } from "@/database/repositories/borrowRepository";
 
 export const POST = async (req: Request) => {
   try {

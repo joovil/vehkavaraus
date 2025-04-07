@@ -15,7 +15,7 @@ export const PUT = async (req: Request) => {
     const data = await req.json();
 
     if (!data.password && !data.apartment)
-      return Response.json({ error: "Both fields missing" }, { status: 400 });
+      return Response.json({ error: "Fields missing" }, { status: 400 });
 
     const { password, apartment } = data;
 

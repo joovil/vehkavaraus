@@ -1,86 +1,149 @@
 "use client";
 
-import { adminGamesService } from "@/lib/services/admin/adminGamesService";
-import { getBorrowByGameIdService } from "@/lib/services/borrows/getBorrowByGameIdService";
-import { AdminGame, BorrowStatusesType, HistoryItem } from "@/types";
-import { useEffect, useState } from "react";
-import AddGame from "../add-game/page";
-import DesktopPanel from "./desktopPanel/DesktopPanel";
-import MobilePanel from "./mobilePanel/MobilePanel";
+import { deleteGameService } from "@/lib/services/admin";
+import { completeBorrowService } from "@/lib/services/borrows/returnBorrowService";
+import { formatDate } from "@/lib/utils/formatDate";
+import { AdminGame, Game, HistoryItem } from "@/types";
+import { useState } from "react";
+import AddGame from "../add-game/";
+import GameInfo from "./GameInfo";
+import MobileInfo from "./MobileInfo";
+import { capitalize, getCellColor } from "./utils";
 
-// NOTE: Yes, this component is a mess and no it won't be refactored at this point
-const Content = ({ preloadedGames }: { preloadedGames: AdminGame[] }) => {
-  const [gameDetails, setGameDetails] = useState<AdminGame | null>(null);
+const cols = ["Name", "Status", "Apartment", "Borrow date", "Due date"];
+
+const Content = ({
+  preloadedGames,
+  getBorrowHistory,
+}: {
+  preloadedGames: AdminGame[];
+  getBorrowHistory: (id: number) => Promise<HistoryItem[]>;
+}) => {
   const [games, setGames] = useState<AdminGame[]>(preloadedGames);
-  const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [gameDetails, setGameDetails] = useState<AdminGame | null>(null);
+  const [currentHistory, setCurrentHistory] = useState<HistoryItem[]>([]);
+  const [confirmDeletion, setConfirmDeletion] = useState<boolean>(false);
 
-  useEffect(() => {
-    const updateGames = async () => {
-      setGames(await adminGamesService());
-    };
-    updateGames();
-  }, []);
-
-  useEffect(() => {
-    const getHistory = async () => {
-      if (!gameDetails) return;
-      setHistory(await getBorrowByGameIdService(gameDetails.gameId));
-    };
-    getHistory();
-  }, [gameDetails, gameDetails?.gameId]);
-
-  const handleGameSet = (newGame: AdminGame) => {
-    if (gameDetails === newGame) {
+  const handleGameChange = async (game: AdminGame) => {
+    setConfirmDeletion(false);
+    if (gameDetails === game) {
       setGameDetails(null);
       return;
     }
+    setGameDetails(game);
+    try {
+      setCurrentHistory(await getBorrowHistory(game.gameId));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-    setGameDetails(newGame);
+  const updateBorrow = async (borrowId: number): Promise<Game> => {
+    try {
+      const res = await completeBorrowService(borrowId);
+      setGames((prevGames) =>
+        prevGames.map((game) =>
+          game.borrowId === borrowId
+            ? {
+                ...game,
+                borrowStatus: "free",
+                apartment: null,
+                borrowDate: null,
+                dueDate: null,
+              }
+            : game,
+        ),
+      );
+      return res;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const handleGameDeletion = async () => {
+    try {
+      if (gameDetails?.gameId) {
+        await deleteGameService(gameDetails.gameId);
+        setGames((prev) => prev.filter((g) => g.gameId !== gameDetails.gameId));
+        setGameDetails(null);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
-    <div>
-      <div className="min-[925px]:hidden">
-        <MobilePanel
-          games={games}
-          gameDetails={gameDetails}
-          history={history}
-          setGameDetails={setGameDetails}
-          handleGameSet={handleGameSet}
-          capitalize={capitalize}
-          getCellColor={getCellColor}
-        />
+    <div className="flex flex-col gap-6">
+      <div className="box-basic">
+        {/* Col headers */}
+        <div className="mb-2 hidden lg:grid lg:grid-cols-5">
+          {cols.map((c) => (
+            <h2
+              className="text-2xl font-bold"
+              key={c}
+            >
+              {c}
+            </h2>
+          ))}
+        </div>
+
+        <div className="flex flex-col gap-2">
+          {games.map((game) => (
+            <div
+              key={game.gameId}
+              className="text-xl lg:grid lg:grid-cols-5"
+            >
+              <h2
+                className="text-long-name"
+                onClick={() => handleGameChange(game)}
+              >
+                {game.gameName}
+              </h2>
+              <div
+                className={`${getCellColor(game.borrowStatus)} font flex items-center justify-center lg:w-3/4`}
+              >
+                {capitalize(game.borrowStatus)}
+              </div>
+              {/* Info for desktop */}
+              <div className="hidden lg:block">{game.apartment || "-"}</div>
+              <div className="hidden lg:block">
+                {formatDate(game.borrowDate) || "-"}
+              </div>
+              <div className="hidden lg:block">
+                {formatDate(game.dueDate) || "-"}
+              </div>
+
+              {/* Info for mobile */}
+              {gameDetails && gameDetails.gameId === game.gameId && (
+                <MobileInfo
+                  game={gameDetails}
+                  currentHistory={currentHistory}
+                  handleGameDeletion={handleGameDeletion}
+                />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div className="hidden min-[925px]:block">
-        <DesktopPanel
-          games={games}
-          gameDetails={gameDetails}
-          history={history}
-          handleGameSet={handleGameSet}
-          capitalize={capitalize}
-          getCellColor={getCellColor}
-        />
+      {/* Details */}
+      <div className="hidden lg:block">
+        {gameDetails && (
+          <GameInfo
+            gameDetails={gameDetails}
+            setGameDetails={setGameDetails}
+            updateBorrow={updateBorrow}
+            confirmDeletion={confirmDeletion}
+            setConfirmDeletion={setConfirmDeletion}
+            handleGameDeletion={handleGameDeletion}
+            currentHistory={currentHistory}
+          />
+        )}
       </div>
 
-      {!gameDetails && <AddGame />}
+      {!gameDetails && <AddGame setGames={setGames} />}
     </div>
   );
-};
-
-const capitalize = (word: string) => {
-  return word.charAt(0).toUpperCase() + word.slice(1);
-};
-
-const getCellColor = (status: BorrowStatusesType) => {
-  switch (status) {
-    case "free":
-      return "bg-darkGreenV text-offWhiteV";
-    case "borrowed":
-      return "bg-orangeV";
-    default:
-      return "bg-pinkV";
-  }
 };
 
 export default Content;

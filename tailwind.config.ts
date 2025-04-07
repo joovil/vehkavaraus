@@ -23,6 +23,8 @@ const config: Config = {
         foreground: "var(--foreground)",
         pinkV: "#E83C6A",
         redV: "#e75858",
+        redWarning: "#cc4545",
+        orangeV: "#F38B11",
         redDisabledV: "#ED7676",
         lightGreenV: "#E6F5F0",
         inputGreenV: "#B2D8D2",

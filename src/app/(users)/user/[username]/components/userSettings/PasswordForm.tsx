@@ -27,18 +27,19 @@ const PasswordForm = ({
       return;
     }
 
-    const res = await updatePasswordService(password);
+    try {
+      await updatePasswordService(password);
 
-    if (res.status !== 200) {
-      const data = await res.json();
-      showError(data.error);
+      setMessage("Password changed. Please log back in");
+      setShowMobile(true);
+
+      await new Promise((resolve) => setTimeout(resolve, 4000));
+      signOut({ callbackUrl: "/login" });
+    } catch (error) {
+      if (error instanceof Error) {
+        showError(error.message);
+      }
     }
-
-    setMessage("Password changed. Please log back in");
-    setShowMobile(true);
-
-    await new Promise((resolve) => setTimeout(resolve, 4000));
-    signOut({ callbackUrl: "/login" });
   };
 
   const fieldsMatch = password === password2;
@@ -77,7 +78,10 @@ const PasswordForm = ({
           className={!fieldsMatch ? "bg-red-200" : ""}
         />
 
-        <button className="btn-primary mt-2" disabled={!fieldsMatch}>
+        <button
+          className="btn-primary mt-2"
+          disabled={!fieldsMatch}
+        >
           Submit
         </button>
       </form>

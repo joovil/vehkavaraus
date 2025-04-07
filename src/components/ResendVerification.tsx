@@ -9,7 +9,7 @@ const ResendVerification = () => {
   const pathname = usePathname();
 
   const handleResend = async () => {
-    await apiFetch("/auth/verification/newVerification", {
+    await apiFetch("/auth/verification", {
       method: "POST",
     });
   };

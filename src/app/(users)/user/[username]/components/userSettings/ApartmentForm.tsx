@@ -26,18 +26,19 @@ const ApartmentForm = ({
       return;
     }
 
-    const res = await updateApartmentService(apartment);
+    try {
+      await updateApartmentService(apartment);
 
-    if (res.status !== 200) {
-      const data = await res.json();
-      showError(data.error);
+      setApartment("");
+      setApartment2("");
+
+      showMobile("Apartment updated");
+      setMessage("Apartment updated");
+    } catch (error) {
+      if (error instanceof Error) {
+        showError(error.message);
+      }
     }
-
-    setApartment("");
-    setApartment2("");
-
-    showMobile("Apartment updated");
-    setMessage("Apartment updated");
   };
 
   const validInput =
@@ -73,7 +74,10 @@ const ApartmentForm = ({
           className={`${!validInput ? "bg-red-200" : ""}`}
         />
 
-        <button className="btn-primary mt-2" disabled={!validInput}>
+        <button
+          className="btn-primary mt-2"
+          disabled={!validInput}
+        >
           Submit
         </button>
       </form>

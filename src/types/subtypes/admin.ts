@@ -8,11 +8,12 @@ export const AdminGameSchema = z.object({
   gameId: GameSchema.shape.id,
   gameName: GameSchema.shape.name,
   borrowStatus: GameSchema.shape.borrowStatus,
-  imageUrl: GameSchema.shape.imageUrl,
-  borrowDate: BorrowSchema.shape.borrowDate.nullable(),
-  dueDate: BorrowSchema.shape.dueDate.nullable(),
-  username: UserSchema.shape.username.nullable(),
-  apartment: UserSchema.shape.apartment.nullable(),
+  imageUrl: GameSchema.shape.imageUrl.optional(),
+  borrowDate: BorrowSchema.shape.borrowDate.nullable().optional(),
+  dueDate: BorrowSchema.shape.dueDate.nullable().optional(),
+  borrowId: BorrowSchema.shape.id.nullable().optional(),
+  username: UserSchema.shape.username.nullable().optional(),
+  apartment: UserSchema.shape.apartment.nullable().optional(),
 });
 
 export type AdminGame = z.infer<typeof AdminGameSchema>;

@@ -16,11 +16,17 @@ export const middleware = async (req: NextRequest) => {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  // Direct logged users to /games
+  // Direct logged user to /games
   if (
     token &&
     (pathname.startsWith("/signup") || pathname.startsWith("/login"))
   ) {
+    if (
+      token.user.role === "unverified" &&
+      pathname.includes("/verification")
+    ) {
+      return;
+    }
     return NextResponse.redirect(new URL("/games", req.url));
   }
 

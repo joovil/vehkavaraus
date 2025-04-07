@@ -17,7 +17,7 @@ const EmailVerificationTemplate = ({
   user: User;
   verificationKey: string;
 }) => {
-  const emailLink = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/verification/${verificationKey}`;
+  const emailLink = `${process.env.NEXT_PUBLIC_API_URL}/signup/verification/${verificationKey}`;
   console.log("Email");
   console.log("VerificationKey: ", verificationKey);
 

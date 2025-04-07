@@ -1,7 +1,7 @@
-import { auth } from "@/app/api/auth/[...nextauth]/auth";
 import { getUserById } from "@/database/repositories/userRepository";
 import { deleteVerificationByUserId } from "@/database/repositories/verificationRepository";
 import { sendVerificationEmail } from "@/lib/utils/sendVerificationEmail";
+import { auth } from "../[...nextauth]/auth";
 
 export const POST = async () => {
   try {

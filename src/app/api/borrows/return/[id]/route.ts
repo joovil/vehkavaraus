@@ -3,7 +3,6 @@ import { getBorrowById } from "@/database/repositories/borrowRepository";
 import { completeBorrow } from "@/database/repositories/gameRepository";
 import logger from "@/lib/utils/logger";
 
-// TODO: Handle games returned late
 export const POST = async (
   _req: Request,
   props: { params: Promise<{ id: number }> },
@@ -18,7 +17,7 @@ export const POST = async (
 
     const borrow = await getBorrowById(params.id);
 
-    if (borrow.borrowerId !== session.user.id)
+    if (borrow.borrowerId !== session.user.id && session.user.role !== "admin")
       return Response.json(
         { error: "You are not authorized to return this game" },
         { status: 403 },

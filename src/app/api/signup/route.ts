@@ -24,9 +24,10 @@ export const POST = async (req: Request) => {
       apartment: body.apartment,
     });
 
+    // NOTE: Also adds verification key
     sendVerificationEmail(user);
 
-    return Response.json({ message: "Email sent" });
+    return Response.json({ message: "User created successfully" });
   } catch (error) {
     console.log(error);
     if (error instanceof DatabaseError) {

@@ -1,9 +1,16 @@
 import { getGamesService } from "@/lib/services/games/getGamesService";
+import { Game } from "@/types";
 import Image from "next/image";
 import BorrowGameButtons from "./components/BorrowGameButtons";
 
 const Games = async () => {
-  const games = await getGamesService();
+  let games: Game[] = [];
+
+  try {
+    games = await getGamesService();
+  } catch (error) {
+    console.error("Error fetching games:", error);
+  }
 
   return (
     <div className="m-auto flex flex-col items-center gap-y-8">
@@ -18,6 +25,7 @@ const Games = async () => {
                 src={g.imageUrl || "/fallbackGame.png"}
                 alt="Picture of a board game"
                 fill
+                sizes="300px"
                 className="object-contain"
               />
             </div>
