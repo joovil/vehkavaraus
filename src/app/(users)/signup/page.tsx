@@ -2,6 +2,7 @@
 
 import { useDisplayMessage } from "@/components/useDisplayMessage";
 import { createUserService } from "@/lib/services/users/createUserService";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 import { z } from "zod";
 
@@ -56,7 +57,8 @@ const SignUpPage = () => {
     }
 
     try {
-      const res = await createUserService(username, password, email, apartment);
+      await createUserService(username, password, email, apartment);
+      redirect("/login");
     } catch (error) {
       if (error instanceof Error) {
         console.log(error);
