@@ -2,12 +2,13 @@
 
 import { useDisplayMessage } from "@/components/useDisplayMessage";
 import { createUserService } from "@/lib/services/users/createUserService";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { z } from "zod";
 
 const SignUpPage = () => {
   const [displayMessage, errorMessage] = useDisplayMessage();
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     username: "",
@@ -58,7 +59,7 @@ const SignUpPage = () => {
 
     try {
       await createUserService(username, password, email, apartment);
-      redirect("/login");
+      router.push("/login");
     } catch (error) {
       if (error instanceof Error) {
         console.log(error);
