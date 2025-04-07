@@ -34,7 +34,15 @@ const GameInfo = ({
 
   return (
     <div className="box-basic">
-      <h2>{gameDetails.gameName}</h2>
+      <div className="flex justify-between">
+        <h2>{gameDetails.gameName} </h2>
+        <button
+          className="text-bold font-bold"
+          onClick={() => setGameDetails(null)}
+        >
+          X
+        </button>
+      </div>
       <div className="flex gap-3">
         <div className="relative aspect-[1/1] h-[300px] w-[300px]">
           <Image
@@ -92,7 +100,7 @@ const GameInfo = ({
                     Cancel
                   </button>
                   <button
-                    className="btn-primary bg-redWarning w-full"
+                    className="btn-primary w-full bg-redWarning"
                     onClick={handleGameDeletion}
                   >
                     Confirm
