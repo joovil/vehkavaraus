@@ -1,11 +1,12 @@
 "use client";
 import { formatDate } from "@/lib/utils/formatDate";
-import { AdminGame, HistoryItem } from "@/types";
+import { AdminGame, Game, HistoryItem } from "@/types";
 import Image from "next/image";
 import { capitalize } from "./utils";
 
 const GameInfo = ({
   gameDetails,
+  setGameDetails,
   updateBorrow,
   confirmDeletion,
   setConfirmDeletion,
@@ -13,12 +14,24 @@ const GameInfo = ({
   currentHistory,
 }: {
   gameDetails: AdminGame;
-  updateBorrow: (borrowId: number) => Promise<void>;
+  setGameDetails: React.Dispatch<React.SetStateAction<AdminGame | null>>;
+  updateBorrow: (borrowId: number) => Promise<Game>;
   confirmDeletion: boolean;
   setConfirmDeletion: React.Dispatch<React.SetStateAction<boolean>>;
   handleGameDeletion: () => Promise<void>;
   currentHistory: HistoryItem[];
 }) => {
+  const handleStatusUpdate = async () => {
+    if (!gameDetails.borrowId) return;
+
+    try {
+      await updateBorrow(gameDetails.borrowId);
+      setGameDetails((prev) => ({ ...prev!, borrowStatus: "free" }));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="box-basic">
       <h2>{gameDetails.gameName}</h2>
@@ -55,12 +68,10 @@ const GameInfo = ({
               )}
             </div>
             <div className="flex flex-col gap-2">
-              {!confirmDeletion && (
+              {!confirmDeletion && gameDetails.borrowStatus !== "free" && (
                 <button
                   className="btn-primary"
-                  onClick={() =>
-                    gameDetails.borrowId && updateBorrow(gameDetails.borrowId)
-                  }
+                  onClick={handleStatusUpdate}
                 >
                   Mark as returned
                 </button>

@@ -1,8 +1,9 @@
 import apiFetch from "@/lib/utils/apiFetch";
+import { Game } from "@/types";
 
 export const completeBorrowService = async (
   borrowId: number,
-): Promise<{ message: string }> => {
+): Promise<Game> => {
   try {
     const res = await apiFetch(`/borrows/return/${borrowId}`, {
       method: "POST",

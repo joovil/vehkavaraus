@@ -3,7 +3,7 @@
 import { deleteGameService } from "@/lib/services/admin";
 import { completeBorrowService } from "@/lib/services/borrows/returnBorrowService";
 import { formatDate } from "@/lib/utils/formatDate";
-import { AdminGame, HistoryItem } from "@/types";
+import { AdminGame, Game, HistoryItem } from "@/types";
 import { useState } from "react";
 import AddGame from "../add-game/page";
 import GameInfo from "./GameInfo";
@@ -23,7 +23,6 @@ const Content = ({
   const [gameDetails, setGameDetails] = useState<AdminGame | null>(null);
   const [currentHistory, setCurrentHistory] = useState<HistoryItem[]>([]);
   const [confirmDeletion, setConfirmDeletion] = useState<boolean>(false);
-  console.log(games);
 
   const handleGameChange = async (game: AdminGame) => {
     setConfirmDeletion(false);
@@ -39,10 +38,9 @@ const Content = ({
     }
   };
 
-  const updateBorrow = async (borrowId: number) => {
+  const updateBorrow = async (borrowId: number): Promise<Game> => {
     try {
       const res = await completeBorrowService(borrowId);
-      console.log(res);
       setGames((prevGames) =>
         prevGames.map((game) =>
           game.borrowId === borrowId
@@ -56,8 +54,9 @@ const Content = ({
             : game,
         ),
       );
+      return res;
     } catch (error) {
-      console.error(error);
+      throw error;
     }
   };
 
@@ -132,6 +131,7 @@ const Content = ({
         {gameDetails && (
           <GameInfo
             gameDetails={gameDetails}
+            setGameDetails={setGameDetails}
             updateBorrow={updateBorrow}
             confirmDeletion={confirmDeletion}
             setConfirmDeletion={setConfirmDeletion}
