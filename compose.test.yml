@@ -1,7 +1,7 @@
 services:
   db_test:
     container_name: vehkavaraus_test
-    image: postgres:latest
+    image: postgres:17.9
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: pass

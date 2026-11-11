@@ -1,5 +1,5 @@
+import "@/lib/utils/envConfig";
 import { Database } from "@/types";
-import dotenv from "dotenv";
 import { promises as fs } from "fs";
 import {
   CamelCasePlugin,
@@ -11,9 +11,6 @@ import {
 import * as path from "path";
 import { Pool } from "pg";
 
-const projectDir = process.cwd();
-const devEnvFile = `${projectDir}\\.env.development`;
-dotenv.config({ path: devEnvFile });
 
 export const devDb = new Kysely<Database>({
   dialect: new PostgresDialect({
