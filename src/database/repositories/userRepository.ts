@@ -37,7 +37,3 @@ export const updateUser = async (id: string, updateWith: UserUpdate) => {
     .returningAll()
     .executeTakeFirstOrThrow();
 };
-
-// const deleteUser = async (id: string) => {
-//   return await db.deleteFrom("users").where("id", "=", id).execute();
-// };

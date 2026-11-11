@@ -15,7 +15,6 @@ export interface BorrowProp {
 
 const BorrowRow = ({ borrow }: { borrow: BorrowProp }) => {
   const [hidden, setHidden] = useState<boolean>(false);
-  // const [errorMessage, setErrorMessage] = useState<string>("");
   const [disabled, setDisabled] = useState<boolean>(false);
 
   const [displayMessage, errorMessage] = useDisplayMessage();

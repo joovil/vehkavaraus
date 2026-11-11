@@ -37,22 +37,8 @@ export const updateVerificationStatusAndRole = async (
       .returningAll()
       .executeTakeFirstOrThrow();
   });
-
-  // console.log(verificationKey);
 };
 
 export const deleteVerificationByUserId = async (id: string) => {
   await db.deleteFrom("verifications").where("userId", "=", id).execute();
 };
-
-// const getAllVerifications = async () => {
-//   return await db.selectFrom("verifications").selectAll().execute();
-// };
-
-// const getVerificationByUser = async (userId: string) => {
-//   return await db
-//     .selectFrom("verifications")
-//     .where("user_id", "=", userId)
-//     .selectAll()
-//     .executeTakeFirstOrThrow();
-// };
