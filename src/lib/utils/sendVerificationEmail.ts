@@ -13,7 +13,7 @@ export const sendVerificationEmail = async (user: User) => {
   // if (process.env.NODE_ENV === "development") return;
   // Send email
   await resend.emails.send({
-    from: "noreply@vehkavaraus.fi",
+    from: "noreply@vehkavaraus.joovil.dev",
     to: user.email,
     subject: "Verify your email",
     react: EmailVerificationTemplate({ user, verificationKey }),

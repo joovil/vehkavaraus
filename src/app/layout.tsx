@@ -41,7 +41,7 @@ const circular = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Create Next App",
+  title: "vehkavaraus",
   description: "Rent-A-Game",
 };
 
