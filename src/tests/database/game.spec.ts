@@ -10,6 +10,7 @@ import { beforeAll, describe, expect, it } from "vitest";
 describe("Game addition", () => {
   const newGame: NewGame = {
     name: "new game",
+    imageUrl: "https://example.com/game.png",
   };
 
   const newUser: NewUser = {
@@ -23,7 +24,7 @@ describe("Game addition", () => {
   let user: User;
 
   beforeAll(async () => {
-    game = await createGame(newGame);
+    game = await createGame(newGame.name, newGame.imageUrl!);
     user = await createUser(newUser);
   });
 
@@ -31,6 +32,6 @@ describe("Game addition", () => {
     const borrow = await createBorrow(user.id, game.id);
     const gameAfterBorrow = await getGameById(borrow.gameId);
 
-    expect(gameAfterBorrow.availableDate).toEqual(borrow.returnDate);
+    expect(gameAfterBorrow.availableDate).toEqual(borrow.dueDate);
   });
 });

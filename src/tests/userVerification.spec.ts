@@ -26,10 +26,7 @@ describe("User verification works", () => {
   });
 
   it("Adds verification record to database correctly", async () => {
-    const vRecord = await addVerificationRecord({
-      verificationKey: verificationKey,
-      userId: testUser.id,
-    });
+    const vRecord = await addVerificationRecord(verificationKey, testUser.id);
 
     const expectedRecord: Verification = {
       userId: testUser.id,
