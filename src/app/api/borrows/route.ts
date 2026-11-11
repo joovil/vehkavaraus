@@ -8,6 +8,12 @@ export const POST = async (req: Request) => {
     if (!session)
       return Response.json({ error: "Unauthorized" }, { status: 401 });
 
+    if (session.user.role === "unverified")
+      return Response.json(
+        { error: "Verify your email to borrow games" },
+        { status: 403 },
+      );
+
     const { gameId } = await req.json();
 
     if (!gameId)

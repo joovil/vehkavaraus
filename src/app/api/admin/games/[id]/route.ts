@@ -1,3 +1,4 @@
+import { auth } from "@/app/api/auth/[...nextauth]/auth";
 import {
   deleteGame,
   getGameById,
@@ -11,6 +12,11 @@ export const DELETE = async (
   const { id } = await params;
   console.log(id);
   try {
+    const session = await auth();
+
+    if (!session || session.user.role !== "admin")
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+
     const gameId = parseInt(id);
     const gameToDelete = await getGameById(gameId);
     const deletedGame = await deleteGame(gameId);
@@ -22,7 +28,7 @@ export const DELETE = async (
     return Response.json({ message: "Game already deleted" });
   } catch (error) {
     if (error instanceof Error) {
-      return Response.json({ error: error.message });
+      return Response.json({ error: error.message }, { status: 400 });
     }
   }
 };

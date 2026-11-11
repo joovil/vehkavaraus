@@ -1,3 +1,4 @@
+import { auth } from "@/app/api/auth/[...nextauth]/auth";
 import { getAdminGames } from "@/database/repositories/adminRepository";
 import {
   createGame,
@@ -6,6 +7,11 @@ import {
 import { put } from "@vercel/blob";
 
 export const GET = async () => {
+  const session = await auth();
+
+  if (!session || session.user.role !== "admin")
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+
   const games = await getAdminGames();
 
   return Response.json(games);
@@ -13,6 +19,11 @@ export const GET = async () => {
 
 export const POST = async (req: Request) => {
   try {
+    const session = await auth();
+
+    if (!session || session.user.role !== "admin")
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+
     const formData = await req.formData();
     const file = formData.get("file") as File;
     const name = formData.get("name") as string;
