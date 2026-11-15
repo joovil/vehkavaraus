@@ -42,3 +42,4 @@ vehka_*.sql
 
 toBeRefactored
 .env.production
+.env*
