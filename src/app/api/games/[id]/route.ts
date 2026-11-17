@@ -3,11 +3,11 @@ import { NoResultError } from "kysely";
 
 export const GET = async (
   _req: Request,
-  props: { params: Promise<{ id: number }> },
+  props: { params: Promise<{ id: string }> },
 ) => {
   const params = await props.params;
   try {
-    const res = await getGameById(params.id);
+    const res = await getGameById(Number(params.id));
 
     return Response.json(res);
   } catch (error) {

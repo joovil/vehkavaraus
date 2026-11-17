@@ -20,7 +20,7 @@ export const up = async (db: Kysely<Database>): Promise<void> => {
     .addColumn("email", "text", (col) => col.notNull())
     .addColumn("apartment", "text", (col) => col.notNull())
     .addColumn("role", sql`roles`, (col) =>
-      col.defaultTo(RolesEnum.Enum.unverified).notNull(),
+      col.defaultTo(RolesEnum.enum.unverified).notNull(),
     )
     .execute();
   // CREATE TABLE users (
@@ -43,7 +43,7 @@ export const up = async (db: Kysely<Database>): Promise<void> => {
     .addColumn("id", "serial", (col) => col.primaryKey())
     .addColumn("name", "text", (col) => col.notNull())
     .addColumn("borrow_status", sql`borrow_statuses`, (col) =>
-      col.defaultTo(BorrowStatuses.Enum.free).notNull(),
+      col.defaultTo(BorrowStatuses.enum.free).notNull(),
     )
     .execute();
   // CREATE TABLE games (

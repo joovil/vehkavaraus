@@ -5,17 +5,17 @@ import logger from "@/lib/utils/logger";
 
 export const POST = async (
   _req: Request,
-  props: { params: Promise<{ id: number }> },
+  props: { params: Promise<{ id: string }> },
 ) => {
   const params = await props.params;
-  logger.logGreen(params.id as unknown as string);
+  logger.logGreen(params.id);
   try {
     const session = await auth();
 
     if (!session)
       return Response.json({ error: "Not authenticated" }, { status: 401 });
 
-    const borrow = await getBorrowById(params.id);
+    const borrow = await getBorrowById(Number(params.id));
 
     if (borrow.borrowerId !== session.user.id && session.user.role !== "admin")
       return Response.json(
@@ -23,7 +23,7 @@ export const POST = async (
         { status: 403 },
       );
 
-    await completeBorrow(params.id);
+    await completeBorrow(Number(params.id));
 
     return Response.json({ message: "Game returned" });
   } catch (error) {

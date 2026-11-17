@@ -26,7 +26,7 @@ export async function up(db: Kysely<Database>): Promise<void> {
     .addColumn("email", "text", (col) => col.notNull())
     .addColumn("apartment", "text", (col) => col.notNull())
     .addColumn("role", sql`role`, (col) =>
-      col.defaultTo(RolesEnum.Enum.unverified).notNull(),
+      col.defaultTo(RolesEnum.enum.unverified).notNull(),
     )
     .execute();
 
@@ -35,7 +35,7 @@ export async function up(db: Kysely<Database>): Promise<void> {
     .addColumn("id", "serial", (col) => col.primaryKey())
     .addColumn("name", "text", (col) => col.notNull())
     .addColumn("borrow_status", sql`borrow_status`, (col) =>
-      col.defaultTo(BorrowStatuses.Enum.free).notNull(),
+      col.defaultTo(BorrowStatuses.enum.free).notNull(),
     )
     .addColumn("available_date", "timestamp")
     .addColumn("image_url", "text")

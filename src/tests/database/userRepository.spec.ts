@@ -54,7 +54,7 @@ describe("User repository", () => {
     it("Should create id and role when added to db", async () => {
       const users = await getAllUsers();
       expect(users[0].id).toBeDefined();
-      expect(users[0].role).toBe(RolesEnum.Enum.unverified);
+      expect(users[0].role).toBe(RolesEnum.enum.unverified);
     });
   });
 
@@ -70,17 +70,17 @@ describe("User repository", () => {
       const createdUser = await createUser(newUser);
       expect(NewUserSchema.parse(createdUser)).toStrictEqual(newUser);
       expect(createdUser.id).toBeDefined();
-      expect(createdUser.role).toBe(RolesEnum.Enum.unverified);
+      expect(createdUser.role).toBe(RolesEnum.enum.unverified);
     });
 
     it("Should update user role", async () => {
       const user = (await getAllUsers())[0];
       const update: UserUpdate = {
-        role: RolesEnum.Enum.user,
+        role: RolesEnum.enum.user,
       };
 
       const res = await updateUser(user.id, update);
-      expect(res.role).toBe(RolesEnum.Enum.user);
+      expect(res.role).toBe(RolesEnum.enum.user);
     });
 
     it("Should update user apartment", async () => {
