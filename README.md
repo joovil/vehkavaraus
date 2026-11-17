@@ -221,6 +221,7 @@ Both models are from Anthropic and were used through Claude Code.
 - **Documentation:** Claude Opus 5.5 wrote the Markdown documentation (this README's documentation sections and the files in `docs/`). The PlantUML diagrams in `docs/` were made by a human.
 - **Fixes:** Claude Sonnet 5.5 was used to fix the npm scripts and setup instructions after the project moved from `docker-compose` to `docker compose`.
 - **Tests:** Claude Sonnet 5.5 was used to fix the tests (the test setup, outdated function calls and an outdated assertion).
+- **Security fixes:** Claude Opus 5.5 was used to fix the open Dependabot alerts in commit `f0082530359450cbc1ca52dc47e7f5ae762a88d0`. It upgraded the vulnerable dependencies (Next.js 15.0 → 15.5, next-auth, Kysely, Zod 3 → 4, `@vercel/blob`, `@react-email/components`, Vitest 2 → 4), added `pnpm` overrides for vulnerable transitive packages, and made the code changes the upgrades required (Zod 4's `.Enum` → `.enum`, and string-typed route params for Next.js 15.5).
 
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
